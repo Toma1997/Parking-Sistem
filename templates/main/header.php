@@ -6,10 +6,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Паркинг Систем</title>
+    <title>Parking Sistem</title>
 
     <!-- Bootstrap core CSS -->
-	<link href="../../libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="../../libs/bootstrap.min.css" rel="stylesheet">
   </head>
   <body>
     <?php require_once '../main/menu.php'; ?>
