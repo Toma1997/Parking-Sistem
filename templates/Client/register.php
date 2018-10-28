@@ -5,6 +5,11 @@
     <div class="content">
         <!-- < ?php if (!$Context->get('hideForm')): ?>-->
             <form method="post">
+				<div class="form-group">
+                    <label for="client_type">Tip lica:</label>
+                    <input type="radio" name="client_type" class="form-control" value="individual"> Fizicko
+					<input type="radio" name="client_type" class="form-control" value="business"> Pravno
+                </div>
                 <div class="form-group">
                     <label for="forename">Ime:</label>
                     <input type="text" id="forename" name="forename" class="form-control" required placeholder="Marko" oninvalid="this.setCustomValidity('Popunite polje')">
