@@ -7,44 +7,29 @@
             <form method="post">
                 <div class="form-group">
                     <label for="forename">Ime:</label>
-                    <input type="text" id="forename" name="forename" class="form-control" required placeholder="Unesite ime" oninvalid="this.setCustomValidity('Popunite polje')">
+                    <input type="text" id="forename" name="forename" class="form-control" required placeholder="Marko" oninvalid="this.setCustomValidity('Popunite polje')">
                 </div>
                 <div class="form-group">
                     <label for="surname">Prezime:</label>
-                    <input type="text" id="surname" name="surname" class="form-control" required placeholder="Unesite prezime" oninvalid="this.setCustomValidity('Popunite polje')">
+                    <input type="text" id="surname" name="surname" class="form-control" required placeholder="Markovic" oninvalid="this.setCustomValidity('Popunite polje')">
                 </div>
                 <div class="form-group">
                     <label for="email">Adresa e-pošte:</label>
-                    <input type="email" id="email" name="email" class="form-control" required placeholder="Unesite adresu e-pošte" oninvalid="this.setCustomValidity('Popunite polje')">
+                    <input type="email" id="email" name="email" class="form-control" required placeholder="marko.markovic@gmail.com" oninvalid="this.setCustomValidity('Popunite polje')">
                 </div>
                 <div class="form-group">
                     <label for="telephone">Broj telefona:</label>
-                    <input type="text" id="telephone" name="telephone" class="form-control" required placeholder="Unesite broj telefona" oninvalid="this.setCustomValidity('Popunite polje')">
+                    <input type="text" id="telephone" name="telephone" class="form-control" required placeholder="+38163-653-472" oninvalid="this.setCustomValidity('Popunite polje')">
                 </div>
 				<div class="form-group">
                     <label for="bank_account">Broj bankovnog računa:</label>
-                    <input type="text" id="bank_account" name="bank_account" class="form-control" required placeholder="Unesite broj bankovnog računa" oninvalid="this.setCustomValidity('Popunite polje')">
+                    <input type="text" id="bank_account" name="bank_account" class="form-control" required placeholder="123-45678-34-54" oninvalid="this.setCustomValidity('Popunite polje')">
                 </div>
 				<div class="form-group">
                     <label for="car">Broj vozila:</label>
 					<input type="number" id="car" name="car"  class="form-control" required min="1" max="10" value="1" onchange="change()">
                 </div>
 				<div id="cars" class="form-group">
-					<div class="form-group">
-						<label for="type">Tip vozila:</label>
-						<select id="type" name="type" class="form-control" required placeholder="Odaberite tip vozila" oninvalid="this.setCustomValidity('Popunite polje')">
-						</select>
-					</div>
-					<div class="form-group">
-						<label for="brand">Marka vozila:</label>
-						<select id="brand" name="brand" class="form-control" required oninvalid="this.setCustomValidity('Popunite polje')">
-						</select>
-					</div>
-					<div class="form-group">
-						<label for="model">Model vozila:</label>
-						<select id="model" name="model" class="form-control" required  oninvalid="this.setCustomValidity('Popunite polje')">
-						</select>
-					</div>
 					<div class="form-group">
 						<label for="registration">Registracija:</label>
 						<input type="text" id="registration" name="registration" class="form-control" required oninvalid="this.setCustomValidity('Popunite polje')">
