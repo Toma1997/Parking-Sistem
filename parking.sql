@@ -10,62 +10,10 @@ Target Server Type    : MYSQL
 Target Server Version : 50557
 File Encoding         : 65001
 
-Date: 2018-10-26 23:58:38
+Date: 2018-10-28 17:19:21
 */
 
 SET FOREIGN_KEY_CHECKS=0;
-
--- ----------------------------
--- Table structure for clients
--- ----------------------------
-DROP TABLE IF EXISTS `clients`;
-CREATE TABLE `clients` (
-  `client_id` int(10) NOT NULL AUTO_INCREMENT,
-  `forname` varchar(50) DEFAULT NULL,
-  `surname` varchar(60) DEFAULT NULL,
-  `telephone` varchar(20) NOT NULL,
-  `email` varchar(60) NOT NULL,
-  `password_hash` varchar(255) NOT NULL,
-  PRIMARY KEY (`client_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of clients
--- ----------------------------
--- ----------------------------
--- Table structure for cars
--- ----------------------------
-DROP TABLE IF EXISTS `cars`;
-CREATE TABLE `cars` (
-  `car_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `registration` varchar(25) NOT NULL,
-  `client_id` int(10) DEFAULT NULL,
-  PRIMARY KEY (`car_id`,`registration`),
-  KEY `FK_client` (`client_id`),
-  KEY `car_id` (`car_id`),
-  CONSTRAINT `FK_client` FOREIGN KEY (`client_id`) REFERENCES `clients` (`client_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of cars
--- ----------------------------
-
--- ----------------------------
--- Table structure for places
--- ----------------------------
-DROP TABLE IF EXISTS `places`;
-CREATE TABLE `places` (
-  `place_id` smallint(4) NOT NULL,
-  `sector` varchar(1) DEFAULT NULL,
-  `place` varchar(5) DEFAULT NULL,
-  `floor` smallint(2) DEFAULT NULL,
-  PRIMARY KEY (`place_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of places
--- ----------------------------
-
 
 -- ----------------------------
 -- Table structure for appointments
@@ -86,4 +34,57 @@ CREATE TABLE `appointments` (
 
 -- ----------------------------
 -- Records of appointments
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for cars
+-- ----------------------------
+DROP TABLE IF EXISTS `cars`;
+CREATE TABLE `cars` (
+  `car_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `registration` varchar(25) NOT NULL,
+  `client_id` int(10) DEFAULT NULL,
+  PRIMARY KEY (`car_id`,`registration`),
+  KEY `FK_client` (`client_id`),
+  KEY `car_id` (`car_id`),
+  CONSTRAINT `FK_client` FOREIGN KEY (`client_id`) REFERENCES `clients` (`client_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of cars
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for clients
+-- ----------------------------
+DROP TABLE IF EXISTS `clients`;
+CREATE TABLE `clients` (
+  `client_id` int(10) NOT NULL AUTO_INCREMENT,
+  `client_type` set('business','individual') DEFAULT '',
+  `forname` varchar(50) DEFAULT NULL,
+  `surname` varchar(60) DEFAULT NULL,
+  `telephone` varchar(20) NOT NULL,
+  `email` varchar(60) NOT NULL,
+  `password_hash` varchar(255) NOT NULL,
+  PRIMARY KEY (`client_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of clients
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for places
+-- ----------------------------
+DROP TABLE IF EXISTS `places`;
+CREATE TABLE `places` (
+  `place_id` smallint(4) NOT NULL,
+  `sector` varchar(1) DEFAULT NULL,
+  `place` varchar(5) DEFAULT NULL,
+  `floor` smallint(2) DEFAULT NULL,
+  PRIMARY KEY (`place_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of places
 -- ----------------------------
