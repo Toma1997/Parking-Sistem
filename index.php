@@ -7,7 +7,7 @@ $stranica = $_GET['stranica'] ?? '';
 
 switch ($stranica) {
 	case '' :
-		include('templates/main/page.php');
+		include('templates/Client/index.php');
 		break;
 		
 	case 'register' :
@@ -25,7 +25,7 @@ switch ($stranica) {
 	case 'reserve' :
 		include('templates/Client/reserve.php');
 		break;
-	default :
+	default:
 		echo 'Greška 404! Nemam takvu stranicu.';
 		break;
 }

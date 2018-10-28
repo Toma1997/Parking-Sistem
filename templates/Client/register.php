@@ -7,39 +7,46 @@
             <form method="post">
 				<div class="form-group">
                     <label for="client_type">Tip lica:</label>
-                    <input type="radio" name="client_type" class="form-control" value="individual"> Fizicko
-					<input type="radio" name="client_type" class="form-control" value="business"> Pravno
+					<div class="custom-control custom-radio">
+					  <input type="radio" class="custom-control-input" id="individual" value="individual" name="client_type" checked>
+					  <label class="custom-control-label" for="individual">Fizičko lice</label>
+					</div>
+					<div class="custom-control custom-radio">
+					  <input type="radio" class="custom-control-input" id ="business" value="business" name="client_type">
+					  <label class="custom-control-label" for="business">Pravno lice</label>
+					</div>
                 </div>
                 <div class="form-group">
                     <label for="forename">Ime:</label>
-                    <input type="text" id="forename" name="forename" class="form-control" required placeholder="Marko" oninvalid="this.setCustomValidity('Popunite polje')">
+                    <input type="text" id="forename" name="forename" class="form-control" required placeholder="Unesite ime primer Marko" oninvalid="this.setCustomValidity('Popunite polje')">
                 </div>
                 <div class="form-group">
                     <label for="surname">Prezime:</label>
-                    <input type="text" id="surname" name="surname" class="form-control" required placeholder="Markovic" oninvalid="this.setCustomValidity('Popunite polje')">
+                    <input type="text" id="surname" name="surname" class="form-control" required placeholder="Unesite prezime primer Marković" oninvalid="this.setCustomValidity('Popunite polje')">
                 </div>
                 <div class="form-group">
                     <label for="email">Adresa e-pošte:</label>
-                    <input type="email" id="email" name="email" class="form-control" required placeholder="marko.markovic@gmail.com" oninvalid="this.setCustomValidity('Popunite polje')">
+                    <input type="email" id="email" name="email" class="form-control" required placeholder="Unesite adresu e-pošte primer marko.markovic@gmail.com" oninvalid="this.setCustomValidity('Popunite polje')">
                 </div>
                 <div class="form-group">
                     <label for="telephone">Broj telefona:</label>
-                    <input type="text" id="telephone" name="telephone" class="form-control" required placeholder="+38163-653-472" oninvalid="this.setCustomValidity('Popunite polje')">
+                    <input type="text" id="telephone" name="telephone" class="form-control" pattern="+[0-9]{3}-[0-9]{3}-[0-9]{4}" required placeholder="Unesite broj telefona primer 063-111-2345" oninvalid="this.setCustomValidity('Popunite polje')">
                 </div>
-				<div class="form-group">
-                    <label for="bank_account">Broj bankovnog računa:</label>
-                    <input type="text" id="bank_account" name="bank_account" class="form-control" required placeholder="123-45678-34-54" oninvalid="this.setCustomValidity('Popunite polje')">
-                </div>
+				<!-- Proveri da li nam treba bolje, mozda samo kao brojac
 				<div class="form-group">
                     <label for="car">Broj vozila:</label>
-					<input type="number" id="car" name="car"  class="form-control" required min="1" max="10" value="1" onchange="change()">
-                </div>
-				<div id="cars" class="form-group">
-					<div class="form-group">
-						<label for="registration">Registracija:</label>
-						<input type="text" id="registration" name="registration" class="form-control" required oninvalid="this.setCustomValidity('Popunite polje')">
-					</div>			
+					<input type="number" id="car" name="car"  class="form-control" required min="1" max="10" value="1">
+                </div>-->
+				<div id="registration">
+				<div id="reg" class="form-group">
+					<label for="registration1">Registracija:</label>
+					<input type="text" id="registration1" name="registration1" class="form-control" required placeholder="Unesite broj registarske tablice primer BG111SD" oninvalid="this.setCustomValidity('Popunite polje')">
+				</div>	
 				</div>
+				<div class="form-group">
+					<button class="btn btn-outline-secondary" type="button" onclick="add()">Dodaj vozilo</button>
+					<button class="btn btn-outline-secondary" type="button" onclick="remove()">Ukloni vozilo</button>
+				</div>			
 				<div class="form-group">
                     <label for="password1">Lozinka:</label>
                     <input type="password" id="password1" name="password1" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required placeholder="Unesite lozinku" oninvalid="this.setCustomValidity('Popunite polje')">
@@ -53,6 +60,7 @@
 					<input type="text" id="captcha_code" name="captcha_code" class="form-control" size="10" placeholder="Unesite kod sa slike" maxlength="6" required />
 					
 				</div>
+				
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">
                         Registrujte se
@@ -64,19 +72,7 @@
             < ?php echo htmlspecialchars($Context->get('message')); ?>
         </p>-->
     </div>
-</div><!--
-<script>
-	var form = document.getElementById("cars").cloneNode(true);
-function change() {
-
-	var x = document.getElementById("car").value;
-	var cars = document.getElementById("add")[0];
-	
-	for (var i=0;i<=x;i++) {
-		cars.appendChild(form);
-	}
-	
-}
-</script>-->
+</div>
+ <script src="../../libs/reg.js"></script>
 <?php require_once '../main/footer.php'; ?>
 
