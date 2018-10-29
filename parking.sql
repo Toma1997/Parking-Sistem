@@ -22,7 +22,7 @@ DROP TABLE IF EXISTS `clients`;
 CREATE TABLE `clients` (
   `client_id` int(10) NOT NULL AUTO_INCREMENT,
   `client_type` set('business','individual') DEFAULT '',
-  `forname` varchar(50) DEFAULT NULL,
+  `forename` varchar(50) DEFAULT NULL,
   `surname` varchar(60) DEFAULT NULL,
   `telephone` varchar(20) NOT NULL,
   `email` varchar(60) NOT NULL,
