@@ -16,24 +16,22 @@ Date: 2018-10-29 12:24:00
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for appointments
+-- Table structure for clients
 -- ----------------------------
-DROP TABLE IF EXISTS `appointments`;
-CREATE TABLE `appointments` (
-  `appointment_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `car_id` bigint(20) NOT NULL,
-  `place_id` smallint(4) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `finished_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`appointment_id`),
-  KEY `FK_car` (`car_id`),
-  KEY `FK_place` (`place_id`),
-  CONSTRAINT `FK_car` FOREIGN KEY (`car_id`) REFERENCES `cars` (`car_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_place` FOREIGN KEY (`place_id`) REFERENCES `places` (`place_id`) ON DELETE CASCADE ON UPDATE CASCADE
+DROP TABLE IF EXISTS `clients`;
+CREATE TABLE `clients` (
+  `client_id` int(10) NOT NULL AUTO_INCREMENT,
+  `client_type` set('business','individual') DEFAULT '',
+  `forename` varchar(50) DEFAULT NULL,
+  `surname` varchar(60) DEFAULT NULL,
+  `telephone` varchar(20) NOT NULL,
+  `email` varchar(60) NOT NULL,
+  `password_hash` varchar(255) NOT NULL,
+  PRIMARY KEY (`client_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of appointments
+-- Records of clients
 -- ----------------------------
 
 -- ----------------------------
@@ -55,25 +53,6 @@ CREATE TABLE `cars` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for clients
--- ----------------------------
-DROP TABLE IF EXISTS `clients`;
-CREATE TABLE `clients` (
-  `client_id` int(10) NOT NULL AUTO_INCREMENT,
-  `client_type` set('business','individual') DEFAULT '',
-  `forename` varchar(50) DEFAULT NULL,
-  `surname` varchar(60) DEFAULT NULL,
-  `telephone` varchar(20) NOT NULL,
-  `email` varchar(60) NOT NULL,
-  `password_hash` varchar(255) NOT NULL,
-  PRIMARY KEY (`client_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of clients
--- ----------------------------
-
--- ----------------------------
 -- Table structure for places
 -- ----------------------------
 DROP TABLE IF EXISTS `places`;
@@ -84,6 +63,27 @@ CREATE TABLE `places` (
   `floor` smallint(2) DEFAULT NULL,
   PRIMARY KEY (`place_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for appointments
+-- ----------------------------
+DROP TABLE IF EXISTS `appointments`;
+CREATE TABLE `appointments` (
+  `appointment_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `car_id` bigint(20) NOT NULL,
+  `place_id` smallint(4) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `finished_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`appointment_id`),
+  KEY `FK_car` (`car_id`),
+  KEY `FK_place` (`place_id`),
+  CONSTRAINT `FK_car` FOREIGN KEY (`car_id`) REFERENCES `cars` (`car_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_place` FOREIGN KEY (`place_id`) REFERENCES `places` (`place_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of appointments
+-- ----------------------------
 
 -- ----------------------------
 -- Records of places
