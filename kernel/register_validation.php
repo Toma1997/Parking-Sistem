@@ -1,16 +1,17 @@
 <?php
 
+
+require_once '../templates/main/header.php';
+
 if ($_POST) {
 	extract($_POST);
 	$greske = array();
 
-	echo $registration;
-
-	if(!preg_match("/^[A-Z][a-zA-Z']+[ ]+[A-Z][a-zA-Z'\- ]*$/", $forename)){
+	if(!preg_match("/^[A-Z][a-zA-Z']+$/", $forename)){
 		$greske[] = "<h3>Ime nije validno !</h3>";
 	}
 
-	if(!preg_match("/^[A-Z][a-zA-Z']+[ ]+[A-Z][a-zA-Z'\- ]*$/", $surname)){
+	if(!preg_match("/^[A-Z][a-zA-Z']+$/", $surname)){
 		$greske[] = "<h3>Prezime nije validno !</h3>";
 	}
 
@@ -21,19 +22,9 @@ if ($_POST) {
 	if(!preg_match("/^06[0-9]\-[0-9]{3,4}\-[0-9]{3,4}$/", $telephone)){
 		$greske[] = "<h3>Telefon nije validan !</h3>";
 	}
-
-	do{
-		$i = 1;
-		$registration = "registration" . $i;
-		// $$registration je promenljiva sa nazivom registration1, registration2 ...
-		if(!preg_match("/^06[0-9]\-[0-9]{3,4}\-[0-9]{3,4}$/", $$registration)){
-			$greske[] = "<h3>" . $i . ". Registracija nije validna !</h3>";
-		}
-		$i++;
-	} while(isset($$registration));
 	
 
-	if(!preg_match("/^[^ \W]{8, 255}$/", $password1)){
+	if(!preg_match("/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*(?=\S*[\W])$/", $password1)){
 		$greske[] = "<h3>Lozinka nije validna !</h3>";
 	} else {
 		if($password1 !== $password2){
@@ -45,16 +36,22 @@ if ($_POST) {
 		$greske = implode("<br>", $greske);
 		echo $greske;
 	} else{
-		echo "<h3> Uspesno ste registrovani !</h3>";
 
-		include("kernel/database_wrapper.php");
+		include("database_wrapper.php");
 		$db = new Database();
 		$db->Connect();
-		$db->dodajKorisnikaIVozilo($_POST);
+		if($db->dodajKorisnika($_POST)){
+			echo "<h3> Uspesno ste registrovani !</h3>";
+		} else {
+			echo "<h3> Greska pri validaciji forme !</h3>";
+		}
 
+		header("Location: ../templates/Client/login.php");
 	}
 
 }
+
+require_once '../templates/main/footer.php';
 ?>
 	</body>
 </html>

@@ -43,7 +43,7 @@ class Database {
 	}
 
 // funkcija za dodavanje novog korisnika u bazu
-	function dodajKorisnikaIVozilo($data) {
+	function dodajKorisnika($data) {
 		// kreiranje konekcije
 		$mysqli = new mysqli("localhost", "root", "", "parking");
 
@@ -70,29 +70,9 @@ class Database {
 			$this->result = false;
 		}
 
-		$client_id = "SELECT client_id FROM clients WHERE telephone = '".$telephone"';";
-		
-		do{
-		$i = 1;
-		$registration = "registration" . $i;
-		$registracija = mysqli_real_escape_string($mysqli, $data[$registration]);
-
-		$values = "('".$registracija."','".$client_id."')";
-		$query += 'INSERT into cars (registration, client_id) VALUES '.$values';\n';
-		$i++;
-		} while(isset($$registration));
-
-		// ako je upit vratio true rezultat je true
-		if($mysqli->query($query))
-		{
-			$this ->result = true;
-		}
-		else // u suprotnom ako se upit nije lepo izvrsio vrati false
-		{
-			$this->result = false;
-		}
-
 		$mysqli->close(); // zatvaranje konekcije
+
+		return $this->result;
 	}
 
 // funkcija koja izvrsava upit

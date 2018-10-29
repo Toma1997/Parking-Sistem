@@ -3,7 +3,7 @@
     <h1>Registracija korisnika</h1>
     <div class="content">
         <!-- < ?php if (!$Context->get('hideForm')): ?>-->
-            <form method="post">
+            <form method="post" action="../../kernel/register_validation.php">
 				<div class="form-group">
                     <label for="client_type">Tip lica:</label>
 					<div class="custom-control custom-radio">
@@ -17,20 +17,20 @@
                 </div>
                 <div class="form-group">
 					<!--<label class="font-weight-light for="forename">Ime:</label>-->
-                    <input type="text" id="forename" name="forename" class="form-control" pattern="[A-Z][a-z]{1,32}" required placeholder="Unesite ime ">
+                    <input type="text" id="forename" name="forename" class="form-control" value="<?php echo $forename ?? '';?>" pattern="[A-Z][a-z]{1,32}" required placeholder="Unesite ime ">
                 </div>
                 <div class="form-group">
                     <!--<label class="font-weight-light for="surname">Prezime:</label>-->
-                    <input type="text" id="surname" name="surname" class="form-control" pattern="[A-Z][a-z]{1,32}" required placeholder="Unesite prezime">
+                    <input type="text" id="surname" name="surname" class="form-control" value="<?php echo $surname ?? '';?>" pattern="[A-Z][a-z]{1,32}" required placeholder="Unesite prezime">
                 </div>
                 <div class="form-group">
                     <!--<label for="email">Adresa e-pošte:</label>-->
-                    <input type="email" id="email" name="email" class="form-control" required placeholder="Unesite adresu e-pošte">					
+                    <input type="email" id="email" name="email" class="form-control" value="<?php echo $email ?? '';?>"  required placeholder="Unesite adresu e-pošte">					
                 </div>
                 <div class="form-group">
 					<label class="font-weight-light" for="telephone">Broj telefona mora da ima šablon: 063-111-8888</label>
                     <!--<label for="telephone">Broj telefona:</label>-->
-                    <input type="text" id="telephone" name="telephone" class="form-control" pattern="\d{3}[\-]\d{3}[\-]\d{4}" required placeholder="Unesite broj telefona">
+                    <input type="text" id="telephone" name="telephone" class="form-control" value="<?php echo $telephone ?? '';?>" pattern="\d{3}[\-]\d{3,4}[\-]\d{3,4}" required placeholder="Unesite broj telefona">
                 </div>
 				<!-- Proveri da li nam treba bolje, mozda samo kao brojac
 				<div class="form-group">
@@ -38,7 +38,7 @@
 					<input type="number" id="car" name="car"  class="form-control" required min="1" max="10" value="1">
                 </div>-->
 				<!--<div class="form-group">
-					<!--<label for="registration">Registracija:</label>
+					<label for="registration">Registracija:</label>
 					<textarea class="form-control" rows="5" maxlength="9" id="registration" name="registration " required placeholder="Unesite broj ili brojeve registarske tablice"></textarea>
 					<label class="font-weight-light" for="telephone">Unesite jednu ili više registarskih tablica šablona: BG111SD. Svaku u posebnom redu</label>
 				</div>	-->
