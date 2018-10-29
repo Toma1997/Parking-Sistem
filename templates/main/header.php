@@ -12,7 +12,7 @@
 	<link href="../../libs/bootstrap.min.css" rel="stylesheet">
   </head>
   <body>
-    <?php require_once '../main/menu.php'; ?>
+    <?php require_once 'menu.php'; ?>
 
     <!-- Page Content -->
     <div class="container">

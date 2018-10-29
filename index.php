@@ -1,7 +1,6 @@
 <?php
 
 include('templates/main/header.php');
-include('templates/main/menu.php');
 
 $stranica = $_GET['stranica'] ?? '';
 
