@@ -1,4 +1,3 @@
-<?php require_once '../main/header.php'; ?>
 
 <div>
     <h1>Registracija korisnika</h1>
@@ -53,7 +52,7 @@
                     <input type="password" id="password2" name="password2" class="form-control" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required placeholder="Unesite ponovo lozinku">
                 </div>
 				<div class="form-group">
-					<img id="captcha" class="col-sm-4 img-fluid" src="../../securimage/securimage_show.php" alt="CAPTCHA Image" />
+					<img id="captcha" class="col-sm-4 img-fluid" src="securimage/securimage_show.php" alt="CAPTCHA Image" />
 					<input type="text" id="captcha_code" name="captcha_code" class="form-control" size="10" placeholder="Unesite kod sa slike" maxlength="6" required />
 					
 				</div>
@@ -70,6 +69,5 @@
         </p>-->
     </div>
 </div>
-<?php require_once '../main/footer.php'; ?>
 <!-- Proveriti za oninvalid ne radi kako treba
  oninvalid="this.setCustomValidity('Popunite polje')">

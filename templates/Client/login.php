@@ -1,5 +1,4 @@
-<?php require_once '../main/header.php'; ?>
-               
+             
 <div>
     <h1>Prijava korisnika</h1>
     <div class="content">
@@ -21,6 +20,5 @@
     </div>
 </div>
 
-<?php require_once '../main/footer.php'; ?>
 <!-- Proveriti za oninvalid ne radi kako treba
  oninvalid="this.setCustomValidity('Popunite polje')">

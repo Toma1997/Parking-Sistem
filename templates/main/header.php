@@ -9,7 +9,7 @@
     <title>Parking Sistem</title>
 
     <!-- Bootstrap core CSS -->
-	<link href="../../libs/bootstrap.min.css" rel="stylesheet">
+	<link href="libs/bootstrap.min.css" rel="stylesheet">
   </head>
   <body>
     <?php require_once 'menu.php'; ?>

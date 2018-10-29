@@ -1,12 +1,10 @@
-<?php require_once '../main/header.php'; ?>
-
 <div>
     <h1>Rezervacija mesta</h1>
     <div class="content">
         <form method="post">
 			<div class="form-group">
 				<label for="registration">Registracija:</label>
-				<input type="text" id="registration" name="registration" class="form-control" required oninvalid="this.setCustomValidity('Popunite polje')">
+				<input type="text" id="registration" name="registration" class="form-control" required>
 			</div>			
             <div class="form-group">
                 <label for="floor">Sprat:</label>
@@ -29,4 +27,3 @@
     </div>
 </div>
 
-<?php require_once '../main/footer.php'; ?>

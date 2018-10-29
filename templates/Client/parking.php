@@ -1,10 +1,7 @@
-<?php require_once '../main/header.php'; ?>
-
 <div>
-    <a href="reserve.php" class="btn btn-primary float-right">
+    <a href="index.php?stranica=reserve" class="btn btn-primary float-right">
         Produži rezervaciju
     </a>
-
     <h2>Prvi sprat</h2>
     <div class="content">
         <table class="table table-sm">
@@ -13,7 +10,7 @@
                     <th>Mesto
                     <th>Sektor
                     <th>Vreme rezervacije
-            <tbody>
+            <tbody><!--
             <?//php foreach ($Context->get('appointment') as $appointment ): ?>
                 <tr>
                     <td><?//php echo htmlspecialchars($appointment->created_at); ?>
@@ -22,7 +19,7 @@
                             <? //php echo htmlspecialchars($appointment->place); ?>
                         </a>
                     <td><?//php echo htmlspecialchars($appointment->next_responder); ?>
-            <?//php endforeach; ?>
+            <?//php endforeach; ?>-->
         </table>
     </div>
 </div>
@@ -36,7 +33,7 @@
 					<th>Mesto
                     <th>Sektor
                     <th>Vreme rezervacije
-            <tbody>
+            <tbody><!--
             <?//php foreach ($Context->get('appointment') as $appointment ): ?>
                 <tr>
                     <td><?//php echo htmlspecialchars($appointment->created_at); ?>
@@ -45,9 +42,7 @@
                             <?//php echo htmlspecialchars($appointment->place); ?>
                         </a>
                     <td><?//php echo htmlspecialchars($appointment->next_responder); ?>
-            <?//php endforeach; ?>
+            <?//php endforeach; ?>-->
         </table>
     </div>
 </div>
-
-<?php require_once '../main/footer.php'; ?>

@@ -1,8 +1,6 @@
-
-<?php require_once '../main/header.php'; ?>
 </div>
 <div class="card bg-dark text-white">
-	<img src="../../images/parking-car.jpg" class="img-fluid card-image" style="filter: blur(1px) grayscale(60%);" alt="Parking sistem auto">
+	<img src="images/parking-car.jpg" class="img-fluid card-image" style="filter: blur(1px) grayscale(60%);" alt="Parking sistem auto">
 	<div class="card-img-overlay container">
 	<div class="row text-primary ">
 		<div class="col-sm-3">
@@ -55,8 +53,7 @@
 		</div>
 	  </div>
 	</div>
-    <a href="register.php" class="btn btn-primary">Registrujte se</a>
+    <a href="./index.php?stranica=register" class="btn btn-primary">Registrujte se</a>
   </div>
   
 </div>
-<?php require_once '../main/footer.php'; ?>
