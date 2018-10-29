@@ -14,7 +14,6 @@ function add() {
 	node.removeChild(node.childNodes[1])
 	parent.appendChild(node);
 	count = parent.childElementCount;
-	count = parent.childElementCount;
 }
 function remove(){
 	var node = document.getElementById("reg").cloneNode(true);
