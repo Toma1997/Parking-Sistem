@@ -17,43 +17,40 @@
 					</div>
                 </div>
                 <div class="form-group">
-                    <label for="forename">Ime:</label>
-                    <input type="text" id="forename" name="forename" class="form-control" pattern="[A-Z][a-z]{1,32}" required placeholder="Unesite ime primer Marko">
+					<!--<label class="font-weight-light for="forename">Ime:</label>-->
+                    <input type="text" id="forename" name="forename" class="form-control" pattern="[A-Z][a-z]{1,32}" required placeholder="Unesite ime ">
                 </div>
                 <div class="form-group">
-                    <label for="surname">Prezime:</label>
-                    <input type="text" id="surname" name="surname" class="form-control" pattern="[A-Z][a-z]{1,32}" required placeholder="Unesite prezime primer Marković">
+                    <!--<label class="font-weight-light for="surname">Prezime:</label>-->
+                    <input type="text" id="surname" name="surname" class="form-control" pattern="[A-Z][a-z]{1,32}" required placeholder="Unesite prezime">
                 </div>
                 <div class="form-group">
-                    <label for="email">Adresa e-pošte:</label>
-                    <input type="email" id="email" name="email" class="form-control" required placeholder="Unesite adresu e-pošte primer marko.markovic@gmail.com">
+                    <!--<label for="email">Adresa e-pošte:</label>-->
+                    <input type="email" id="email" name="email" class="form-control" required placeholder="Unesite adresu e-pošte">					
                 </div>
                 <div class="form-group">
-                    <label for="telephone">Broj telefona:</label>
-                    <input type="text" id="telephone" name="telephone" class="form-control" pattern="\d{3}[\-]\d{3}[\-]\d{4}" required placeholder="Unesite broj telefona primer 063-111-2345">
+					<label class="font-weight-light" for="telephone">Broj telefona mora da ima šablon: 063-111-8888</label>
+                    <!--<label for="telephone">Broj telefona:</label>-->
+                    <input type="text" id="telephone" name="telephone" class="form-control" pattern="\d{3}[\-]\d{3}[\-]\d{4}" required placeholder="Unesite broj telefona">
                 </div>
 				<!-- Proveri da li nam treba bolje, mozda samo kao brojac
 				<div class="form-group">
                     <label for="car">Broj vozila:</label>
 					<input type="number" id="car" name="car"  class="form-control" required min="1" max="10" value="1">
                 </div>-->
-				<div id="registration">
-				<div id="reg" class="form-group">
-					<label for="registration1">Registracija:</label>
-					<input type="text" id="registration1" name="registration1" class="form-control" pattern="[A-Z]{2}\d{3}[A-Z]{2}" required placeholder="Unesite broj registarske tablice primer BG111SD">
-				</div>	
-				</div>
+				<!--<div class="form-group">
+					<!--<label for="registration">Registracija:</label>
+					<textarea class="form-control" rows="5" maxlength="9" id="registration" name="registration " required placeholder="Unesite broj ili brojeve registarske tablice"></textarea>
+					<label class="font-weight-light" for="telephone">Unesite jednu ili više registarskih tablica šablona: BG111SD. Svaku u posebnom redu</label>
+				</div>	-->
 				<div class="form-group">
-					<button class="btn btn-outline-secondary" type="button" onclick="add()">Dodaj vozilo</button>
-					<button class="btn btn-outline-secondary" type="button" onclick="remove()">Ukloni vozilo</button>
-				</div>			
-				<div class="form-group">
-                    <label for="password1">Lozinka:</label>
-                    <input type="password" id="password1" name="password1" class="form-control" required placeholder="Unesite lozinku">
+					<label class="font-weight-light" for="telephone">Lozinka mora imati minimum: 8 karaktera od toga jedno malo slovo, jedno veliko, specijalni znak i broj.</label>
+                    <!--<label for="password1">Lozinka:</label>-->
+                    <input type="password" id="password1" name="password1" class="form-control" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required placeholder="Unesite lozinku">
                 </div>
                 <div class="form-group">
-                    <label for="password2">Ponovite lozinku:</label>
-                    <input type="password" id="password2" name="password2" class="form-control" required placeholder="Unesite ponovo lozinku">
+                    <!--<label for="password2">Ponovite lozinku:</label>-->
+                    <input type="password" id="password2" name="password2" class="form-control" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required placeholder="Unesite ponovo lozinku">
                 </div>
 				<div class="form-group">
 					<img id="captcha" class="col-sm-4 img-fluid" src="../../securimage/securimage_show.php" alt="CAPTCHA Image" />
@@ -73,7 +70,6 @@
         </p>-->
     </div>
 </div>
- <script src="../../libs/reg.js"></script>
 <?php require_once '../main/footer.php'; ?>
 <!-- Proveriti za oninvalid ne radi kako treba
  oninvalid="this.setCustomValidity('Popunite polje')">
