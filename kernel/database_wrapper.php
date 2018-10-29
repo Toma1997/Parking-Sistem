@@ -43,19 +43,22 @@ class Database {
 	}
 
 // funkcija za dodavanje novog korisnika u bazu
-	function noviKorisnik($data) {
+	function dodajKorisnikaIVozilo($data) {
 		// kreiranje konekcije
 		$mysqli = new mysqli("localhost", "root", "", "parking");
 
-// filtrira i sredjuje string iz json formata
-		$ime = mysqli_real_escape_string($mysqli,$data['imePrezime']);
-		$username = mysqli_real_escape_string($mysqli,$data['username']);
-		$password = mysqli_real_escape_string($mysqli,$data['password']);
+		// filtrira i sredjuje string iz json formata
+		$tip = mysqli_real_escape_string($mysqli, $data['client_type']);
+		$ime = mysqli_real_escape_string($mysqli, $data['forename']);
+		$prezime = mysqli_real_escape_string($mysqli, $data['surname']);
+		$email = mysqli_real_escape_string($mysqli, $data['email']);
+		$telephone = mysqli_real_escape_string($mysqli, $data['telephone']);
+		$password = sha1(mysqli_real_escape_string($mysqli, $data['password1'])); // SHA1 hes funkcija
 
-		$values = "('".$ime."','".$username."','".$password."',0)";
+		$values = "('".$tip."','".$ime."','".$prezime."','".$telephone."','".$email."','".$password."')";
 
 		// upit koji dodaje podatke o novom korisniku
-		$query = 'INSERT into korisnik (imePrezime, username, password, admin) VALUES '.$values;
+		$query = 'INSERT into clients (client_type, forename, surname, telephone, email, password_hash) VALUES '.$values;
 
 		// ako je upit vratio true rezultat je true
 		if($mysqli->query($query))
@@ -66,31 +69,30 @@ class Database {
 		{
 			$this->result = false;
 		}
+
+		$client_id = "SELECT client_id FROM clients WHERE telephone = '".$telephone"';";
+		
+		do{
+		$i = 1;
+		$registration = "registration" . $i;
+		$registracija = mysqli_real_escape_string($mysqli, $data[$registration]);
+
+		$values = "('".$registracija."','".$client_id."')";
+		$query += 'INSERT into cars (registration, client_id) VALUES '.$values';\n';
+		$i++;
+		} while(isset($$registration));
+
+		// ako je upit vratio true rezultat je true
+		if($mysqli->query($query))
+		{
+			$this ->result = true;
+		}
+		else // u suprotnom ako se upit nije lepo izvrsio vrati false
+		{
+			$this->result = false;
+		}
+
 		$mysqli->close(); // zatvaranje konekcije
-	}
-
-// pribavlja upit o svim korisnicima
-	function sviKorisnici() {
-		$mysqli = new mysqli("localhost", "root", "", "kviz");
-		$q = 'SELECT * FROM korisnik ';
-		$this ->result = $mysqli->query($q);
-		$mysqli->close();
-	}
-
-// pribavlja sve rezultate korisnika u opadajucem redosledu
-	function sviRezultati() {
-		$mysqli = new mysqli("localhost", "root", "", "kviz");
-		$q = 'SELECT * FROM tabela t join korisnik k on t.korisnikID = k.korisnikID order by t.brojPoena desc';
-		$this ->result = $mysqli->query($q);
-		$mysqli->close();
-	}
-
-// izvlaci sva pitanja koja postoje u bazi
-	function svaPitanja() {
-		$mysqli = new mysqli("localhost", "root", "", "kviz");
-		$q = 'SELECT * FROM pitanje ';
-		$this ->result = $mysqli->query($q);
-		$mysqli->close();
 	}
 
 // funkcija koja izvrsava upit
