@@ -18,19 +18,19 @@
                 </div>
                 <div class="form-group">
                     <label for="forename">Ime:</label>
-                    <input type="text" id="forename" name="forename" class="form-control" required placeholder="Unesite ime primer Marko" oninvalid="this.setCustomValidity('Popunite polje')">
+                    <input type="text" id="forename" name="forename" class="form-control" pattern="[A-Z][a-z]{1,32}" required placeholder="Unesite ime primer Marko">
                 </div>
                 <div class="form-group">
                     <label for="surname">Prezime:</label>
-                    <input type="text" id="surname" name="surname" class="form-control" required placeholder="Unesite prezime primer Marković" oninvalid="this.setCustomValidity('Popunite polje')">
+                    <input type="text" id="surname" name="surname" class="form-control" pattern="[A-Z][a-z]{1,32}" required placeholder="Unesite prezime primer Marković">
                 </div>
                 <div class="form-group">
                     <label for="email">Adresa e-pošte:</label>
-                    <input type="email" id="email" name="email" class="form-control" required placeholder="Unesite adresu e-pošte primer marko.markovic@gmail.com" oninvalid="this.setCustomValidity('Popunite polje')">
+                    <input type="email" id="email" name="email" class="form-control" required placeholder="Unesite adresu e-pošte primer marko.markovic@gmail.com">
                 </div>
                 <div class="form-group">
                     <label for="telephone">Broj telefona:</label>
-                    <input type="text" id="telephone" name="telephone" class="form-control" pattern="+[0-9]{3}-[0-9]{3}-[0-9]{4}" required placeholder="Unesite broj telefona primer 063-111-2345" oninvalid="this.setCustomValidity('Popunite polje')">
+                    <input type="text" id="telephone" name="telephone" class="form-control" pattern="\d{3}[\-]\d{3}[\-]\d{4}" required placeholder="Unesite broj telefona primer 063-111-2345">
                 </div>
 				<!-- Proveri da li nam treba bolje, mozda samo kao brojac
 				<div class="form-group">
@@ -40,7 +40,7 @@
 				<div id="registration">
 				<div id="reg" class="form-group">
 					<label for="registration1">Registracija:</label>
-					<input type="text" id="registration1" name="registration1" class="form-control" required placeholder="Unesite broj registarske tablice primer BG111SD" oninvalid="this.setCustomValidity('Popunite polje')">
+					<input type="text" id="registration1" name="registration1" class="form-control" pattern="[A-Z]{2}\d{3}[A-Z]{2}" required placeholder="Unesite broj registarske tablice primer BG111SD">
 				</div>	
 				</div>
 				<div class="form-group">
@@ -49,11 +49,11 @@
 				</div>			
 				<div class="form-group">
                     <label for="password1">Lozinka:</label>
-                    <input type="password" id="password1" name="password1" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required placeholder="Unesite lozinku" oninvalid="this.setCustomValidity('Popunite polje')">
+                    <input type="password" id="password1" name="password1" class="form-control" required placeholder="Unesite lozinku">
                 </div>
                 <div class="form-group">
                     <label for="password2">Ponovite lozinku:</label>
-                    <input type="password" id="password2" name="password2" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required placeholder="Unesite ponovo lozinku" oninvalid="this.setCustomValidity('Popunite polje')">
+                    <input type="password" id="password2" name="password2" class="form-control" required placeholder="Unesite ponovo lozinku">
                 </div>
 				<div class="form-group">
 					<img id="captcha" class="col-sm-4 img-fluid" src="../../securimage/securimage_show.php" alt="CAPTCHA Image" />
@@ -75,4 +75,5 @@
 </div>
  <script src="../../libs/reg.js"></script>
 <?php require_once '../main/footer.php'; ?>
-
+<!-- Proveriti za oninvalid ne radi kako treba
+ oninvalid="this.setCustomValidity('Popunite polje')">
