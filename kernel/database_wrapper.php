@@ -55,19 +55,27 @@ class Database {
 		$telephone = mysqli_real_escape_string($mysqli, $data['telephone']);
 		$password = sha1(mysqli_real_escape_string($mysqli, $data['password1'])); // SHA1 hes funkcija
 
-		$values = "('".$tip."','".$ime."','".$prezime."','".$telephone."','".$email."','".$password."')";
+		// provera da li je korisnik vec registrovan
+		$query = "SELECT client_id FROM clients WHERE email LIKE '".$email."' OR telephone LIKE '".$telephone."';";
+		$rezultat = $mysqli->query($query);
+		if($rezultat->num_rows > 0){
+			echo "<h3>Vec ste registrovani !</h3>";
+		} else {
+			$values = "('".$tip."','".$ime."','".$prezime."','".$telephone."','".$email."','".$password."')";
 
-		// upit koji dodaje podatke o novom korisniku
-		$query = 'INSERT into clients (client_type, forename, surname, telephone, email, password_hash) VALUES '.$values;
+			// upit koji dodaje podatke o novom korisniku
+			$query = 'INSERT into clients (client_type, forename, surname, telephone, email, password_hash) VALUES '.$values;
 
-		// ako je upit vratio true rezultat je true
-		if($mysqli->query($query))
-		{
-			$this ->result = true;
-		}
-		else // u suprotnom ako se upit nije lepo izvrsio vrati false
-		{
-			$this->result = false;
+			// ako je upit vratio true rezultat je true
+			if($mysqli->query($query))
+			{
+				$this ->result = true;
+			}
+			else // u suprotnom ako se upit nije lepo izvrsio vrati false
+			{
+				$this->result = false;
+			}
+
 		}
 
 		$mysqli->close(); // zatvaranje konekcije
