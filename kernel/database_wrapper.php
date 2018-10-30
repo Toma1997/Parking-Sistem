@@ -52,16 +52,18 @@ class Database {
 		$ime = mysqli_real_escape_string($mysqli, $data['forename']);
 		$prezime = mysqli_real_escape_string($mysqli, $data['surname']);
 		$email = mysqli_real_escape_string($mysqli, $data['email']);
-		$telephone = mysqli_real_escape_string($mysqli, $data['telephone']);
-		$password = sha1(mysqli_real_escape_string($mysqli, $data['password1'])); // SHA1 hes funkcija
+		$telefon = mysqli_real_escape_string($mysqli, $data['telephone']);
+		$lozinka = sha1(mysqli_real_escape_string($mysqli, $data['password1'])); // SHA1 hes funkcija
 
 		// provera da li je korisnik vec registrovan
-		$query = "SELECT client_id FROM clients WHERE email LIKE '".$email."' OR telephone LIKE '".$telephone."';";
+		$query = 'SELECT client_id FROM clients WHERE email LIKE "'.$email.'" OR telephone LIKE "'.$telefon.'";';
 		$rezultat = $mysqli->query($query);
 		if($rezultat->num_rows > 0){
 			echo "<h3>Vec ste registrovani !</h3>";
+			$this->result = false;
+
 		} else {
-			$values = "('".$tip."','".$ime."','".$prezime."','".$telephone."','".$email."','".$password."')";
+			$values = "('".$tip."','".$ime."','".$prezime."','".$telefon."','".$email."','".$lozinka."')";
 
 			// upit koji dodaje podatke o novom korisniku
 			$query = 'INSERT into clients (client_type, forename, surname, telephone, email, password_hash) VALUES '.$values;
@@ -70,12 +72,32 @@ class Database {
 			if($mysqli->query($query))
 			{
 				$this ->result = true;
+				return;
 			}
 			else // u suprotnom ako se upit nije lepo izvrsio vrati false
 			{
+				echo "<h3> Greska pri validaciji forme !</h3>";
 				$this->result = false;
 			}
 
+		}
+
+		$mysqli->close(); // zatvaranje konekcije
+	}
+
+	function proveriKorisnika($data){
+		// kreiranje konekcije
+		$mysqli = new mysqli("localhost", "root", "", "parking");
+
+		// filtrira i sredjuje string iz json formata
+		$email = mysqli_real_escape_string($mysqli, $data['email']);
+		$lozinka = mysqli_real_escape_string($mysqli, $data['password']);
+
+		// provera da li je korisnik vec registrovan
+		$query = 'SELECT client_id FROM clients WHERE email LIKE "'.$email.'" OR password_hash LIKE "'.sha1($lozinka).'";';
+		$rezultat = $mysqli->query($query);
+		if($rezultat->num_rows < 1){
+			echo "<h3>Neispravno logovanje !</h3>";
 		}
 
 		$mysqli->close(); // zatvaranje konekcije

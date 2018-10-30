@@ -31,7 +31,7 @@ if ($_POST) {
 	if(count($greske)){
 		$greske = implode("<br>", $greske);
 		echo $greske;
-		require_once "../templates/main/footer.php";
+		header("Location: ../index.php?stranica=register");
 	} else{
 
 		include("database_wrapper.php");
@@ -39,11 +39,8 @@ if ($_POST) {
 		$db->dodajKorisnika($_POST);
 
 		if($db->getResult()){
-			header("Location: ../templates/Client/login.php");
-		} else {
-			echo "<h3> Greska pri validaciji forme !</h3>";
+			header("Location: ../index.php?stranica=login");
 		}
-
 	}
 
 }
