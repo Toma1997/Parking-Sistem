@@ -45,11 +45,11 @@
 				<div class="form-group">
 					<label class="font-weight-light" for="telephone">Lozinka mora imati minimum: 8 karaktera od toga jedno malo slovo, jedno veliko, specijalni znak i broj.</label>
                     <!--<label for="password1">Lozinka:</label>-->
-                    <input type="password" id="password1" name="password1" class="form-control" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required placeholder="Unesite lozinku">
+                    <input type="password" id="password1" name="password1" class="form-control" required placeholder="Unesite lozinku">
                 </div>
                 <div class="form-group">
                     <!--<label for="password2">Ponovite lozinku:</label>-->
-                    <input type="password" id="password2" name="password2" class="form-control" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required placeholder="Unesite ponovo lozinku">
+                    <input type="password" id="password2" name="password2" class="form-control" required placeholder="Unesite ponovo lozinku">
                 </div>
 				<div class="form-group">
 					<img id="captcha" class="col-sm-4 img-fluid" src="securimage/securimage_show.php" alt="CAPTCHA Image" />
