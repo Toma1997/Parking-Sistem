@@ -71,8 +71,6 @@ class Database {
 		}
 
 		$mysqli->close(); // zatvaranje konekcije
-
-		return $this->result;
 	}
 
 // funkcija koja izvrsava upit

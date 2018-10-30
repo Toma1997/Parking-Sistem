@@ -1,8 +1,5 @@
 <?php
 
-
-require_once '../templates/main/header.php';
-
 if ($_POST) {
 	extract($_POST);
 	$greske = array();
@@ -15,7 +12,7 @@ if ($_POST) {
 		$greske[] = "<h3>Prezime nije validno !</h3>";
 	}
 
-	if(!preg_match("/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/", $email)){
+	if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
 		$greske[] = "<h3>Email nije validan !</h3>";
 	}
 
@@ -23,8 +20,7 @@ if ($_POST) {
 		$greske[] = "<h3>Telefon nije validan !</h3>";
 	}
 	
-
-	if(!preg_match("/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*(?=\S*[\W])$/", $password1)){
+	if(!preg_match("/^^(?=[^\d]*\d)(?=[A-Z\d ]*[^A-Z\d ]).{8,}$/", $password1)){
 		$greske[] = "<h3>Lozinka nije validna !</h3>";
 	} else {
 		if($password1 !== $password2){
@@ -35,23 +31,23 @@ if ($_POST) {
 	if(count($greske)){
 		$greske = implode("<br>", $greske);
 		echo $greske;
+		require_once "../templates/main/footer.php";
 	} else{
 
 		include("database_wrapper.php");
-		$db = new Database();
-		$db->Connect();
-		if($db->dodajKorisnika($_POST)){
-			echo "<h3> Uspesno ste registrovani !</h3>";
+		$db = new Database("parking");
+		$db->dodajKorisnika($_POST);
+
+		if($db->getResult()){
+			header("Location: ../templates/Client/login.php");
 		} else {
 			echo "<h3> Greska pri validaciji forme !</h3>";
 		}
 
-		header("Location: ../templates/Client/login.php");
 	}
 
 }
 
-require_once '../templates/main/footer.php';
 ?>
 	</body>
 </html>

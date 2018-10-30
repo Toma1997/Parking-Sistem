@@ -3,7 +3,7 @@
     <h1>Registracija korisnika</h1>
     <div class="content">
         <!-- < ?php if (!$Context->get('hideForm')): ?>-->
-            <form method="post" action="../../kernel/register_validation.php">
+            <form action="/Parking-Sistem/kernel/register_validation.php" method="post">
 				<div class="form-group">
                     <label for="client_type">Tip lica:</label>
 					<div class="custom-control custom-radio">
