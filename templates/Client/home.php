@@ -53,7 +53,6 @@
 		</div>
 	  </div>
 	</div>
-    <a href="./index.php?stranica=register" class="btn btn-primary">Registrujte se</a>
   </div>
   
 </div>

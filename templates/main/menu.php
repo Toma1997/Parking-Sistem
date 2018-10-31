@@ -14,7 +14,7 @@
             <?php else: ?>
               <li class="nav-item"><a class="nav-link" href="index.php?stranica=parking">Parking mesto</a>
 			  <li class="nav-item"><a class="nav-link" href="index.php?stranica=reserve">Rezervišite mesto</a>
-              <li class="nav-item"><a class="nav-link" href="index.php?stranica=login">Odjavite se</a>
+              <li class="nav-item"><a class="nav-link" href="index.php?stranica=logout">Odjavite se</a>
             <?php endif; ?>
           </ul>
         </div>

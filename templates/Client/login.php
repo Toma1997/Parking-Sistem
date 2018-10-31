@@ -41,6 +41,7 @@
                         $db->proveriKorisnika($_POST);
 
                         if($db->getResult()){
+							$_SESSION['CLIENT'] = $email;
                             header("Location: ./index.php?stranica=");
                         }
                     }
@@ -54,4 +55,4 @@
 </div>
 
 <!-- Proveriti za oninvalid ne radi kako treba
- oninvalid="this.setCustomValidity('Popunite polje')">
+ oninvalid="this.setCustomValidity('Popunite polje')"-->

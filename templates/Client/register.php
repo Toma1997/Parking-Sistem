@@ -94,7 +94,23 @@
                             $greske[] = "<h6>Nije uspesno potvrdjena lozinka !</h6>";
                         }
                     }
+					
+					//CAPTCHA VALIDATION 
+					// NECE ZBOG :
+					/*Warning: Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\Parking-Sistem2\templates\client\register.php:33) 
+					in C:\xampp\htdocs\Parking-Sistem2\templates\client\register.php on line 118*/
 
+					/*include_once $_SERVER['DOCUMENT_ROOT'] . '/Parking-Sistem/securimage/securimage.php';
+					$securimage = new Securimage();
+					
+					if ($securimage->check($_POST['captcha_code']) == false) {
+					  // the code was incorrect
+					  // you should handle the error so that the form processor doesn't continue
+
+					  // or you can use the following code if there is no validation or you do not know how
+					  $greske[] =  "The security code entered was incorrect.<br /><br />";
+					  exit;
+					}*/
                     if(count($greske)){
                         $greske = implode("", $greske);
                         echo $greske;
@@ -120,4 +136,4 @@
     </div>
 </div>
 <!-- Proveriti za oninvalid ne radi kako treba
- oninvalid="this.setCustomValidity('Popunite polje')">
+ oninvalid="this.setCustomValidity('Popunite polje')"-->
