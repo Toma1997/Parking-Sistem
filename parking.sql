@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50719
 File Encoding         : 65001
 
-Date: 2018-10-30 02:48:52
+Date: 2018-10-31 22:42:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -66,13 +66,15 @@ CREATE TABLE `clients` (
   `telephone` varchar(20) NOT NULL,
   `email` varchar(60) NOT NULL,
   `password_hash` varchar(255) NOT NULL,
+  `admin` set('1','0') NOT NULL DEFAULT '0',
   PRIMARY KEY (`client_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of clients
 -- ----------------------------
-INSERT INTO `clients` VALUES ('1', 'individual', 'Toma', 'Joksimovic', '063-334-774', 'toma.joksimovic@gmail.com', '0906fabb6dba5f470b1d4b164c1ccb446dc34835');
+INSERT INTO `clients` VALUES ('1', 'individual', 'Toma', 'Joksimovic', '063-334-774', 'toma.joksimovic@gmail.com', '0906fabb6dba5f470b1d4b164c1ccb446dc34835', '1');
+INSERT INTO `clients` VALUES ('2', 'individual', 'Toma', 'Joksimovic', '065-444-4444', 'toma.joksimovic.16@singimail.rs', '96097cf9f0b217d3a40cccdf99bdcb66cc3d5527', '0');
 
 -- ----------------------------
 -- Table structure for places
