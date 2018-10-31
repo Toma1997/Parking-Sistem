@@ -72,7 +72,6 @@ class Database {
 			if($mysqli->query($query))
 			{
 				$this ->result = true;
-				return;
 			}
 			else // u suprotnom ako se upit nije lepo izvrsio vrati false
 			{
@@ -98,7 +97,10 @@ class Database {
 		$rezultat = $mysqli->query($query);
 		if($rezultat->num_rows < 1){
 			echo "<h3>Neispravno logovanje !</h3>";
+			$this->result = false;
 		}
+
+		$this ->result = true;
 
 		$mysqli->close(); // zatvaranje konekcije
 	}
