@@ -1,4 +1,67 @@
+<?php
+                if ($_POST) {
+                    extract($_POST);
+                    $greske = array();
+                
+                    if(!preg_match("/^[A-Z][a-zA-Z']+$/", $forename)){
+                        $greske[] = "<h5>Ime nije validno !</h5>";
+                    }
+                
+                    if(!preg_match("/^[A-Z][a-zA-Z']+$/", $surname)){
+                        $greske[] = "<h5>Prezime nije validno !</h5>";
+                    }
+                
+                    if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+                        $greske[] = "<h5>Email nije validan !</h5>";
+                    }
+                
+                    if(!preg_match("/^06[0-9]\-[0-9]{3,4}\-[0-9]{3,4}$/", $telephone)){
+                        $greske[] = "<h5>Telefon nije validan !</h5>";
+                    }
+                    
+                    if(!preg_match("/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,}$/", $password1)){
+                        $greske[] = "<h5>Lozinka nije validna !</h5>";
+                    } else {
+                        if($password1 !== $password2){
+                            $greske[] = "<h5>Nije uspesno potvrdjena lozinka !</h5>";
+                        }
+                    }
+					
+                    //CAPTCHA validacija 
+                    include_once $_SERVER['DOCUMENT_ROOT'] . '/Parking-Sistem/securimage/securimage.php';
+                    $securimage = new Securimage();
+                                    
+                    if (isset($_POST['code']) && !$securimage->check((string)$_POST['code'])) {
+                        $greske[] = "<h5>Uneseni kod se ne poklapa sa onim sa slike !</h5>";
+                    }
 
+                    if(count($greske)){
+                        $greske = implode("", $greske);
+                    } else{
+
+                        include("./kernel/database_wrapper.php");
+                        $db = new Database("parking");
+                        $db->Connect();
+                        $db->proveriKorisnika("email", "telephone", $_POST['email'], $_POST['telephone']);
+
+                        if($db->getResult()){
+                            $greske = "<h3>Vec ste registrovani !</h3>";
+                            header("Location: index.php?stranica=login");
+                        } else {
+                            $db->dodajKorisnika($_POST);
+
+                            if(!$db->getResult()){
+                                $db->__destruct();
+                                $greske = "<h3> Greska pri validaciji forme !</h3>";
+                                
+                            } else{
+                                header("Location: index.php?stranica=login");
+                            }
+                        }                        
+                    }
+                }
+
+            ?>
 <div>
     <h1>Registracija korisnika</h1>
     <div class="content">
@@ -47,71 +110,7 @@
             </form>
 
             <div class="form-group">
-            <?php
-                if ($_POST) {
-                    extract($_POST);
-                    $greske = array();
-                
-                    if(!preg_match("/^[A-Z][a-zA-Z']+$/", $forename)){
-                        $greske[] = "<h5>Ime nije validno !</h5>";
-                    }
-                
-                    if(!preg_match("/^[A-Z][a-zA-Z']+$/", $surname)){
-                        $greske[] = "<h5>Prezime nije validno !</h5>";
-                    }
-                
-                    if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-                        $greske[] = "<h5>Email nije validan !</h5>";
-                    }
-                
-                    if(!preg_match("/^06[0-9]\-[0-9]{3,4}\-[0-9]{3,4}$/", $telephone)){
-                        $greske[] = "<h5>Telefon nije validan !</h5>";
-                    }
-                    
-                    if(!preg_match("/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,}$/", $password1)){
-                        $greske[] = "<h5>Lozinka nije validna !</h5>";
-                    } else {
-                        if($password1 !== $password2){
-                            $greske[] = "<h5>Nije uspesno potvrdjena lozinka !</h5>";
-                        }
-                    }
-                
-                    //CAPTCHA validacija 
-                    include_once $_SERVER['DOCUMENT_ROOT'] . '/Parking-Sistem/securimage/securimage.php';
-                    $securimage = new Securimage();
-                                    
-                    if (isset($_POST['code']) && !$securimage->check((string)$_POST['code'])) {
-                        $greske[] = "<h5>Uneseni kod se ne poklapa sa onim sa slike !</h5>";
-                    }
-
-                    if(count($greske)){
-                        $greske = implode("", $greske);
-                        echo $greske;
-                    } else{
-
-                        include("./kernel/database_wrapper.php");
-                        $db = new Database("parking");
-                        $db->Connect();
-                        $db->proveriKorisnika("email", "telephone", $_POST['email'], $_POST['telephone']);
-
-                        if($db->getResult()){
-                            echo "<h3>Vec ste registrovani !</h3>";
-                            //header("Location: ../index.php?stranica=login"); ne radi nesto zbog sesije pogledacu naknadno
-                        } else {
-                            $db->dodajKorisnika($_POST);
-
-                            if(!$db->getResult()){
-                                $db->__destruct();
-                                echo "<h3> Greska pri validaciji forme !</h3>";
-                                
-                            } else{
-                                header("Location: ../index.php?stranica=login");
-                            }
-                        }                        
-                    }
-                }
-
-            ?>
+            <?php echo $greske ?? '';?>
             </div>
     </div>
 </div>
