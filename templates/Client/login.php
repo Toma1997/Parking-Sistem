@@ -27,7 +27,7 @@
                         $greske[] = "<h5>Email nije validan !</h5>";
                     }
                     
-                    if(!preg_match("/^^(?=[^\d]*\d)(?=[A-Z\d ]*[^A-Z\d ]).{8,}$/", $password)){
+                    if(!preg_match("/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,}$/", $password)){
                         $greske[] = "<h5>Lozinka nije validna !</h5>";
                     }
 
@@ -38,11 +38,16 @@
 
                         include("./kernel/database_wrapper.php");
                         $db = new Database("parking");
-                        $db->proveriKorisnika($_POST);
+                        $db->Connect();
+                        $db->proveriKorisnika("email", "password_hash", $_POST['email'], sha1($_POST['password']));
 
                         if($db->getResult()){
-							$_SESSION['CLIENT'] = $email;
+                            $db->__destruct();
+                            //session_start();
+                            $_SESSION['CLIENT'] = $email;
                             header("Location: ./index.php?stranica=");
+                        } else {
+                            echo "<h5> Neispravno logovanje !</h5>";
                         }
                     }
 
@@ -53,6 +58,3 @@
         </form>
     </div>
 </div>
-
-<!-- Proveriti za oninvalid ne radi kako treba
- oninvalid="this.setCustomValidity('Popunite polje')"-->
