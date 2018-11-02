@@ -3,14 +3,14 @@
 $stranica = $_GET['stranica'] ?? '';
 
 if ($stranica == 'logout') {
-	unset($_SESSION['CLIENT']);
-	header("Location: ./");
+	session_unset($_SESSION['CLIENT']);
 }
-require_once 'templates/main/header.php';
 
+require_once 'templates/main/header.php';
 
 switch ($stranica) {
 	case '' :
+	case 'logout':
 		include('templates/Client/home.php');
 		break;
 		
@@ -47,7 +47,7 @@ function anonimac() {
 }
 function korisnik() {
 	if (isset($_SESSION['CLIENT'])) {
-		header("Location: ./");
+		header("Location: ./index.php?stranica=");
 		exit;
 	}	
 }
