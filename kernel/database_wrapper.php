@@ -44,65 +44,45 @@ class Database {
 
 // funkcija za dodavanje novog korisnika u bazu
 	function dodajKorisnika($data) {
-		// kreiranje konekcije
-		$mysqli = new mysqli("localhost", "root", "", "parking");
 
 		// filtrira i sredjuje string iz json formata
-		$tip = mysqli_real_escape_string($mysqli, $data['client_type']);
-		$ime = mysqli_real_escape_string($mysqli, $data['forename']);
-		$prezime = mysqli_real_escape_string($mysqli, $data['surname']);
-		$email = mysqli_real_escape_string($mysqli, $data['email']);
-		$telefon = mysqli_real_escape_string($mysqli, $data['telephone']);
-		$lozinka = sha1(mysqli_real_escape_string($mysqli, $data['password1'])); // SHA1 hes funkcija
+		$tip = mysqli_real_escape_string($this->dblink, $data['client_type']);
+		$ime = mysqli_real_escape_string($this->dblink, $data['forename']);
+		$prezime = mysqli_real_escape_string($this->dblink, $data['surname']);
+		$email = mysqli_real_escape_string($this->dblink, $data['email']);
+		$telefon = mysqli_real_escape_string($this->dblink, $data['telephone']);
+		$lozinka = sha1(mysqli_real_escape_string($this->dblink, $data['password1'])); // SHA1 hes funkcija
 
-		// provera da li je korisnik vec registrovan
-		$query = 'SELECT client_id FROM clients WHERE email LIKE "'.$email.'" OR telephone LIKE "'.$telefon.'";';
-		$rezultat = $mysqli->query($query);
-		if($rezultat->num_rows > 0){
-			echo "<h3>Vec ste registrovani !</h3>";
-			$this->result = false;
+		$values = "('".$tip."','".$ime."','".$prezime."','".$telefon."','".$email."','".$lozinka."')";
 
-		} else {
-			$values = "('".$tip."','".$ime."','".$prezime."','".$telefon."','".$email."','".$lozinka."')";
+		// upit koji dodaje podatke o novom korisniku
+		$query = 'INSERT into clients (client_type, forename, surname, telephone, email, password_hash) VALUES '.$values;
 
-			// upit koji dodaje podatke o novom korisniku
-			$query = 'INSERT into clients (client_type, forename, surname, telephone, email, password_hash) VALUES '.$values;
-
-			// ako je upit vratio true rezultat je true
-			if($mysqli->query($query))
-			{
-				$this ->result = true;
-			}
-			else // u suprotnom ako se upit nije lepo izvrsio vrati false
-			{
-				echo "<h3> Greska pri validaciji forme !</h3>";
-				$this->result = false;
-			}
-
+		// ako je upit vratio true rezultat je true
+		if($this->dblink->query($query))
+		{
+			$this ->result = true;
 		}
-
-		$mysqli->close(); // zatvaranje konekcije
+		else // u suprotnom ako se upit nije lepo izvrsio vrati false
+		{
+			$this->result = false;
+		}
 	}
 
-	function proveriKorisnika($data){
-		// kreiranje konekcije
-		$mysqli = new mysqli("localhost", "root", "", "parking");
+	function proveriKorisnika($naziv_data1, $naziv_data2, $data1, $data2){
 
 		// filtrira i sredjuje string iz json formata
-		$email = mysqli_real_escape_string($mysqli, $data['email']);
-		$lozinka = mysqli_real_escape_string($mysqli, $data['password']);
+		$data11 = mysqli_real_escape_string($this->dblink, $data1);
+		$data22 = mysqli_real_escape_string($this->dblink, $data2);
 
 		// provera da li je korisnik vec registrovan
-		$query = 'SELECT client_id FROM clients WHERE email LIKE "'.$email.'" OR password_hash LIKE "'.sha1($lozinka).'";';
-		$rezultat = $mysqli->query($query);
+		$query = 'SELECT client_id FROM clients WHERE '.$naziv_data1.' LIKE "'.$data11.'" OR '.$naziv_data2.' LIKE "'.$data22.'";';
+		$rezultat = $this->dblink->query($query);
 		if($rezultat->num_rows < 1){
-			echo "<h3>Neispravno logovanje !</h3>";
 			$this->result = false;
+		} else {
+			$this ->result = true;
 		}
-
-		$this ->result = true;
-
-		$mysqli->close(); // zatvaranje konekcije
 	}
 
 // funkcija koja izvrsava upit
