@@ -42,7 +42,7 @@
                         include("./kernel/database_wrapper.php");
                         $db = new Database("parking");
                         $db->Connect();
-                        $db->proveriKorisnika("email", "telephone", $_POST['email'], $_POST['telephone']);
+                        $db->proveriKorisnika("email", "telephone", $_POST['email'], $_POST['telephone'], 'OR');
 
                         if($db->getResult()){
                             $greske = "<h3>Vec ste registrovani !</h3>";
