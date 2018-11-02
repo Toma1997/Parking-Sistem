@@ -1,9 +1,9 @@
 <?php
 
 $stranica = $_GET['stranica'] ?? '';
-
+session_start();
 if ($stranica == 'logout') {
-	session_unset($_SESSION['CLIENT']);
+	session_unset();
 }
 
 require_once 'templates/main/header.php';
