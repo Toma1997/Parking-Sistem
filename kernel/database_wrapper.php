@@ -76,7 +76,7 @@ class Database {
 		$data22 = mysqli_real_escape_string($this->dblink, $data2);
 
 		// provera da li je korisnik vec registrovan
-		$query = 'SELECT client_id FROM clients WHERE '.$naziv_data1.' LIKE "'.$data11.'" OR '.$naziv_data2.' LIKE "'.$data22.'";';
+		$query = 'SELECT client_id FROM clients WHERE '.$naziv_data1.' LIKE "'.$data11.'" AND '.$naziv_data2.' LIKE "'.$data22.'";';
 		$rezultat = $this->dblink->query($query);
 		if($rezultat->num_rows < 1){
 			$this->result = false;
