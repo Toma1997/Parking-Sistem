@@ -13,22 +13,24 @@ switch ($stranica) {
 	case 'logout':
 		include('templates/Client/home.php');
 		break;
-		
+	case 'contact':
+		include('templates/Client/contact.php');
+		break;
+	case 'price':
+		include('templates/Client/price.php');
+		break;
 	case 'register' :
 		korisnik();
 		include('templates/Client/register.php');
 		break;
-		
 	case 'login' :
 		korisnik();
 		include('templates/Client/login.php');
 		break;
-		
 	case 'parking' :
-		anonimac();
+		//anonimac();
 		include('templates/Client/parking.php');
 		break;
-		
 	case 'reserve' :
 		anonimac();
 		include('templates/Client/reserve.php');

@@ -1,48 +1,31 @@
-<div>
-    <a href="index.php?stranica=reserve" class="btn btn-primary float-right">
-        Produži rezervaciju
-    </a>
-    <h2>Prvi sprat</h2>
-    <div class="content">
-        <table class="table table-sm">
-            <thead>
-                <tr>
-                    <th>Mesto
-                    <th>Sektor
-                    <th>Vreme rezervacije
-            <tbody><!--
-            <?//php foreach ($Context->get('appointment') as $appointment ): ?>
-                <tr>
-                    <td><?//php echo htmlspecialchars($appointment->created_at); ?>
-                    <td>
-                        <a href="client/parking/<?//php echo $appointment->appointment_id; ?>">
-                            <? //php echo htmlspecialchars($appointment->place); ?>
-                        </a>
-                    <td><?//php echo htmlspecialchars($appointment->next_responder); ?>
-            <?//php endforeach; ?>-->
-        </table>
-    </div>
+<?php if (isset($_SESSION['CLIENT'])): ?>
+<div class="container " style="margin-top: 25px;border-style: dotted;">
+<div class="row"><div class="col">ulaz</div><div class="col">A2</div><div class="col">A3</div><div class="col">A4</div><div class="col">A5</div><div class="col">A6</div><div class="col">A7</div><div class="col">A8</div> <div class="col">A9</div><div class="col">A10</div><div class="col">A11</div><div class="col">x</div></div>
+<div class="row"><div class="col-11">&nbsp;</div><div class="col-0.5">&nbsp;</div><div class="col">A12</div></div>
+<div class="row"><div class="col" ><a href="index.php?stranica=reserve"> A1</a></div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A2</div><div class="col">A3</div><div class="col">A4</div><div class="col">A5</div><div class="col">A6</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A7</div><div class="col">A8</div> <div class="col">A9</div><div class="col">A10</div><div class="col">A11</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A12</div></div>
+<div class="row"><div class="col">A1</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A2</div><div class="col">A3</div><div class="col">A4</div><div class="col">A5</div><div class="col">A6</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A7</div><div class="col">A8</div> <div class="col">A9</div><div class="col">A10</div><div class="col">A11</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A12</div></div>
+<div class="row"><div class="col">A1</div><div class="col-10">&nbsp;</div><div class="col-0.5">&nbsp;</div><div class="col">A12</div></div>
+<div class="row"><div class="col">A1</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A2</div><div class="col">A3</div><div class="col">A4</div><div class="col">A5</div><div class="col">A6</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A7</div><div class="col">A8</div> <div class="col">A9</div><div class="col">A10</div><div class="col">A11</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A12</div></div>
+<div class="row"><div class="col">A1</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A2</div><div class="col">A3</div><div class="col">A4</div><div class="col">A5</div><div class="col">A6</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A7</div><div class="col">A8</div> <div class="col">A9</div><div class="col">A10</div><div class="col">A11</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A12</div></div>
+<div class="row"><div class="col">A1</div><div class="col-10">&nbsp;</div><div class="col-0.5">&nbsp;</div><div class="col">A12</div></div>
+<div class="row"><div class="col">A1</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A2</div><div class="col">A3</div><div class="col">A4</div><div class="col">A5</div><div class="col">A6</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A7</div><div class="col">A8</div> <div class="col">A9</div><div class="col">A10</div><div class="col">A11</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A12</div></div>
+<div class="row"><div class="col">A1</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A2</div><div class="col">A3</div><div class="col">A4</div><div class="col">A5</div><div class="col">A6</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A7</div><div class="col">A8</div> <div class="col">A9</div><div class="col">A10</div><div class="col">A11</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A12</div></div>
+<div class="row"><div class="col">A1</div><div class="col-10">&nbsp;</div><div class="col-0.5">&nbsp;</div><div class="col">A12</div></div>
+<div class="row"><div class="col">x</div><div class="col">A2</div><div class="col">A3</div><div class="col">A4</div><div class="col">A5</div><div class="col">A6</div><div class="col">A7</div><div class="col">A8</div> <div class="col">A9</div><div class="col">A10</div><div class="col">A11</div><div class="col">x</div></div>
 </div>
-
-<div>
-    <h2>Drugi sprat</h2>
-    <div class="content">
-        <table class="table table-sm">
-            <thead>
-                <tr>
-					<th>Mesto
-                    <th>Sektor
-                    <th>Vreme rezervacije
-            <tbody><!--
-            <?//php foreach ($Context->get('appointment') as $appointment ): ?>
-                <tr>
-                    <td><?//php echo htmlspecialchars($appointment->created_at); ?>
-                    <td>
-                        <a href="client/parking/<?//php echo $appointment->appointment_id; ?>">
-                            <?//php echo htmlspecialchars($appointment->place); ?>
-                        </a>
-                    <td><?//php echo htmlspecialchars($appointment->next_responder); ?>
-            <?//php endforeach; ?>-->
-        </table>
-    </div>
+<?php else: ?>
+<div class="container " style="margin-top: 25px;border-style: dotted;">
+<div class="row"><div class="col">ulaz</div><div class="col">A2</div><div class="col">A3</div><div class="col">A4</div><div class="col">A5</div><div class="col">A6</div><div class="col">A7</div><div class="col">A8</div> <div class="col">A9</div><div class="col">A10</div><div class="col">A11</div><div class="col">x</div></div>
+<div class="row"><div class="col-11">&nbsp;</div><div class="col-0.5">&nbsp;</div><div class="col">A12</div></div>
+<div class="row"><div class="col">A1</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A2</div><div class="col">A3</div><div class="col">A4</div><div class="col">A5</div><div class="col">A6</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A7</div><div class="col">A8</div> <div class="col">A9</div><div class="col">A10</div><div class="col">A11</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A12</div></div>
+<div class="row"><div class="col">A1</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A2</div><div class="col">A3</div><div class="col">A4</div><div class="col">A5</div><div class="col">A6</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A7</div><div class="col">A8</div> <div class="col">A9</div><div class="col">A10</div><div class="col">A11</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A12</div></div>
+<div class="row"><div class="col">A1</div><div class="col-10">&nbsp;</div><div class="col-0.5">&nbsp;</div><div class="col">A12</div></div>
+<div class="row"><div class="col">A1</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A2</div><div class="col">A3</div><div class="col">A4</div><div class="col">A5</div><div class="col">A6</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A7</div><div class="col">A8</div> <div class="col">A9</div><div class="col">A10</div><div class="col">A11</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A12</div></div>
+<div class="row"><div class="col">A1</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A2</div><div class="col">A3</div><div class="col">A4</div><div class="col">A5</div><div class="col">A6</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A7</div><div class="col">A8</div> <div class="col">A9</div><div class="col">A10</div><div class="col">A11</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A12</div></div>
+<div class="row"><div class="col">A1</div><div class="col-10">&nbsp;</div><div class="col-0.5">&nbsp;</div><div class="col">A12</div></div>
+<div class="row"><div class="col">A1</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A2</div><div class="col">A3</div><div class="col">A4</div><div class="col">A5</div><div class="col">A6</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A7</div><div class="col">A8</div> <div class="col">A9</div><div class="col">A10</div><div class="col">A11</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A12</div></div>
+<div class="row"><div class="col">A1</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A2</div><div class="col">A3</div><div class="col">A4</div><div class="col">A5</div><div class="col">A6</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A7</div><div class="col">A8</div> <div class="col">A9</div><div class="col">A10</div><div class="col">A11</div><div class="col-0.5">&nbsp;&nbsp;&nbsp;</div><div class="col">A12</div></div>
+<div class="row"><div class="col">A1</div><div class="col-10">&nbsp;</div><div class="col-0.5">&nbsp;</div><div class="col">A12</div></div>
+<div class="row"><div class="col">x</div><div class="col">A2</div><div class="col">A3</div><div class="col">A4</div><div class="col">A5</div><div class="col">A6</div><div class="col">A7</div><div class="col">A8</div> <div class="col">A9</div><div class="col">A10</div><div class="col">A11</div><div class="col">x</div></div>
 </div>
+<?php endif; ?>
