@@ -1,5 +1,5 @@
 <?php
-                if ($_POST) {
+                if (!empty($_POST)) {
                     extract($_POST);
                     $greske = array();
                 

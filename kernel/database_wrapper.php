@@ -72,11 +72,14 @@ class Database {
 	function proveriKorisnika($naziv_data1, $naziv_data2, $data1, $data2, $operator){
 
 		// filtrira i sredjuje string iz json formata
+		$naziv_data11 = mysqli_real_escape_string($this->dblink, $naziv_data1);
+		$naziv_data22 = mysqli_real_escape_string($this->dblink, $naziv_data2);
 		$data11 = mysqli_real_escape_string($this->dblink, $data1);
 		$data22 = mysqli_real_escape_string($this->dblink, $data2);
+		$operator1 = mysqli_real_escape_string($this->dblink, $operator);
 
 		// provera da li je korisnik vec registrovan
-		$query = 'SELECT client_id FROM clients WHERE '.$naziv_data1.' LIKE "'.$data11.'" '.$operator.' '.$naziv_data2.' LIKE "'.$data22.'";';
+		$query = 'SELECT client_id FROM clients WHERE '.$naziv_data11.' LIKE "'.$data11.'" '.$operator1.' '.$naziv_data22.' LIKE "'.$data22.'";';
 		$rezultat = $this->dblink->query($query);
 		if($rezultat->num_rows < 1){
 			$this->result = false;
@@ -86,7 +89,9 @@ class Database {
 	}
 
 	function prikaziParking($floor){
-		$query = 'SELECT sector, place, floor, occupied FROM places WHERE floor = '.$floor.';';
+		$floor1 = mysqli_real_escape_string($this->dblink, $floor);
+		
+		$query = 'SELECT sector, place, floor, occupied FROM places WHERE floor = '.$floor1.';';
 		$this->result = $this->dblink->query($query);
 	}
 

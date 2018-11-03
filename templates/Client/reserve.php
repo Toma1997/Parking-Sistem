@@ -2,7 +2,7 @@
 
 $uspesno = '';
 
-if ($_POST) {
+if (!empty($_POST)) {
     extract($_POST);
     $poruke = array();
     

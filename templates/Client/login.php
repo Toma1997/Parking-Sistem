@@ -1,7 +1,7 @@
 <?php
 
-if ($_POST) {
-    extract($_POST);
+if (!empty($_POST)) {
+    extract($_POST); 
     $greske = array();
 
     if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
