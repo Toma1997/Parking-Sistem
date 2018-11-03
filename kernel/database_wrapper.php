@@ -85,6 +85,66 @@ class Database {
 		}
 	}
 
+	function prikaziParking($floor){
+		$query = 'SELECT sector, place, floor, occupied FROM places WHERE floor = '.$floor.';';
+		$this->result = $this->dblink->query($query);
+	}
+
+	function unesiRegistraciju($registracija, $mail){
+		$registration = mysqli_real_escape_string($this->dblink, $registracija);
+		$email = mysqli_real_escape_string($this->dblink, $mail);
+
+		$query = 'SELECT client_id FROM clients WHERE email = "'.$email.'";';
+		$zapis = $this->dblink->query($query);
+		$client_id = $zapis->fetch_assoc();
+
+		$values = "('".$registration."',".(int)$client_id.")";
+
+		// upit koji dodaje podatke o novom korisniku
+		$query = 'INSERT into cars (registration, client_id) VALUES '.$values;
+
+		if($this->dblink->query($query))
+		{
+			$this ->result = true;
+		}
+		else // u suprotnom ako se upit nije lepo izvrsio vrati false
+		{
+			$this->result = false;
+		}
+	}
+
+	function rezervisiMesto($registracija, $sprat, $sektor, $mesto){
+		$registration = mysqli_real_escape_string($this->dblink, $registracija);
+		$floor = mysqli_real_escape_string($this->dblink, $sprat);
+		$sector = mysqli_real_escape_string($this->dblink, $sektor);
+		$place = mysqli_real_escape_string($this->dblink, $mesto);
+
+		$query = 'SELECT occupied FROM places WHERE floor = '.$floor.' AND sector LIKE "'.$sector.'" AND place LIKE "'.$place.'";';
+		$zapis = $this->dblink->query($query);
+		$rezultat = $zapis->fetch_assoc();
+		if($rezultat['occupied'] == '1'){
+			$this->result = false;
+		} else {
+			$query = 'UPDATE places SET occupied = "1" WHERE floor = '.$floor.' AND sector LIKE "'.$sector.'" AND place LIKE "'.$place.'";';
+			if($this->dblink->query($query)){
+				$query = 'SELECT car_id FROM cars WHERE registration LIKE "'.$registracija.'";';
+				$zapis = $this->dblink->query($query);
+				$car_id = (int)$zapis->fetch_assoc();
+
+				$query = 'SELECT place_id FROM places WHERE floor = '.$floor.' AND sector LIKE "'.$sector.'" AND place LIKE "'.$place.'";';
+				$zapis = $this->dblink->query($query);
+				$place_id = (int)$zapis->fetch_assoc();
+
+				$values = "(".$car_id.",".$place_id.")";
+				$query = 'INSERT into appointments (car_id, place_id) VALUES '.$values;
+				
+				if($this->dblink->query($query)){
+					$this ->result = true;
+				}
+			}
+		}
+	}
+
 // funkcija koja izvrsava upit
 	function ExecuteQuery($query)
 	{

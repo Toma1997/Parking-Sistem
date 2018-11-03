@@ -60,7 +60,6 @@
                         }                        
                     }
                 }
-
             ?>
 <div>
     <h1>Registracija korisnika</h1>
