@@ -18,7 +18,7 @@ if (!empty($_POST)) {
         $poruke[] = "<h5>Nije izabran adekvatan sektor !</h5>";
     }
 
-    if(!preg_match("/^(10)?[1-9]$/", $place)){
+    if(!preg_match("/^1?[0-9]$/", $place)){
         $poruke[] = "<h5>Nije izabrano adekvatno mesto !</h5>";
     }
 
