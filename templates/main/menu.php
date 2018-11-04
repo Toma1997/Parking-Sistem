@@ -16,6 +16,9 @@
 				<!--<li class="nav-item"><a class="nav-link" href="index.php?stranica=reserve">Rezervišite mesto</a>-->
             <?php endif; ?>
 			<li class="nav-item"><a class="nav-link" href="index.php?stranica=contact">Kontakt</a>
+        <?php if (isset($_SESSION['ADMIN'])): ?>
+		  <li class="nav-item"><a class="nav-link" href="index.php?stranica=addAdmin">Dodaj Admina</a>
+            <?php endif; ?>
           </ul>
       </div>
       </div>

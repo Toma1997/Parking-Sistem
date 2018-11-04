@@ -1,7 +1,10 @@
 <?php
 
 if (!empty($_POST)) {
-    extract($_POST); 
+
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
     $greske = array();
 
     if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
@@ -20,11 +23,14 @@ if (!empty($_POST)) {
         include("./kernel/database_wrapper.php");
         $db = new Database("parking");
         $db->Connect();
-        $db->proveriKorisnika("email", "password_hash", $_POST['email'], sha1($_POST['password']), 'AND');
-
+        $db->proveriKorisnika("email", "password_hash", $email, sha1($password), 'AND');
         if($db->getResult()){
+
+            $db->jeAdmin($email);
+            if($db->getResult()){
+                $_SESSION['ADMIN'] = $email;
+            }
             $db->__destruct();
-            //session_start();
             $_SESSION['CLIENT'] = $email;
             header("Location: ./index.php?stranica=");
         } else {

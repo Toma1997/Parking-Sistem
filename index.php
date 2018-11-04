@@ -19,6 +19,9 @@ switch ($stranica) {
 	case 'price':
 		include('templates/Client/price.php');
 		break;
+	case 'addAdmin':
+		include('templates/Client/dodajAdmina.php');
+		break;
 	case 'register' :
 		korisnik();
 		include('templates/Client/register.php');
