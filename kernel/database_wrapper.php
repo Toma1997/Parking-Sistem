@@ -43,20 +43,21 @@ class Database {
 	}
 
 // funkcija za dodavanje novog korisnika u bazu
-	function dodajKorisnika($data) {
+	function dodajKorisnika($client_type, $forename, $surname, $email, $telephone, $password1, $admin) {
 
 		// filtrira i sredjuje string iz json formata
-		$tip = mysqli_real_escape_string($this->dblink, $data['client_type']);
-		$ime = mysqli_real_escape_string($this->dblink, $data['forename']);
-		$prezime = mysqli_real_escape_string($this->dblink, $data['surname']);
-		$email = mysqli_real_escape_string($this->dblink, $data['email']);
-		$telefon = mysqli_real_escape_string($this->dblink, $data['telephone']);
-		$lozinka = sha1(mysqli_real_escape_string($this->dblink, $data['password1'])); // SHA1 hes funkcija
+		$tip = mysqli_real_escape_string($this->dblink, $client_type);
+		$ime = mysqli_real_escape_string($this->dblink, $forename);
+		$prezime = mysqli_real_escape_string($this->dblink, $surname);
+		$mail = mysqli_real_escape_string($this->dblink, $email);
+		$telefon = mysqli_real_escape_string($this->dblink, $telephone);
+		$lozinka = sha1(mysqli_real_escape_string($this->dblink, $password1)); // SHA1 hes funkcija
+		$administrator = mysqli_real_escape_string($this->dblink, $admin);
 
-		$values = "('".$tip."','".$ime."','".$prezime."','".$telefon."','".$email."','".$lozinka."')";
+		$values = "('".$tip."','".$ime."','".$prezime."','".$telefon."','".$mail."','".$lozinka."','".$administrator."')";
 
 		// upit koji dodaje podatke o novom korisniku
-		$query = 'INSERT into clients (client_type, forename, surname, telephone, email, password_hash) VALUES '.$values;
+		$query = 'INSERT into clients (client_type, forename, surname, telephone, email, password_hash, admin) VALUES '.$values;
 
 		// ako je upit vratio true rezultat je true
 		if($this->dblink->query($query))
@@ -88,6 +89,19 @@ class Database {
 		}
 	}
 
+	function jeAdmin($mail){
+		$email = mysqli_real_escape_string($this->dblink, $mail);
+
+		$query = 'SELECT admin FROM clients WHERE email = "'.$email.'";';
+		$zapis = $this->dblink->query($query);
+		$rezultat = $zapis->fetch_assoc();
+		if($rezultat['admin'] == '1'){
+			$this->result = true;
+		} else {
+			$this->result = false;
+		}
+	}
+
 	function prikaziParking($floor){
 		$floor1 = mysqli_real_escape_string($this->dblink, $floor);
 		
@@ -99,11 +113,11 @@ class Database {
 		$registration = mysqli_real_escape_string($this->dblink, $registracija);
 		$email = mysqli_real_escape_string($this->dblink, $mail);
 
-		$query = 'SELECT client_id FROM clients WHERE email = "'.$email.'";';
+		$query = 'SELECT client_id FROM clients WHERE email LIKE "'.$email.'";';
 		$zapis = $this->dblink->query($query);
 		$client_id = $zapis->fetch_assoc();
 
-		$values = "('".$registration."',".(int)$client_id.")";
+		$values = "('".$registration."',".(int)$client_id['client_id'].")";
 
 		// upit koji dodaje podatke o novom korisniku
 		$query = 'INSERT into cars (registration, client_id) VALUES '.$values;
@@ -132,15 +146,15 @@ class Database {
 		} else {
 			$query = 'UPDATE places SET occupied = "1" WHERE floor = '.$floor.' AND sector LIKE "'.$sector.'" AND place LIKE "'.$place.'";';
 			if($this->dblink->query($query)){
-				$query = 'SELECT car_id FROM cars WHERE registration LIKE "'.$registracija.'";';
+				$query = 'SELECT car_id FROM cars WHERE registration LIKE "'.$registration.'";';
 				$zapis = $this->dblink->query($query);
-				$car_id = (int)$zapis->fetch_assoc();
+				$car_id = $zapis->fetch_assoc();
 
 				$query = 'SELECT place_id FROM places WHERE floor = '.$floor.' AND sector LIKE "'.$sector.'" AND place LIKE "'.$place.'";';
 				$zapis = $this->dblink->query($query);
-				$place_id = (int)$zapis->fetch_assoc();
+				$place_id = $zapis->fetch_assoc();
 
-				$values = "(".$car_id.",".$place_id.")";
+				$values = "(".$car_id['car_id'].",".$place_id['place_id'].")";
 				$query = 'INSERT into appointments (car_id, place_id) VALUES '.$values;
 				
 				if($this->dblink->query($query)){
