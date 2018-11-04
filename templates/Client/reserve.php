@@ -1,14 +1,17 @@
 <?php
 
  if (!empty($_GET)) {
-        extract($_GET);
+    $floorGET = $_GET['floor'];
+    $sectorGET = $_GET['sector'];
+    $placeGET = $_GET['place'];
  }
                 
-
-$uspesno = '';
-
 if (!empty($_POST)) {
-    extract($_POST);
+    $registration = $_POST['registration'];
+    $floor = $_POST['floor'];
+    $sector = $_POST['sector'];
+    $place = $_POST['place'];
+
     $poruke = array();
     
     if(!preg_match("/^[A-Z]{2}\-[0-9]{3,5}\-[A-Z]{2}$/", $registration)){
@@ -65,15 +68,15 @@ if (!empty($_POST)) {
 			</div>			
             <div class="form-group">
                 <label for="floor">Sprat:</label>
-                <input type="text" id="floor" name="floor" class="form-control" required placeholder="Primer: 2" value="<?php echo $floor ?? ''?>">
+                <input type="text" id="floor" name="floor" class="form-control" required placeholder="Primer: 2" value="<?php echo $floorGET ?? ''?>">
             </div>
             <div class="form-group">
                 <label for="sector">Sektor:</label>
-                <input type="text" id="sector" name="sector" class="form-control" required placeholder="Primer: C3" value="<?php echo $sector ?? ''?>">
+                <input type="text" id="sector" name="sector" class="form-control" required placeholder="Primer: C3" value="<?php echo $sectorGET ?? ''?>">
             </div>
             <div class="form-group">
                 <label for="place">Mesto:</label>
-                <input type="text" id="place" name="place" class="form-control" required placeholder="Primer: 7" value="<?php echo $place ?? ''?>">
+                <input type="text" id="place" name="place" class="form-control" required placeholder="Primer: 7" value="<?php echo $placeGET ?? ''?>">
             </div>
 			<div class="form-group">
                 <button type="submit" class="btn btn-primary">

@@ -1,13 +1,12 @@
 <?php 
- if (!empty($_GET)) {
-        extract($_GET);
- } 
+
 include("./kernel/database_wrapper.php");
 $db = new Database("parking");
 $db->Connect();
 $db->prikaziParking(0);
  
 ?>
+<h1> Nivo: 0</h1>
 <div class="container " style="width:1300px; margin-top: 25px;border-style: dotted;">
     
     <?php while($row = $db->getResult()->fetch_assoc()) {
@@ -19,10 +18,10 @@ $db->prikaziParking(0);
                     <div class="col" style=<?php echo "background-color:".$color?> ><a href="index.php?stranica=reserve<?php echo "&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];?>"><?php echo $row["floor"]."-".$row["sector"]."-".$row["place"];?></a></div>
                 <?php break;
 
-                case '3':
+                case '4':
                     if($row['sector'] == 'A1'){ ?> 
                     <div class="row">
-                        <div class="col">ULAZ</div><div class="col">GORE</div>
+                        <div class="col">ULAZ</div><div class="col">ODOZGO</div><div class="col">GORE</div>
         <?php   } ?>
                 <div class="col" style=<?php echo "background-color:".$color?> ><a href="index.php?stranica=reserve<?php echo "&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];?>"><?php echo $row["floor"]."-".$row["sector"]."-".$row["place"];?></a></div>  
         <?php   break;
