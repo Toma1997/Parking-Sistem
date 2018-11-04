@@ -1,12 +1,17 @@
 <?php
 
+ if (!empty($_GET)) {
+        extract($_GET);
+ }
+                
+
 $uspesno = '';
 
 if (!empty($_POST)) {
     extract($_POST);
     $poruke = array();
     
-    if(!preg_match("/^[A-Z]{2}\-[0-9]{4}\-[A-Z]{3}$/", $registration)){
+    if(!preg_match("/^[A-Z]{2}\-[0-9]{3,5}\-[A-Z]{2}$/", $registration)){
         $poruke[] = "<h5>Registracija nije validna !</h5>";
     }
 
@@ -56,19 +61,19 @@ if (!empty($_POST)) {
         <form method="post">
 			<div class="form-group">
 				<label for="registration">Registracija:</label>
-				<input type="text" id="registration" name="registration" class="form-control" required placeholder="Primer: BG-3456-ZYX">
+				<input type="text" id="registration" name="registration" class="form-control" required placeholder="Primer: BG-345-ZY">
 			</div>			
             <div class="form-group">
                 <label for="floor">Sprat:</label>
-                <input type="text" id="floor" name="floor" class="form-control" required placeholder="Primer: 2">
+                <input type="text" id="floor" name="floor" class="form-control" required placeholder="Primer: 2" value="<?php echo $floor ?? ''?>">
             </div>
             <div class="form-group">
                 <label for="sector">Sektor:</label>
-                <input type="text" id="sector" name="sector" class="form-control" required placeholder="Primer: C3">
+                <input type="text" id="sector" name="sector" class="form-control" required placeholder="Primer: C3" value="<?php echo $sector ?? ''?>">
             </div>
             <div class="form-group">
                 <label for="place">Mesto:</label>
-                <input type="text" id="place" name="place" class="form-control" required placeholder="Primer: 7">
+                <input type="text" id="place" name="place" class="form-control" required placeholder="Primer: 7" value="<?php echo $place ?? ''?>">
             </div>
 			<div class="form-group">
                 <button type="submit" class="btn btn-primary">

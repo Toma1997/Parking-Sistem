@@ -11,9 +11,9 @@
           <ul class="navbar-nav ml-auto">
 			<li class="nav-item"><a class="nav-link" href="index.php?stranica=">Naslovna</a>
 			<li class="nav-item"><a class="nav-link" href="index.php?stranica=parking">Parking</a>
-			<li class="nav-item"><a class="nav-link" href="index.php?stranica=price">Cenovnik</a>
           <?php if (isset($_SESSION['CLIENT'])): ?>
-			<li class="nav-item"><a class="nav-link" href="index.php?stranica=reserve">Rezervišite mesto</a>
+		  <li class="nav-item"><a class="nav-link" href="index.php?stranica=price">Cenovnik</a>
+				<!--<li class="nav-item"><a class="nav-link" href="index.php?stranica=reserve">Rezervišite mesto</a>-->
             <?php endif; ?>
 			<li class="nav-item"><a class="nav-link" href="index.php?stranica=contact">Kontakt</a>
           </ul>
