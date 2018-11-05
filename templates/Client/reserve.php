@@ -1,10 +1,4 @@
 <?php
-
- if (!empty($_GET)) {
-    $floorGET = $_GET['floor'];
-    $sectorGET = $_GET['sector'];
-    $placeGET = $_GET['place'];
- }
                 
 if (!empty($_POST)) {
     $registration = $_POST['registration'];
@@ -68,15 +62,15 @@ if (!empty($_POST)) {
 			</div>			
             <div class="form-group">
                 <label for="floor">Sprat:</label>
-                <input type="text" id="floor" name="floor" class="form-control" required placeholder="Primer: 2" value="<?php echo $floorGET ?? ''?>">
+                <input type="text" id="floor" name="floor" class="form-control" required placeholder="Primer: 2" value="<?php echo $_GET['floor'] ?? ''?>">
             </div>
             <div class="form-group">
                 <label for="sector">Sektor:</label>
-                <input type="text" id="sector" name="sector" class="form-control" required placeholder="Primer: C3" value="<?php echo $sectorGET ?? ''?>">
+                <input type="text" id="sector" name="sector" class="form-control" required placeholder="Primer: C3" value="<?php echo $_GET['sector'] ?? ''?>">
             </div>
             <div class="form-group">
                 <label for="place">Mesto:</label>
-                <input type="text" id="place" name="place" class="form-control" required placeholder="Primer: 7" value="<?php echo $placeGET ?? ''?>">
+                <input type="text" id="place" name="place" class="form-control" required placeholder="Primer: 7" value="<?php echo $_GET['place'] ?? ''?>">
             </div>
 			<div class="form-group">
                 <button type="submit" class="btn btn-primary">

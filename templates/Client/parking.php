@@ -1,12 +1,20 @@
 <?php 
 
+$nivo = (int)$_GET['nivo'];
+
+if($nivo < 0){
+    $nivo = 0;
+}
+if($nivo > 3){
+    $nivo = 3;
+}
 include("./kernel/database_wrapper.php");
 $db = new Database("parking");
 $db->Connect();
-$db->prikaziParking(0);
+$db->prikaziParking($nivo);
  
 ?>
-<h1> Nivo: 0</h1>
+<h1> Nivo: <?php echo $nivo;?></h1>
 <style>
 .col {
 	 border: 0.5px solid black;
@@ -16,7 +24,6 @@ $db->prikaziParking(0);
 </style>
 <div class="container" style="width:1300px; margin-top: 25px;border-style: solid;">
     
-	<?php if (isset($_SESSION['ADMIN'])):?>
 	<?php while($row = $db->getResult()->fetch_assoc()) {
 
             $color= ($row["occupied"] == '1') ? '#ff4d4d' : '#80ff00';
@@ -24,60 +31,131 @@ $db->prikaziParking(0);
             switch($row['place']){
                 case '1': ?>
                 <div class="row">
-                    <div class="col " style=<?php echo "background-color:".$color?> <?php echo $info; ?> ><?php echo $row["sector"]."-".$row["place"];?></div>  
+
+                    <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
+                    <?php if (isset($_SESSION['CLIENT'])){?>
+                        <a href="index.php?stranica=reserve<?php echo "&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];?>">
+                        <?php } echo $row["sector"]."-".$row["place"]; 
+                        if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div>
+
                 <?php break;
 
+                case '3':
+                                    
+                if($row['sector'] == 'D1'){ ?> 
+                <div class="row">
+                    <div class="col">ODOZDO</div><div class="col">DOLE</div>
+                <?php   }  ?>
+
+                <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
+                    <?php if (isset($_SESSION['CLIENT'])){?>
+                        <a href="index.php?stranica=reserve<?php echo "&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];?>">
+                        <?php } echo $row["sector"]."-".$row["place"]; 
+                        if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div> 
+
+                <?php   break;
+
                 case '5':
+                    
                     if($row['sector'] == 'A1'){ ?> 
                     <div class="row">
                         <div class="col">ULAZ</div><div class="col">IZLAZ</div><div class="col">ODOZGO</div><div class="col">GORE</div>
-        <?php   } ?>
-                <div class="col" style=<?php echo "background-color:".$color?> <?php echo $info; ?>><?php echo $row["sector"]."-".$row["place"];?></div>  
+            <?php   } 
+
+                    if($row['sector'] == 'B1' || $row['sector'] == 'C1'){ ?> 
+                    <div class="row">
+                        <div class="col">ODOZDO</div><div class="col">DOLE</div><div class="col">ODOZGO</div><div class="col">GORE</div>
+            <?php   } ?>
+
+                    <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
+                        <?php if (isset($_SESSION['CLIENT'])){?>
+                            <a href="index.php?stranica=reserve<?php echo "&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];?>">
+                            <?php } echo $row["sector"]."-".$row["place"]; 
+                            if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div> 
+
         <?php   break;
 
-                case '12': ?>
-            <?php   if($row["sector"] == 'A5' || $row["sector"] == 'A8' || $row["sector"] == 'A11'){ //prolaz za vozila horizontalno ?>
+                case '12':
+
+                   if($row["sector"] == 'A5' || $row["sector"] == 'A8' || $row["sector"] == 'A11' || 
+                   $row["sector"] == 'B5' || $row["sector"] == 'B8' || $row["sector"] == 'B11' || 
+                   $row["sector"] == 'C5' || $row["sector"] == 'C8' || $row["sector"] == 'C11' ||
+                   $row["sector"] == 'D5' || $row["sector"] == 'D8' || $row["sector"] == 'D11'){ //prolaz za vozila horizontalno ?>
                         <div class="col-0.5">&nbsp;&nbsp;&nbsp;&nbsp;</div>
                         <div class="col-10">&nbsp;</div>    
-            <?php   } else if($row["sector"] == 'A2'){ ?>
+            <?php   } else if($row["sector"] == 'A2' || $row["sector"] == 'B2' || $row["sector"] == 'C2' || $row["sector"] == 'D2'){ ?>
                     <div class="row">
                         <div class="col-11">&nbsp;</div>
                         <div class="col-0.5">&nbsp;</div>   
             <?php   } else { ?>
                         <div class="col-0.5">&nbsp;&nbsp;&nbsp;&nbsp;</div>  
             <?php   } ?>
-                    <div class="col" style=<?php echo "background-color:".$color?> <?php echo $info; ?>><?php echo $row["sector"]."-".$row["place"];?></div>  
+
+                <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
+                <?php if (isset($_SESSION['CLIENT'])) {?>
+                    <a href="index.php?stranica=reserve<?php echo "&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];?>">
+                    <?php } echo $row["sector"]."-".$row["place"]; 
+                    if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div> 
+
                 </div> 
         <?php   break;
 
                 case '2':
-                    if($row['sector'] != 'A12'){ ?> 
+
+                    if($row['sector'] != 'A12' && $row['sector'] != 'B12' && $row['sector'] != 'C12' && $row['sector'] != 'D12'){ ?> 
                         <div class="col-0.5">&nbsp;&nbsp;&nbsp;&nbsp;</div>
             <?php   } else { ?>
                     <div class="row">
                         <div class="col">x</div>
              <?php  } ?>
-                    <div class="col" style=<?php echo "background-color:".$color?> <?php echo $info; ?>><?php echo $row["sector"]."-".$row["place"];?></div>  
+
+             <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
+            <?php if (isset($_SESSION['CLIENT'])){?>
+                <a href="index.php?stranica=reserve<?php echo "&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];?>">
+                <?php } echo $row["sector"]."-".$row["place"]; 
+                if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div>  
 
             <?php   break;
 
                 case '7':
-                    if($row['sector'] != 'A12' && $row['sector'] != 'A1'){ ?> 
+
+                    if($row['sector'] != 'A12' && $row['sector'] != 'A1' && $row['sector'] != 'B12' && $row['sector'] != 'B1' && 
+                        $row['sector'] != 'C12' && $row['sector'] != 'C1' && $row['sector'] != 'D12' && $row['sector'] != 'D1'){ ?> 
                         <div class="col-0.5">&nbsp;&nbsp;&nbsp;&nbsp;</div>
             <?php   } ?>
-                    <div class="col" style=<?php echo "background-color:".$color?> <?php echo $info; ?>><?php echo $row["sector"]."-".$row["place"];?></div>  
+
+            <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
+            <?php if (isset($_SESSION['CLIENT'])){?>
+                <a href="index.php?stranica=reserve<?php echo "&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];?>">
+                <?php } echo $row["sector"]."-".$row["place"]; 
+                if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div>
+
             <?php break;
 
                 case '11': ?>
-                    <div class="col" style=<?php echo "background-color:".$color?> <?php echo $info; ?>><?php echo $row["sector"]."-".$row["place"];?></div>  
-                   <?php if($row['sector'] == 'A12' || $row['sector'] == 'A1'){ ?> 
+
+                    <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
+                    <?php if (isset($_SESSION['CLIENT'])){?>
+                        <a href="index.php?stranica=reserve<?php echo "&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];?>">
+                        <?php } echo $row["sector"]."-".$row["place"]; 
+                        if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div>
+
+                   <?php if($row['sector'] == 'A12' || $row['sector'] == 'A1' || $row['sector'] == 'B12' || $row['sector'] == 'B1' ||
+                            $row['sector'] == 'C12' || $row['sector'] == 'C1' || $row['sector'] == 'D12' || $row['sector'] == 'D1'){ ?> 
                         <div class="col">x</div>
                     </div>
             <?php   } ?>
                   
         <?php break;
+
                 default: ?>
-                    <div class="col" style=<?php echo "background-color:".$color?> <?php echo $info; ?>><?php echo $row["sector"]."-".$row["place"];?></div>  
+
+                    <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
+                    <?php if (isset($_SESSION['CLIENT'])) {?>
+                        <a href="index.php?stranica=reserve<?php echo "&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];?>">
+                        <?php } echo $row["sector"]."-".$row["place"]; 
+                        if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div>  
+
                 <?php break;
             }
             
@@ -116,73 +194,14 @@ $db->prikaziParking(0);
     </div>
   </div>
 </div>
-	
-	
-	<?php else:?>
-	<?php while($row = $db->getResult()->fetch_assoc()) {
-
-            $color= ($row["occupied"] == '1') ? '#ff4d4d' : '#80ff00';
-            switch($row['place']){
-                case '1': ?>
-                <div class="row">
-                    <div class="col" style=<?php echo "background-color:".$color?> ><a href="index.php?stranica=reserve<?php echo "&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];?>"><?php echo $row["sector"]."-".$row["place"];?></a></div>
-                <?php break;
-
-                case '5':
-                    if($row['sector'] == 'A1'){ ?> 
-                    <div class="row">
-                        <div class="col">ULAZ</div><div class="col">IZLAZ</div><div class="col">ODOZGO</div><div class="col">GORE</div>
-        <?php   } ?>
-                <div class="col" style=<?php echo "background-color:".$color?> ><a href="index.php?stranica=reserve<?php echo "&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];?>"><?php echo $row["sector"]."-".$row["place"];?></a></div>  
-        <?php   break;
-
-                case '12': ?>
-            <?php   if($row["sector"] == 'A5' || $row["sector"] == 'A8' || $row["sector"] == 'A11'){ //prolaz za vozila horizontalno ?>
-                        <div class="col-0.5">&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                        <div class="col-10">&nbsp;</div>    
-            <?php   } else if($row["sector"] == 'A2'){ ?>
-                    <div class="row">
-                        <div class="col-11">&nbsp;</div>
-                        <div class="col-0.5">&nbsp;</div>   
-            <?php   } else { ?>
-                        <div class="col-0.5">&nbsp;&nbsp;&nbsp;&nbsp;</div>  
-            <?php   } ?>
-                    <div class="col" style=<?php echo "background-color:".$color?> ><a href="index.php?stranica=reserve<?php echo "&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];?>"><?php echo $row["sector"]."-".$row["place"];?></a></div>
-                </div> 
-        <?php   break;
-
-                case '2':
-                    if($row['sector'] != 'A12'){ ?> 
-                        <div class="col-0.5">&nbsp;&nbsp;&nbsp;&nbsp;</div>
-            <?php   } else { ?>
-                    <div class="row">
-                        <div class="col">x</div>
-             <?php  } ?>
-                    <div class="col" style=<?php echo "background-color:".$color?> ><a href="index.php?stranica=reserve<?php echo "&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];?>"><?php echo $row["sector"]."-".$row["place"];?></a></div>  
-
-            <?php   break;
-
-                case '7':
-                    if($row['sector'] != 'A12' && $row['sector'] != 'A1'){ ?> 
-                        <div class="col-0.5">&nbsp;&nbsp;&nbsp;&nbsp;</div>
-            <?php   } ?>
-                    <div class="col" style=<?php echo "background-color:".$color?> ><a href="index.php?stranica=reserve<?php echo "&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];?>"><?php echo $row["sector"]."-".$row["place"];?></a></div>  
-            <?php break;
-
-                case '11': ?>
-                    <div class="col" style=<?php echo "background-color:".$color?> ><a href="index.php?stranica=reserve<?php echo "&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];?>"><?php echo $row["sector"]."-".$row["place"];?></a></div>
-                   <?php if($row['sector'] == 'A12' || $row['sector'] == 'A1'){ ?> 
-                        <div class="col">x</div>
-                    </div>
-            <?php   } ?>
-                  
-        <?php break;
-                default: ?>
-                    <div class="col" style=<?php echo "background-color:".$color?> ><a href="index.php?stranica=reserve<?php echo "&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];?>"><?php echo $row["sector"]."-".$row["place"];?></a></div>
-                <?php break;
-            }
-            
-        }
-    ?>
-	<?php endif;?>
+</div>
+<br>
+<div class="form-group">
+    <?php 
+    if($nivo > 0){ //$noviNivo = $nivo - 1;?>
+        <a class="btn btn-primary" href=<?php echo "index.php?stranica=parking&nivo=".($nivo-1);?>>Nivo <?php echo ($nivo-1);?> <</a>
+   <?php }
+    if($nivo < 3){ //$noviNivo = $nivo + 1;?>
+        <a class="btn btn-primary" href=<?php echo "index.php?stranica=parking&nivo=".($nivo+1);?>>Nivo <?php echo ($nivo+1);?> ></a>
+   <?php } ?>
 </div>

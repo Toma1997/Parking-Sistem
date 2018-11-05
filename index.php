@@ -40,10 +40,6 @@ switch ($stranica) {
 		include('templates/Client/parking.php');
 		break;
 	case 'reserve' :
-	/*
-	* NAPOMENA: u slucaj direktnog upisa http://localhost/Parking-Sistem/index.php?stranica=reserve javlja se greska 
-	* Notice: Undefined index: floor in C:\xampp\htdocs\Parking-Sistem\templates\client\reserve.php on line 4
-	*/
 		anonimac();
 		include('templates/Client/reserve.php');
 		break;
