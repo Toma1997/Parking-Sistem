@@ -28,9 +28,10 @@ if (!empty($_POST)) {
             $db->jeAdmin($email);
             if($db->getResult()){
                 $_SESSION['ADMIN'] = $email;
-            }
-            $db->__destruct();
-            $_SESSION['CLIENT'] = $email;
+            }else {
+				$db->__destruct();
+				$_SESSION['CLIENT'] = $email;
+			}
             header("Location: ./index.php?stranica=");
         } else {
             $greske =  "<h5> Neispravno logovanje !</h5>";

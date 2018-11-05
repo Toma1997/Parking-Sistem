@@ -19,7 +19,12 @@ switch ($stranica) {
 	case 'price':
 		include('templates/Client/price.php');
 		break;
+	case 'messages':
+		admin();
+		include('templates/Client/messages.php');
+		break;
 	case 'addAdmin':
+		admin();
 		include('templates/Client/dodajAdmina.php');
 		break;
 	case 'register' :
@@ -35,6 +40,10 @@ switch ($stranica) {
 		include('templates/Client/parking.php');
 		break;
 	case 'reserve' :
+	/*
+	* NAPOMENA: u slucaj direktnog upisa http://localhost/Parking-Sistem/index.php?stranica=reserve javlja se greska 
+	* Notice: Undefined index: floor in C:\xampp\htdocs\Parking-Sistem\templates\client\reserve.php on line 4
+	*/
 		anonimac();
 		include('templates/Client/reserve.php');
 		break;
@@ -45,17 +54,22 @@ switch ($stranica) {
 require_once 'templates/main/footer.php';
 
 function anonimac() {
-	if (!isset($_SESSION['CLIENT'])) {
+	if (!isset($_SESSION['CLIENT']) && !isset($_SESSION['ADMIN'])) {
 		header("Location: ./index.php?stranica=register");
 		exit;
 	}
 }
 function korisnik() {
-	if (isset($_SESSION['CLIENT'])) {
+	if (isset($_SESSION['CLIENT']) || isset($_SESSION['ADMIN'])) {
 		header("Location: ./index.php?stranica=");
 		exit;
 	}	
 }
-	
+function admin() {
+	if (!isset($_SESSION['ADMIN'])) {
+		header("Location: ./index.php?stranica=");
+		exit;
+	}	
+}	
 
 ?>

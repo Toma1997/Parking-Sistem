@@ -34,9 +34,9 @@
 		<div class="float-right mt-4">	
 		<iframe width="550" height="450" class="embed-responsive-item" src="https://maps.google.com/maps?q=Parking%20Gara%C5%BEa%2C%20%D0%9C%D0%B0%D1%81%D0%B0%D1%80%D0%B8%D0%BA%D0%BE%D0%B2%D0%B0%2C%20%D0%91%D0%B5%D0%BE%D0%B3%D1%80%D0%B0%D0%B4&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
 			<div class="font-weight-light mt-4">
-				<p>+381 11 3035 401, +381 11 3035 402</p>
-				<p>parking@gmail.com | parkingsistem.rs</p>
-				<p>Beograd, Srbija</p>	
+				<address><p>+381 11 3035 401, +381 11 3035 402</p>
+				<p> <a href="mailto:parking@gmail.com ">parking@gmail.com </a>| parkingsistem.rs</p>
+				<p>Beograd, Srbija</p></address>
 			</div>
 		</div>
 

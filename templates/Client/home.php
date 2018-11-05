@@ -24,9 +24,17 @@
     </div>
 	</div>
 </div>
+<div class="container mt-3 .text-left ">
+	<h1>Garaže i parkirališta</h1>
+	<p>Parking Sistem upravlja sa jednom od najvećih javnih garaža. Korisnicima je na raspolaganju oko 400 parking mesta.</p>
+	<h3>Parkiranje u garažama</h3>
+	<p><li>Plaća se po započetom satu, dnevno (jednokratno dnevno parkiranje)</li>
+	<li>Mesečne pretplate, a u zavisnosti od toga za koji vid usluge se korisnik (fizičko ili pravno lice) odluči.</li></p>
+	<h3>Parkiranje na parkiralištima</h3>
+	<p>Plaća se po započetom satu, dnevno (jednokratno dnevno parkiranje), ali postoji i više opcija mesečne pretplate.</p>
+</div>
 	
 <div class="card text-center">
-
   <div class="card-body">
     <h4 class="card-title">Pogodnosti parking sistema</h4>
     <div class="row">
