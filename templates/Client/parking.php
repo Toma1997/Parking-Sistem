@@ -18,10 +18,10 @@ $db->prikaziParking(0);
                     <div class="col" style=<?php echo "background-color:".$color?> ><a href="index.php?stranica=reserve<?php echo "&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];?>"><?php echo $row["floor"]."-".$row["sector"]."-".$row["place"];?></a></div>
                 <?php break;
 
-                case '4':
+                case '5':
                     if($row['sector'] == 'A1'){ ?> 
                     <div class="row">
-                        <div class="col">ULAZ</div><div class="col">ODOZGO</div><div class="col">GORE</div>
+                        <div class="col">ULAZ</div><div class="col">IZLAZ</div><div class="col">ODOZGO</div><div class="col">GORE</div>
         <?php   } ?>
                 <div class="col" style=<?php echo "background-color:".$color?> ><a href="index.php?stranica=reserve<?php echo "&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];?>"><?php echo $row["floor"]."-".$row["sector"]."-".$row["place"];?></a></div>  
         <?php   break;

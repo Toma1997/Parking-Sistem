@@ -17,7 +17,6 @@ if (!empty($_POST)) {
 
     if(count($greske)){
         $greske = implode("", $greske);
-        echo $greske;
     } else{
 
         include("./kernel/database_wrapper.php");
@@ -34,7 +33,7 @@ if (!empty($_POST)) {
             $_SESSION['CLIENT'] = $email;
             header("Location: ./index.php?stranica=");
         } else {
-            echo "<h5> Neispravno logovanje !</h5>";
+            $greske =  "<h5> Neispravno logovanje !</h5>";
         }
     }
 
