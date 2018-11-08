@@ -5,6 +5,7 @@ if (!empty($_POST)) {
     $floor = $_POST['floor'];
     $sector = $_POST['sector'];
     $place = $_POST['place'];
+    $datetime = $_POST['datetime'];
 
     $poruke = array();
     
@@ -59,7 +60,7 @@ if (!empty($_POST)) {
 			<div class="form-group">
 				<label for="registration">Registracija:</label>
 				<input type="text" id="registration" name="registration" class="form-control" required placeholder="Primer: BG-345-ZY">
-			</div>			
+			</div>		
             <div class="form-group">
                 <label for="floor">Sprat:</label>
                 <input type="text" id="floor" name="floor" class="form-control" required placeholder="Primer: 2" value="<?php echo $_GET['floor'] ?? ''?>">
@@ -71,6 +72,10 @@ if (!empty($_POST)) {
             <div class="form-group">
                 <label for="place">Mesto:</label>
                 <input type="text" id="place" name="place" class="form-control" required placeholder="Primer: 7" value="<?php echo $_GET['place'] ?? ''?>">
+            </div>
+            <div class="form-group">
+                <label for="floor">Datum i vreme pocetka boravka:</label>
+                <input type="datetime-local" id="datetime" name="datetime">
             </div>
 			<div class="form-group">
                 <button type="submit" class="btn btn-primary">

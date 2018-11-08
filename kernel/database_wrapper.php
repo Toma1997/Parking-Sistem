@@ -113,23 +113,33 @@ class Database {
 		$registration = mysqli_real_escape_string($this->dblink, $registracija);
 		$email = mysqli_real_escape_string($this->dblink, $mail);
 
-		$query = 'SELECT client_id FROM clients WHERE email LIKE "'.$email.'";';
-		$zapis = $this->dblink->query($query);
-		$client_id = $zapis->fetch_assoc();
+		// provera da li je u bazi postoji ista registracija, jer ne smeju biti 2 iste registracije u bazi
+		$query = 'SELECT registration FROM cars WHERE registration LIKE"'.$registration.'";';
+		$rezultat = $this->dblink->query($query);
+		if($rezultat->num_rows < 1){
+			$query = 'SELECT client_id FROM clients WHERE email LIKE "'.$email.'";';
+			$zapis = $this->dblink->query($query);
+			$client_id = $zapis->fetch_assoc();
 
-		$values = "('".$registration."',".(int)$client_id['client_id'].")";
+			$values = "('".$registration."',".(int)$client_id['client_id'].")";
 
-		// upit koji dodaje podatke o novom korisniku
-		$query = 'INSERT into cars (registration, client_id) VALUES '.$values;
+			// upit koji dodaje podatke o novom korisniku
+			$query = 'INSERT into cars (registration, client_id) VALUES '.$values;
 
-		if($this->dblink->query($query))
-		{
+			if($this->dblink->query($query))
+			{
+				$this ->result = true;
+			}
+			else // u suprotnom ako se upit nije lepo izvrsio vrati false
+			{
+				$this->result = false;
+			}
+
+		} else {
 			$this ->result = true;
 		}
-		else // u suprotnom ako se upit nije lepo izvrsio vrati false
-		{
-			$this->result = false;
-		}
+
+		
 	}
 
 	function rezervisiMesto($registracija, $sprat, $sektor, $mesto){
@@ -162,6 +172,15 @@ class Database {
 				}
 			}
 		}
+	}
+
+	function prikaziSlobodnaMesta($kriterijum){
+		$criteria = mysqli_real_escape_string($this->dblink, $kriterijum);
+
+		$query = ($criteria == "sve") ? "SELECT COUNT(place_id) as 'Slobodna mesta' FROM places WHERE occupied = '0';" : 
+		"SELECT floor as 'Nivo', COUNT(place_id) as 'Slobodna mesta' FROM places WHERE occupied = '0' GROUP BY floor ORDER BY floor ASC;";
+		$this->result = $this->dblink->query($query);
+
 	}
 
 // funkcija koja izvrsava upit

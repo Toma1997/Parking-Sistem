@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50719
 File Encoding         : 65001
 
-Date: 2018-11-05 04:34:05
+Date: 2018-11-08 03:12:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -23,7 +23,7 @@ CREATE TABLE `appointments` (
   `appointment_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `car_id` bigint(20) NOT NULL,
   `place_id` smallint(4) NOT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NULL DEFAULT NULL,
   `finished_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`appointment_id`),
   KEY `FK_car` (`car_id`),
