@@ -2,28 +2,29 @@
 <div class="card bg-dark text-white">
 	<img src="images/parking-car.jpg" class="img-fluid card-image" style="filter: blur(1px) grayscale(60%);" alt="Parking sistem auto">
 	<div class="card-img-overlay container">
-		<?php
+		<div style="margin-left:-380px; width: 1300px;" class="row text-primary">
+			<?php
 
-		include("./kernel/database_wrapper.php");
-		$db = new Database("parking");
-		$db->Connect();
-		$db->prikaziSlobodnaMesta("nivoi");
+			include("./kernel/database_wrapper.php");
+			$db = new Database("parking");
+			$db->Connect();
+			$db->prikaziSlobodnaMesta("nivoi");
 
-		while($row = $db->getResult()->fetch_assoc()) {
-		?>
-		<div class="row text-primary">
-			<div class="col-sm-4">
+			while($row = $db->getResult()->fetch_assoc()) {
+			?>
+			
+			<div class="col-sm-3">
 				<div class="card">		
-					<div class="card-header bg-white"><h2>Nivo: <?php echo $row['Nivo']; ?></h2></div>
-						<div class="card-body">
-							<h4 class="card-title">Broj slobodnih mesta: <?php echo $row['Slobodna mesta']; ?></h5>
-							<a href=<?php echo "index.php?stranica=parking&nivo=".$row['Nivo']; ?> class="card-title">Detaljniji prikaz</a>
-						</div>
+					<div class="card-header bg-white"><h3>Nivo: <?php echo $row['Nivo']; ?></h3></div>
+					<div class="card-body">
+						<h5 class="card-title">Broj slobodnih mesta: <?php echo $row['Slobodna mesta']; ?></h5>
+						<a href=<?php echo "index.php?stranica=parking&nivo=".$row['Nivo']; ?> class="card-title">Detaljniji prikaz</a>
 					</div>
 				</div>
 			</div>
+			
 		<?php } ?>
-		
+		</div>
 	</div>
 </div>
 <div class="container mt-3 .text-left ">
