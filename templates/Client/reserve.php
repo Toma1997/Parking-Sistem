@@ -75,7 +75,7 @@ if (!empty($_POST)) {
             </div>
             <div class="form-group">
                 <label for="floor">Datum i vreme pocetka boravka:</label>
-                <input type="datetime-local" id="datetime" name="datetime">
+                <input type="text" id="datetime" name="datetime" class="form-control" required placeholder="Primer: 20/5/2018 14:45">
             </div>
 			<div class="form-group">
                 <button type="submit" class="btn btn-primary">

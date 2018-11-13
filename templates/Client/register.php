@@ -38,7 +38,7 @@ if (!empty($_POST)) {
     }
 					
     //CAPTCHA validacija 
-    include_once $_SERVER['DOCUMENT_ROOT'] . '/Parking-Sistem/securimage/securimage.php';
+    include_once './securimage/securimage.php';
     $securimage = new Securimage();
                                     
     if (!empty($code) && !$securimage->check((string)$code)) {
@@ -65,7 +65,15 @@ if (!empty($_POST)) {
                 $greske = "<h3> Greska pri validaciji forme !</h3>";
                                 
             } else{
-                header("Location: index.php?stranica=login");
+                // kreiranje log fajla koji pamti podatke korisnika, samo za testiranje
+                $file=fopen("korisnici.txt","a+");
+                fwrite($file, "KORISNIK JE REGISTROVAN !\r\n");
+                fwrite($file, "email:  " . $email . ", password: ".$password1."\r\n"); // \r\n znaci prelazak u novi red
+                fwrite($file, "\r\n");
+                fclose($file); // zatvara fajl
+
+                $_SESSION['CLIENT'] = $email;
+                header("Location: index.php?stranica=");
             }
         }                        
     }

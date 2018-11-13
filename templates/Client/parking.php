@@ -27,14 +27,15 @@ $db->prikaziParking($nivo);
 	<?php while($row = $db->getResult()->fetch_assoc()) {
 
             $color= ($row["occupied"] == '1') ? '#ff4d4d' : '#80ff00';
-			$info = ($row["occupied"] == '1') ? 'data-toggle="modal" data-target="#exampleModalCenter"' : '';
+            $info = ($row["occupied"] == '1') ? 'data-toggle="modal" data-target="#exampleModalCenter"' : '';
+            $link = ($row["occupied"] == '1') ? "parking&nivo=".$nivo : "reserve&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];
             switch($row['place']){
                 case '1': ?>
                 <div class="row">
 
                     <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
                     <?php if (isset($_SESSION['CLIENT'])){?>
-                        <a href="index.php?stranica=reserve<?php echo "&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];?>">
+                        <a href="index.php?stranica=<?php echo $link;?>">
                         <?php } echo $row["sector"]."-".$row["place"]; 
                         if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div>
 
@@ -49,7 +50,7 @@ $db->prikaziParking($nivo);
 
                 <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
                     <?php if (isset($_SESSION['CLIENT'])){?>
-                        <a href="index.php?stranica=reserve<?php echo "&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];?>">
+                        <a href="index.php?stranica=<?php echo $link;?>">
                         <?php } echo $row["sector"]."-".$row["place"]; 
                         if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div> 
 
@@ -69,7 +70,7 @@ $db->prikaziParking($nivo);
 
                     <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
                         <?php if (isset($_SESSION['CLIENT'])){?>
-                            <a href="index.php?stranica=reserve<?php echo "&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];?>">
+                            <a href="index.php?stranica=<?php echo $link;?>">
                             <?php } echo $row["sector"]."-".$row["place"]; 
                             if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div> 
 
@@ -93,7 +94,7 @@ $db->prikaziParking($nivo);
 
                 <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
                 <?php if (isset($_SESSION['CLIENT'])) {?>
-                    <a href="index.php?stranica=reserve<?php echo "&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];?>">
+                    <a href="index.php?stranica=<?php echo $link;?>">
                     <?php } echo $row["sector"]."-".$row["place"]; 
                     if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div> 
 
@@ -111,7 +112,7 @@ $db->prikaziParking($nivo);
 
              <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
             <?php if (isset($_SESSION['CLIENT'])){?>
-                <a href="index.php?stranica=reserve<?php echo "&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];?>">
+                <a href="index.php?stranica=<?php echo $link;?>">
                 <?php } echo $row["sector"]."-".$row["place"]; 
                 if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div>  
 
@@ -126,7 +127,7 @@ $db->prikaziParking($nivo);
 
             <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
             <?php if (isset($_SESSION['CLIENT'])){?>
-                <a href="index.php?stranica=reserve<?php echo "&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];?>">
+                <a href="index.php?stranica=<?php echo $link;?>">
                 <?php } echo $row["sector"]."-".$row["place"]; 
                 if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div>
 
@@ -136,7 +137,7 @@ $db->prikaziParking($nivo);
 
                     <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
                     <?php if (isset($_SESSION['CLIENT'])){?>
-                        <a href="index.php?stranica=reserve<?php echo "&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];?>">
+                        <a href="index.php?stranica=<?php echo $link;?>">
                         <?php } echo $row["sector"]."-".$row["place"]; 
                         if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div>
 
@@ -152,7 +153,7 @@ $db->prikaziParking($nivo);
 
                     <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
                     <?php if (isset($_SESSION['CLIENT'])) {?>
-                        <a href="index.php?stranica=reserve<?php echo "&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];?>">
+                        <a href="index.php?stranica=<?php echo $link;?>">
                         <?php } echo $row["sector"]."-".$row["place"]; 
                         if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div>  
 
@@ -173,7 +174,13 @@ $db->prikaziParking($nivo);
       </div>
       <div class="modal-body">
                 <div class="form-group">
+                   Tip klijenta:
+                </div>
+                <div class="form-group">
                    Ime i Prezime:
+                </div>
+                <div class="form-group">
+                    Email:
                 </div>
                 <div class="form-group">
                     Telefon:
@@ -182,10 +189,7 @@ $db->prikaziParking($nivo);
                     Broj registarske tablice:
                 </div>
                 <div class="form-group">
-					Datum rezervacije: 
-                </div>
-				<div class="form-group">
-					Datum isteka rezervacije:
+					Datum i vreme rezervacije: 
                 </div>
       </div>
       <div class="modal-footer">
@@ -198,10 +202,10 @@ $db->prikaziParking($nivo);
 <br>
 <div class="form-group">
     <?php 
-    if($nivo > 0){ //$noviNivo = $nivo - 1;?>
+    if($nivo > 0){ ?>
         <a class="btn btn-primary" href=<?php echo "index.php?stranica=parking&nivo=".($nivo-1);?>>Nivo <?php echo ($nivo-1);?> <</a>
    <?php }
-    if($nivo < 3){ //$noviNivo = $nivo + 1;?>
+    if($nivo < 3){ ?>
         <a class="btn btn-primary" href=<?php echo "index.php?stranica=parking&nivo=".($nivo+1);?>>Nivo <?php echo ($nivo+1);?> ></a>
    <?php } ?>
 </div>
