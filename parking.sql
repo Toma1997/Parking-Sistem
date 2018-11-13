@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50719
 File Encoding         : 65001
 
-Date: 2018-11-08 03:12:16
+Date: 2018-11-13 02:47:22
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -69,17 +69,15 @@ CREATE TABLE `clients` (
   `password_hash` varchar(255) NOT NULL,
   `admin` set('1','0') NOT NULL DEFAULT '0',
   PRIMARY KEY (`client_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of clients
 -- ----------------------------
 INSERT INTO `clients` VALUES ('1', '', 'Toma', 'Joksimovic', '063-334-774', 'toma.joksimovic@gmail.com', '0906fabb6dba5f470b1d4b164c1ccb446dc34835', '1');
-INSERT INTO `clients` VALUES ('2', 'individual', 'Toma', 'Joksimovic', '065-444-4444', 'toma.joksimovic.16@singimail.rs', '96097cf9f0b217d3a40cccdf99bdcb66cc3d5527', '0');
-INSERT INTO `clients` VALUES ('3', 'business', 'Marko', 'Milic', '064-343-8787', 'marko.milic.16@singimail.rs', 'fa3857be654c221036046ba96db813e18fcae333', '0');
-INSERT INTO `clients` VALUES ('4', 'business', 'Aleksa', 'Stojkovic', '062-333-000', 'aleksa.stojkovic@gmail.rs', '235f87d4289596316676058867f865574e93cf24', '0');
-INSERT INTO `clients` VALUES ('5', 'individual', 'Ranko', 'Rankovic', '064-333-555', 'rankovic.12@gmail.com', '22ee156d9bddb8167619a5f7f09eabef461f0e40', '0');
-INSERT INTO `clients` VALUES ('6', '', 'Marko', 'Milic', '065-123-456', 'marko.milic@gmail.com', 'f4d042530647c37d17e5fb12cb820b1d70d2058c', '1');
+INSERT INTO `clients` VALUES ('2', '', 'Marko', 'Milic', '065-123-456', 'marko.milic@gmail.com', 'f4d042530647c37d17e5fb12cb820b1d70d2058c', '1');
+INSERT INTO `clients` VALUES ('3', 'individual', 'Darko', 'Darkovic', '065-444-4456', 'darkee23@gmail.com', '961296cda2b003c41402ac203d18102af98c707b', '0');
+INSERT INTO `clients` VALUES ('4', 'individual', 'Darko', 'Milic', '065-444-454', 'darkee68@gmail.com', '14ea6174964681cfbea5fe17eaea12d9f9336b52', '0');
 
 -- ----------------------------
 -- Table structure for places
