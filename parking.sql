@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50719
 File Encoding         : 65001
 
-Date: 2018-11-13 02:47:22
+Date: 2018-11-14 22:51:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -23,18 +23,19 @@ CREATE TABLE `appointments` (
   `appointment_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `car_id` bigint(20) NOT NULL,
   `place_id` smallint(4) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `finished_at` timestamp NULL DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `finished_at` datetime DEFAULT NULL,
   PRIMARY KEY (`appointment_id`),
   KEY `FK_car` (`car_id`),
   KEY `FK_place` (`place_id`),
   CONSTRAINT `FK_car` FOREIGN KEY (`car_id`) REFERENCES `cars` (`car_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_place` FOREIGN KEY (`place_id`) REFERENCES `places` (`place_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of appointments
 -- ----------------------------
+INSERT INTO `appointments` VALUES ('1', '2', '1', '2018-05-04 12:34:00', null);
 
 -- ----------------------------
 -- Table structure for cars
@@ -48,12 +49,13 @@ CREATE TABLE `cars` (
   KEY `FK_client` (`client_id`),
   KEY `car_id` (`car_id`),
   CONSTRAINT `FK_client` FOREIGN KEY (`client_id`) REFERENCES `clients` (`client_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cars
 -- ----------------------------
 INSERT INTO `cars` VALUES ('1', 'BG-4345-XY', '1');
+INSERT INTO `cars` VALUES ('2', 'NS-234-AF', '3');
 
 -- ----------------------------
 -- Table structure for clients
@@ -69,7 +71,7 @@ CREATE TABLE `clients` (
   `password_hash` varchar(255) NOT NULL,
   `admin` set('1','0') NOT NULL DEFAULT '0',
   PRIMARY KEY (`client_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of clients
@@ -95,7 +97,7 @@ CREATE TABLE `places` (
 -- ----------------------------
 -- Records of places
 -- ----------------------------
-INSERT INTO `places` VALUES ('1', 'A1', '5', '0', '0');
+INSERT INTO `places` VALUES ('1', 'A1', '5', '0', '1');
 INSERT INTO `places` VALUES ('2', 'A1', '6', '0', '0');
 INSERT INTO `places` VALUES ('3', 'A1', '7', '0', '0');
 INSERT INTO `places` VALUES ('4', 'A1', '8', '0', '0');

@@ -142,11 +142,12 @@ class Database {
 		
 	}
 
-	function rezervisiMesto($registracija, $sprat, $sektor, $mesto){
+	function rezervisiMesto($registracija, $sprat, $sektor, $mesto, $datumIvreme){
 		$registration = mysqli_real_escape_string($this->dblink, $registracija);
 		$floor = mysqli_real_escape_string($this->dblink, $sprat);
 		$sector = mysqli_real_escape_string($this->dblink, $sektor);
 		$place = mysqli_real_escape_string($this->dblink, $mesto);
+		$datetime = mysqli_real_escape_string($this->dblink, $datumIvreme);
 
 		$query = 'SELECT occupied FROM places WHERE floor = '.$floor.' AND sector LIKE "'.$sector.'" AND place LIKE "'.$place.'";';
 		$zapis = $this->dblink->query($query);
@@ -164,8 +165,10 @@ class Database {
 				$zapis = $this->dblink->query($query);
 				$place_id = $zapis->fetch_assoc();
 
-				$values = "(".$car_id['car_id'].",".$place_id['place_id'].")";
-				$query = 'INSERT into appointments (car_id, place_id) VALUES '.$values;
+				//$datetime = $datetime.":00"; // dodate sekunde
+
+				$values = "(".$car_id['car_id'].",".$place_id['place_id'].",'".$datetime.":00')";
+				$query = 'INSERT into appointments (car_id, place_id, created_at) VALUES '.$values;
 				
 				if($this->dblink->query($query)){
 					$this ->result = true;
