@@ -11,7 +11,9 @@ if($nivo > 3){
 include("./kernel/database_wrapper.php");
 $db = new Database("parking");
 $db->Connect();
-$db->prikaziParking($nivo);
+if($db->prikaziParking($nivo)){
+    $db-> __destruct();
+}
  
 ?>
 <h1> Nivo: <?php echo $nivo;?></h1>
@@ -26,16 +28,16 @@ $db->prikaziParking($nivo);
     
 	<?php while($row = $db->getResult()->fetch_assoc()) {
 
-            $color= ($row["occupied"] == '1') ? '#ff4d4d' : '#80ff00';
-            $info = ($row["occupied"] == '1') ? 'data-toggle="modal" data-target="#exampleModalCenter"' : '';
-            $link = ($row["occupied"] == '1') ? "parking&nivo=".$nivo : "reserve&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];
-            switch($row['place']){
+        $color= ($row["occupied"] == '1') ? '#ff4d4d' : '#80ff00';
+        $info = ($row["occupied"] == '1') ? 'data-toggle="modal" data-target="#exampleModalCenter?sector="'.$row["sector"].'"&place"'.$row["place"].'"': '';
+        $link = ($row["occupied"] == '1') ? "parking&nivo=".$nivo : "reserve&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];
+        switch($row['place']){
                 case '1': ?>
                 <div class="row">
 
                     <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
                     <?php if (isset($_SESSION['CLIENT'])){?>
-                        <a href="index.php?stranica=<?php echo $link;?>">
+                        <a href="index.php?stranica=<?php echo $link; ?>">
                         <?php } echo $row["sector"]."-".$row["place"]; 
                         if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div>
 
@@ -50,7 +52,7 @@ $db->prikaziParking($nivo);
 
                 <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
                     <?php if (isset($_SESSION['CLIENT'])){?>
-                        <a href="index.php?stranica=<?php echo $link;?>">
+                        <a href="index.php?stranica=<?php echo $link; ?>">
                         <?php } echo $row["sector"]."-".$row["place"]; 
                         if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div> 
 
@@ -70,7 +72,7 @@ $db->prikaziParking($nivo);
 
                     <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
                         <?php if (isset($_SESSION['CLIENT'])){?>
-                            <a href="index.php?stranica=<?php echo $link;?>">
+                            <a href="index.php?stranica=<?php echo $link; ?>">
                             <?php } echo $row["sector"]."-".$row["place"]; 
                             if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div> 
 
@@ -94,7 +96,7 @@ $db->prikaziParking($nivo);
 
                 <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
                 <?php if (isset($_SESSION['CLIENT'])) {?>
-                    <a href="index.php?stranica=<?php echo $link;?>">
+                    <a href="index.php?stranica=<?php echo $link; ?>">
                     <?php } echo $row["sector"]."-".$row["place"]; 
                     if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div> 
 
@@ -112,7 +114,7 @@ $db->prikaziParking($nivo);
 
              <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
             <?php if (isset($_SESSION['CLIENT'])){?>
-                <a href="index.php?stranica=<?php echo $link;?>">
+                <a href="index.php?stranica=<?php echo $link; ?>">
                 <?php } echo $row["sector"]."-".$row["place"]; 
                 if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div>  
 
@@ -127,7 +129,7 @@ $db->prikaziParking($nivo);
 
             <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
             <?php if (isset($_SESSION['CLIENT'])){?>
-                <a href="index.php?stranica=<?php echo $link;?>">
+                <a href="index.php?stranica=<?php echo $link; ?>">
                 <?php } echo $row["sector"]."-".$row["place"]; 
                 if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div>
 
@@ -137,7 +139,7 @@ $db->prikaziParking($nivo);
 
                     <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
                     <?php if (isset($_SESSION['CLIENT'])){?>
-                        <a href="index.php?stranica=<?php echo $link;?>">
+                        <a href="index.php?stranica=<?php echo $link; ?>">
                         <?php } echo $row["sector"]."-".$row["place"]; 
                         if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div>
 
@@ -153,16 +155,28 @@ $db->prikaziParking($nivo);
 
                     <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
                     <?php if (isset($_SESSION['CLIENT'])) {?>
-                        <a href="index.php?stranica=<?php echo $link;?>">
+                        <a href="index.php?stranica=<?php echo $link; ?>">
                         <?php } echo $row["sector"]."-".$row["place"]; 
                         if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div>  
 
                 <?php break;
-            }
-            
         }
+            
+    }
     ?>
 <!-- Modal -->
+<?php
+    $db->Connect();
+    $rezultat = "";
+    if(isset($_GET['sector']) && isset($_GET['place'])){
+        $sektor = $_GET['sector'];
+        $mesto = $_GET['place'];
+        if($db->korisnikInfo($nivo, $sektor, $mesto)){
+            $db-> __destruct();
+        }
+        $rezultat = $db->getResult()->fetch_assoc();
+    }
+?>
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -174,22 +188,22 @@ $db->prikaziParking($nivo);
       </div>
       <div class="modal-body">
                 <div class="form-group">
-                   Tip klijenta:
+                   Tip klijenta: <?php echo $rezultat['Tip']; ?>
                 </div>
                 <div class="form-group">
-                   Ime i Prezime:
+                   Ime i Prezime: <?php echo $rezultat['ImePrezime']; ?>
                 </div>
                 <div class="form-group">
-                    Email:
+                    Email: <?php echo $rezultat['email']; ?>
                 </div>
                 <div class="form-group">
-                    Telefon:
+                    Telefon: <?php echo $rezultat['telefon']; ?>
                 </div>
                 <div class="form-group">
-                    Broj registarske tablice:
+                    Broj registarske tablice: <?php echo $rezultat['registracija']; ?>
                 </div>
                 <div class="form-group">
-					Datum i vreme rezervacije: 
+					Datum i vreme dolaska: <?php echo $rezultat['DatumVreme']; ?>
                 </div>
       </div>
       <div class="modal-footer">

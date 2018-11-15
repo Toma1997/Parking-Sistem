@@ -186,6 +186,23 @@ class Database {
 
 	}
 
+	function korisnikInfo($sprat, $sektor, $mesto){
+		$floor = mysqli_real_escape_string($this->dblink, $sprat);
+		$sector = mysqli_real_escape_string($this->dblink, $sektor);
+		$place = mysqli_real_escape_string($this->dblink, $mesto);
+
+		$query = 'SELECT place_id FROM places WHERE floor = '.$floor.' AND sector LIKE "'.$sector.'" AND place LIKE "'.$place.'";';
+		$zapis = $this->dblink->query($query);
+		$place_id = $zapis->fetch_assoc();
+
+		$query = "SELECT clients.client_type AS 'Tip', CONCAT_WS(' ', clients.forename, clients.surname) AS 'ImePrezime', clients.email AS 'email',
+		 clients.telephone AS 'telefon', cars.registration AS 'registracija', appointments.created_at AS 'DatumVreme' FROM clients INNER JOIN cars
+		  ON clients.client_id = cars.client_id INNER JOIN appointments ON cars.car_id = appointments.car_id INNER JOIN places ON appointments.place_id = places.place_id 
+		  WHERE appointments.place_id=".$place_id['place_id'].";";
+
+		$this->result = $this->dblink->query($query);
+	}
+
 // funkcija koja izvrsava upit
 	function ExecuteQuery($query)
 	{
