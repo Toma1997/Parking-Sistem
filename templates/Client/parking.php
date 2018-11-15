@@ -5,15 +5,20 @@ $nivo = (int)$_GET['nivo'];
 if($nivo < 0){
     $nivo = 0;
 }
+
 if($nivo > 3){
     $nivo = 3;
 }
+
 include("./kernel/database_wrapper.php");
 $db = new Database("parking");
 $db->Connect();
 if($db->prikaziParking($nivo)){
     $db-> __destruct();
 }
+
+$sektorAdmin = "";
+$mestoAdmin = "";
  
 ?>
 <h1> Nivo: <?php echo $nivo;?></h1>
@@ -29,8 +34,14 @@ if($db->prikaziParking($nivo)){
 	<?php while($row = $db->getResult()->fetch_assoc()) {
 
         $color= ($row["occupied"] == '1') ? '#ff4d4d' : '#80ff00';
-        $info = ($row["occupied"] == '1') ? 'data-toggle="modal" data-target="#exampleModalCenter?sector="'.$row["sector"].'"&place"'.$row["place"].'"': '';
+        $info = ($row["occupied"] == '1') ? 'data-toggle="modal" data-target="#exampleModalCenter"': '';
         $link = ($row["occupied"] == '1') ? "parking&nivo=".$nivo : "reserve&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];
+
+        if ($row["occupied"] == '1' && isset($_SESSION['ADMIN'])){
+            $sektorAdmin = $row["sector"];
+            $mestoAdmin = $row["place"];
+        }
+
         switch($row['place']){
                 case '1': ?>
                 <div class="row">
@@ -70,7 +81,7 @@ if($db->prikaziParking($nivo)){
                         <div class="col">ODOZDO</div><div class="col">DOLE</div><div class="col">ODOZGO</div><div class="col">GORE</div>
             <?php   } ?>
 
-                    <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
+                    <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) { echo $info; }?>>
                         <?php if (isset($_SESSION['CLIENT'])){?>
                             <a href="index.php?stranica=<?php echo $link; ?>">
                             <?php } echo $row["sector"]."-".$row["place"]; 
@@ -166,15 +177,16 @@ if($db->prikaziParking($nivo)){
     ?>
 <!-- Modal -->
 <?php
-    $db->Connect();
     $rezultat = "";
-    if(isset($_GET['sector']) && isset($_GET['place'])){
-        $sektor = $_GET['sector'];
-        $mesto = $_GET['place'];
-        if($db->korisnikInfo($nivo, $sektor, $mesto)){
-            $db-> __destruct();
-        }
+    if(!empty($sektorAdmin) && !empty($mestoAdmin)){
+        $db->korisnikInfo($nivo, $sektorAdmin, $mestoAdmin);
         $rezultat = $db->getResult()->fetch_assoc();
+
+        if ($rezultat['Tip'] == "individual") {
+            $rezultat['Tip'] = "Fizicko lice";
+        } else if ($rezultat['Tip'] == "business") {
+            $rezultat['Tip'] = "Pravno lice";
+        }
     }
 ?>
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
