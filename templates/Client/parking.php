@@ -177,7 +177,7 @@ $mestoAdmin = "";
     ?>
 <!-- Modal -->
 <?php
-    $rezultat = "";
+
     if(!empty($sektorAdmin) && !empty($mestoAdmin)){
         $db->korisnikInfo($nivo, $sektorAdmin, $mestoAdmin);
         $rezultat = $db->getResult()->fetch_assoc();
