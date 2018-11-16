@@ -177,7 +177,6 @@ $mestoAdmin = "";
     ?>
 <!-- Modal -->
 <?php
-
     if(!empty($sektorAdmin) && !empty($mestoAdmin)){
         $db->korisnikInfo($nivo, $sektorAdmin, $mestoAdmin);
         $rezultat = $db->getResult()->fetch_assoc();
@@ -187,43 +186,49 @@ $mestoAdmin = "";
         } else if ($rezultat['Tip'] == "business") {
             $rezultat['Tip'] = "Pravno lice";
         }
-    }
+    
 ?>
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Informacije o korisniku</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-                <div class="form-group">
-                   Tip klijenta: <?php echo $rezultat['Tip']; ?>
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Informacije o korisniku</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="form-group">
-                   Ime i Prezime: <?php echo $rezultat['ImePrezime']; ?>
+
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        Tip klijenta: <?php echo $rezultat['Tip']; ?>
+                    </div>
+                    <div class="form-group">
+                        Ime i Prezime: <?php echo $rezultat['ImePrezime']; ?>
+                    </div>
+                    <div class="form-group">
+                        Email: <?php echo $rezultat['email']; ?>
+                    </div>
+                    <div class="form-group">
+                        Telefon: <?php echo $rezultat['telefon']; ?>
+                    </div>
+                    <div class="form-group">
+                        Broj registarske tablice: <?php echo $rezultat['registracija']; ?>
+                    </div>
+                    <div class="form-group">
+                        Datum i vreme dolaska: <?php echo $rezultat['DatumVreme']; ?>
+                    </div>
+                    
                 </div>
-                <div class="form-group">
-                    Email: <?php echo $rezultat['email']; ?>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
                 </div>
-                <div class="form-group">
-                    Telefon: <?php echo $rezultat['telefon']; ?>
-                </div>
-                <div class="form-group">
-                    Broj registarske tablice: <?php echo $rezultat['registracija']; ?>
-                </div>
-                <div class="form-group">
-					Datum i vreme dolaska: <?php echo $rezultat['DatumVreme']; ?>
-                </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
+<?php } ?>
 </div>
 <br>
 <div class="form-group">

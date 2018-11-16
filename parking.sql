@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50719
 File Encoding         : 65001
 
-Date: 2018-11-15 11:20:37
+Date: 2018-11-16 02:19:43
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,7 +30,7 @@ CREATE TABLE `appointments` (
   KEY `FK_place` (`place_id`),
   CONSTRAINT `FK_car` FOREIGN KEY (`car_id`) REFERENCES `cars` (`car_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_place` FOREIGN KEY (`place_id`) REFERENCES `places` (`place_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of appointments
@@ -38,6 +38,7 @@ CREATE TABLE `appointments` (
 INSERT INTO `appointments` VALUES ('1', '2', '1', '2018-05-04 12:34:00', null);
 INSERT INTO `appointments` VALUES ('2', '3', '14', '2018-11-20 12:34:00', null);
 INSERT INTO `appointments` VALUES ('3', '4', '56', '2018-11-22 15:00:00', null);
+INSERT INTO `appointments` VALUES ('4', '5', '81', '2018-11-25 18:30:00', null);
 
 -- ----------------------------
 -- Table structure for cars
@@ -51,7 +52,7 @@ CREATE TABLE `cars` (
   KEY `FK_client` (`client_id`),
   KEY `car_id` (`car_id`),
   CONSTRAINT `FK_client` FOREIGN KEY (`client_id`) REFERENCES `clients` (`client_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cars
@@ -60,6 +61,7 @@ INSERT INTO `cars` VALUES ('1', 'BG-4345-XY', '1');
 INSERT INTO `cars` VALUES ('2', 'NS-234-AF', '3');
 INSERT INTO `cars` VALUES ('3', 'BG-123-AB', '4');
 INSERT INTO `cars` VALUES ('4', 'BG-123-AD', '4');
+INSERT INTO `cars` VALUES ('5', 'BG-3345-EX', '5');
 
 -- ----------------------------
 -- Table structure for clients
@@ -75,7 +77,7 @@ CREATE TABLE `clients` (
   `password_hash` varchar(255) NOT NULL,
   `admin` set('1','0') NOT NULL DEFAULT '0',
   PRIMARY KEY (`client_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of clients
@@ -84,6 +86,7 @@ INSERT INTO `clients` VALUES ('1', '', 'Toma', 'Joksimovic', '063-334-774', 'tom
 INSERT INTO `clients` VALUES ('2', '', 'Marko', 'Milic', '065-123-456', 'marko.milic@gmail.com', 'f4d042530647c37d17e5fb12cb820b1d70d2058c', '1');
 INSERT INTO `clients` VALUES ('3', 'individual', 'Darko', 'Darkovic', '065-444-4456', 'darkee23@gmail.com', '961296cda2b003c41402ac203d18102af98c707b', '0');
 INSERT INTO `clients` VALUES ('4', 'individual', 'Darko', 'Milic', '065-444-454', 'darkee68@gmail.com', '14ea6174964681cfbea5fe17eaea12d9f9336b52', '0');
+INSERT INTO `clients` VALUES ('5', 'business', 'Nikola', 'Pekovic', '063-223-000', 'nikola.pekovic88@gmail.com', 'e38f74699e01e632134346e56b7b7a7f94169c88', '0');
 
 -- ----------------------------
 -- Table structure for places
@@ -181,7 +184,7 @@ INSERT INTO `places` VALUES ('77', 'A10', '5', '0', '0');
 INSERT INTO `places` VALUES ('78', 'A10', '6', '0', '0');
 INSERT INTO `places` VALUES ('79', 'A10', '7', '0', '0');
 INSERT INTO `places` VALUES ('80', 'A10', '8', '0', '0');
-INSERT INTO `places` VALUES ('81', 'A10', '9', '0', '0');
+INSERT INTO `places` VALUES ('81', 'A10', '9', '0', '1');
 INSERT INTO `places` VALUES ('82', 'A10', '10', '0', '0');
 INSERT INTO `places` VALUES ('83', 'A10', '11', '0', '0');
 INSERT INTO `places` VALUES ('84', 'A10', '12', '0', '0');
