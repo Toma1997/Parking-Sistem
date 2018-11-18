@@ -113,14 +113,14 @@ class Database {
 		$registration = mysqli_real_escape_string($this->dblink, $registracija);
 		$email = mysqli_real_escape_string($this->dblink, $mail);
 
-		// provera da li je u bazi postoji ista registracija, jer ne smeju biti 2 iste registracije u bazi
-		$query = 'SELECT registration FROM cars WHERE registration LIKE"'.$registration.'";';
-		$rezultat = $this->dblink->query($query);
-		if($rezultat->num_rows < 1){
-			$query = 'SELECT client_id FROM clients WHERE email LIKE "'.$email.'";';
-			$zapis = $this->dblink->query($query);
-			$client_id = $zapis->fetch_assoc();
+		$query = 'SELECT client_id FROM clients WHERE email LIKE "'.$email.'";';
+		$zapis = $this->dblink->query($query);
+		$client_id = $zapis->fetch_assoc();
 
+		// provera da li je u bazi postoji ista registracija, jer ne smeju biti 2 iste registracije u bazi
+		$query = 'SELECT registration FROM cars WHERE registration LIKE "'.$registration.'";';
+		$rezultat = $this->dblink->query($query);
+		if($rezultat->num_rows < 1){	
 			$values = "('".$registration."',".(int)$client_id['client_id'].")";
 
 			// upit koji dodaje podatke o novom korisniku
@@ -135,11 +135,17 @@ class Database {
 				$this->result = false;
 			}
 
-		} else {
-			$this ->result = true;
-		}
+		} else { // ako postoji takva registracija u bazi treba proveriti dalje da li je od tog korisnika ili drugog
 
-		
+			$query = 'SELECT registration FROM cars WHERE registration LIKE"'.$registration.'" AND client_id ='.(int)$client_id['client_id'].';';
+			$rezultat = $this->dblink->query($query);
+
+			if($rezultat->num_rows > 0){
+				$this ->result = true;
+			} else {
+				$this ->result = false;
+			}
+		}	
 	}
 
 	function rezervisiMesto($registracija, $sprat, $sektor, $mesto, $datumIvreme){
