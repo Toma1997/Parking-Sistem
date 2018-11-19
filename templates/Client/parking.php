@@ -17,6 +17,9 @@ if($db->prikaziParking($nivo)){
     $db-> __destruct();
 }
  
+$sektorAdmin = "";
+$mestoAdmin = "";
+
 ?>
 <h1> Nivo: <?php echo $nivo;?></h1>
 <style>
@@ -30,25 +33,15 @@ if($db->prikaziParking($nivo)){
     
 	<?php while($row = $db->getResult()->fetch_assoc()) {
 
-        $rezultat = "";
-        if ($row["occupied"] == '1' && isset($_SESSION['ADMIN'])){
-
-            $rezultat = $db->korisnikInfo($nivo, $row["sector"], $row["place"])->fetch_assoc();
-
-            if ($rezultat['Tip'] == "individual") {
-                $rezultat['Tip'] = "Fizicko lice";
-            } else if ($rezultat['Tip'] == "business") {
-                $rezultat['Tip'] = "Pravno lice";
-            }
-        }
-
         $color= ($row["occupied"] == '1') ? '#ff4d4d' : '#80ff00';
-        $info = ($row["occupied"] == '1') ? ' id="parkingModal" data-toggle="modal" data-target="#exampleModalCenter" data-client_type="'.$rezultat['Tip'].'" data-name="'.$rezultat['ImePrezime'].
-        '" data-email="'.$rezultat['email'].'" data-telephone="'.$rezultat['telefon'].'" data-registration="'.$rezultat['registracija'].'" data-datetime="'.$rezultat['DatumVreme'].'"' : '';
-
+        $info = ($row["occupied"] == '1') ? ' data-toggle="modal" data-target="#exampleModalCenter"' : '';
         $link = ($row["occupied"] == '1') ? "parking&nivo=".$nivo : "reserve&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];
 
-        
+        if ($row["occupied"] == '1' && isset($_SESSION['ADMIN'])){
+            $sektorAdmin= $row["sector"];
+            $mestoAdmin= $row["place"];
+            
+        }
 
         switch($row['place']){
                 case '1': ?>
@@ -184,6 +177,22 @@ if($db->prikaziParking($nivo)){
     }
     ?>
 <!-- Modal -->
+
+<?php
+
+$rezultat = "";
+if (!empty($sektorAdmin) && !empty($mestoAdmin)){
+
+    $db->korisnikInfo($nivo, $sektorAdmin, $mestoAdmin);
+    $rezultat = $db->getResult()->fetch_assoc();
+
+    if ($rezultat['Tip'] == "individual") {
+        $rezultat['Tip'] = "Fizicko lice";
+    } else if ($rezultat['Tip'] == "business") {
+        $rezultat['Tip'] = "Pravno lice";
+    }
+ 
+?>
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -198,22 +207,22 @@ if($db->prikaziParking($nivo)){
                 <div class="modal-body">
 
                     <div class="form-group">
-                        Tip klijenta: <span id="client_type"></span>
+                        Tip klijenta: <?php echo $rezultat['Tip']; ?>
                     </div>
                     <div class="form-group">
-                        Ime i Prezime: <span id="name"></span>
+                        Ime i Prezime: <?php echo $rezultat['ImePrezime']; ?>
                     </div>
                     <div class="form-group">
-                        Email: <span id="email"></span>
+                        Email: <?php echo $rezultat['email']; ?>
                     </div>
                     <div class="form-group">
-                        Telefon: <span id="telephone"></span>
+                        Telefon: <?php echo $rezultat['telefon']; ?>
                     </div>
                     <div class="form-group">
-                        Broj registarske tablice: <span id="registration"></span>
+                        Broj registarske tablice: <?php echo $rezultat['registracija']; ?>
                     </div>
                     <div class="form-group">
-                        Datum i vreme dolaska: <span id="datetime"></span>
+                        Datum i vreme dolaska: <?php echo $rezultat['DatumVreme']; ?>
                     </div>
                     
                 </div>
@@ -223,6 +232,7 @@ if($db->prikaziParking($nivo)){
             </div>
         </div>
     </div>
+<?php } ?>
 </div>
 <br>
 <div class="form-group">
@@ -236,14 +246,5 @@ if($db->prikaziParking($nivo)){
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function (){
-        $("#parkingModal").click(function(){
-            $(".modal-body #client_type").innerHTML = $(this).getAttribute('data-client_type');
-            $(".modal-body #name").innerHTML = $(this).getAttribute('data-name'); 
-            $(".modal-body #email").innerHTML = $(this).getAttribute('data-email'); 
-            $(".modal-body #telephone").innerHTML = $(this).getAttribute('data-telephone');
-            $(".modal-body #registration").innerHTML = $(this).getAttribute('data-registration'); 
-            $(".modal-body #datetime").innerHTML = $(this).getAttribute('data-datetime');
-        });
-    });
+    // neki kod
 </script>
