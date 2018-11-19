@@ -206,7 +206,7 @@ class Database {
 		  ON clients.client_id = cars.client_id INNER JOIN appointments ON cars.car_id = appointments.car_id INNER JOIN places ON appointments.place_id = places.place_id 
 		  WHERE appointments.place_id=".$place_id['place_id'].";";
 
-		$this->result = $this->dblink->query($query);
+		return $this->dblink->query($query);
 	}
 
 // funkcija koja izvrsava upit

@@ -16,9 +16,6 @@ $db->Connect();
 if($db->prikaziParking($nivo)){
     $db-> __destruct();
 }
-
-$sektorAdmin = "";
-$mestoAdmin = "";
  
 ?>
 <h1> Nivo: <?php echo $nivo;?></h1>
@@ -33,14 +30,25 @@ $mestoAdmin = "";
     
 	<?php while($row = $db->getResult()->fetch_assoc()) {
 
+        $rezultat = "";
+        if ($row["occupied"] == '1' && isset($_SESSION['ADMIN'])){
+
+            $rezultat = $db->korisnikInfo($nivo, $row["sector"], $row["place"])->fetch_assoc();
+
+            if ($rezultat['Tip'] == "individual") {
+                $rezultat['Tip'] = "Fizicko lice";
+            } else if ($rezultat['Tip'] == "business") {
+                $rezultat['Tip'] = "Pravno lice";
+            }
+        }
+
         $color= ($row["occupied"] == '1') ? '#ff4d4d' : '#80ff00';
-        $info = ($row["occupied"] == '1') ? 'data-toggle="modal" data-target="#exampleModalCenter"': '';
+        $info = ($row["occupied"] == '1') ? ' id="parkingModal" data-toggle="modal" data-target="#exampleModalCenter" data-client_type="'.$rezultat['Tip'].'" data-name="'.$rezultat['ImePrezime'].
+        '" data-email="'.$rezultat['email'].'" data-telephone="'.$rezultat['telefon'].'" data-registration="'.$rezultat['registracija'].'" data-datetime="'.$rezultat['DatumVreme'].'"' : '';
+
         $link = ($row["occupied"] == '1') ? "parking&nivo=".$nivo : "reserve&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];
 
-        if ($row["occupied"] == '1' && isset($_SESSION['ADMIN'])){
-            $sektorAdmin = $row["sector"];
-            $mestoAdmin = $row["place"];
-        }
+        
 
         switch($row['place']){
                 case '1': ?>
@@ -176,18 +184,6 @@ $mestoAdmin = "";
     }
     ?>
 <!-- Modal -->
-<?php
-    if(!empty($sektorAdmin) && !empty($mestoAdmin)){
-        $db->korisnikInfo($nivo, $sektorAdmin, $mestoAdmin);
-        $rezultat = $db->getResult()->fetch_assoc();
-
-        if ($rezultat['Tip'] == "individual") {
-            $rezultat['Tip'] = "Fizicko lice";
-        } else if ($rezultat['Tip'] == "business") {
-            $rezultat['Tip'] = "Pravno lice";
-        }
-    
-?>
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -202,33 +198,31 @@ $mestoAdmin = "";
                 <div class="modal-body">
 
                     <div class="form-group">
-                        Tip klijenta: <?php echo $rezultat['Tip']; ?>
+                        Tip klijenta: <span id="client_type"></span>
                     </div>
                     <div class="form-group">
-                        Ime i Prezime: <?php echo $rezultat['ImePrezime']; ?>
+                        Ime i Prezime: <span id="name"></span>
                     </div>
                     <div class="form-group">
-                        Email: <?php echo $rezultat['email']; ?>
+                        Email: <span id="email"></span>
                     </div>
                     <div class="form-group">
-                        Telefon: <?php echo $rezultat['telefon']; ?>
+                        Telefon: <span id="telephone"></span>
                     </div>
                     <div class="form-group">
-                        Broj registarske tablice: <?php echo $rezultat['registracija']; ?>
+                        Broj registarske tablice: <span id="registration"></span>
                     </div>
                     <div class="form-group">
-                        Datum i vreme dolaska: <?php echo $rezultat['DatumVreme']; ?>
+                        Datum i vreme dolaska: <span id="datetime"></span>
                     </div>
                     
                 </div>
-
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
                 </div>
             </div>
         </div>
     </div>
-<?php } ?>
 </div>
 <br>
 <div class="form-group">
@@ -240,3 +234,16 @@ $mestoAdmin = "";
         <a class="btn btn-primary" href=<?php echo "index.php?stranica=parking&nivo=".($nivo+1);?>>Nivo <?php echo ($nivo+1);?> ></a>
    <?php } ?>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function (){
+        $("#parkingModal").click(function(){
+            $(".modal-body #client_type").innerHTML = $(this).getAttribute('data-client_type');
+            $(".modal-body #name").innerHTML = $(this).getAttribute('data-name'); 
+            $(".modal-body #email").innerHTML = $(this).getAttribute('data-email'); 
+            $(".modal-body #telephone").innerHTML = $(this).getAttribute('data-telephone');
+            $(".modal-body #registration").innerHTML = $(this).getAttribute('data-registration'); 
+            $(".modal-body #datetime").innerHTML = $(this).getAttribute('data-datetime');
+        });
+    });
+</script>
