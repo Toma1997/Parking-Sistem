@@ -16,10 +16,6 @@ $db->Connect();
 if($db->prikaziParking($nivo)){
     $db-> __destruct();
 }
- 
-$sektorAdmin = "";
-$mestoAdmin = "";
-
 ?>
 <h1> Nivo: <?php echo $nivo;?></h1>
 <style>
@@ -36,12 +32,6 @@ $mestoAdmin = "";
         $color= ($row["occupied"] == '1') ? '#ff4d4d' : '#80ff00';
         $info = ($row["occupied"] == '1') ? ' data-toggle="modal" data-target="#exampleModalCenter"' : '';
         $link = ($row["occupied"] == '1') ? "parking&nivo=".$nivo : "reserve&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];
-
-        if ($row["occupied"] == '1' && isset($_SESSION['ADMIN'])){
-            $sektorAdmin= $row["sector"];
-            $mestoAdmin= $row["place"];
-            
-        }
 
         switch($row['place']){
                 case '1': ?>
@@ -82,7 +72,7 @@ $mestoAdmin = "";
                         <div class="col">ODOZDO</div><div class="col">DOLE</div><div class="col">ODOZGO</div><div class="col">GORE</div>
             <?php   } ?>
 
-                    <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) { echo $info; }?>>
+                    <div class="col " id="test" style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) { echo $info; }?>>
                         <?php if (isset($_SESSION['CLIENT'])){?>
                             <a href="index.php?stranica=<?php echo $link; ?>">
                             <?php } echo $row["sector"]."-".$row["place"]; 
@@ -181,8 +171,11 @@ $mestoAdmin = "";
 <?php
 
 $rezultat = "";
-if (!empty($sektorAdmin) && !empty($mestoAdmin)){
+if (!empty($_POST["sektor"]) && !empty($_POST['mesto'])){
+    $sektorAdmin = $_POST["sektor"];
+    $mestoAdmin = $_POST['mesto'];
 
+    $db->Connect();
     $db->korisnikInfo($nivo, $sektorAdmin, $mestoAdmin);
     $rezultat = $db->getResult()->fetch_assoc();
 
@@ -245,6 +238,19 @@ if (!empty($sektorAdmin) && !empty($mestoAdmin)){
    <?php } ?>
 </div>
 
+
 <script type="text/javascript">
-    // neki kod
+
+    $('#test').click(function(){
+        var sektorImesto = $(this).innerHTML.trim().split("-");
+        var sektor = sektorImesto[0];
+        var mesto = sektorImesto[1];
+    
+        $.ajax({
+        type: "POST",
+        data: { "sektor": sektor, "mesto": mesto}
+        }).done(function( msg ) {
+			alert( msg );		
+		});
+    });
 </script>
