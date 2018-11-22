@@ -2,7 +2,7 @@
 
 header("Content-type: application/json");
 
-if (!empty($_POST["sektor"]) && !empty($_POST['mesto']) && !empty($_POST['nivo'])){
+if (!empty($_POST["sektor"]) && !empty($_POST['mesto']) && isset($_POST['nivo'])){
     $sektorAdmin = $_POST["sektor"];
     $mestoAdmin = $_POST['mesto'];
     $nivoAdmin = (int)$_POST['nivo'];
@@ -26,7 +26,7 @@ if (!empty($_POST["sektor"]) && !empty($_POST['mesto']) && !empty($_POST['nivo']
         'telefon' => $rezultat['telefon'],
         'registracija' => $rezultat['registracija'],
         'DatumVreme' => $rezultat['DatumVreme']
-    ]);
+    ]); 
 
 } else {
     die(json_encode([
@@ -34,4 +34,4 @@ if (!empty($_POST["sektor"]) && !empty($_POST['mesto']) && !empty($_POST['nivo']
     ]));
 }
 
-
+?>

@@ -36,7 +36,6 @@ switch ($stranica) {
 		include('templates/Client/login.php');
 		break;
 	case 'parking' :
-		//anonimac();
 		include('templates/Client/parking.php');
 		break;
 	case 'reserve' :

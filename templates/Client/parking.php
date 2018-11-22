@@ -30,7 +30,7 @@ if($db->prikaziParking($nivo)){
 	<?php while($row = $db->getResult()->fetch_assoc()) {
 
         $color= ($row["occupied"] == '1') ? '#ff4d4d' : '#80ff00';
-        $info = ($row["occupied"] == '1') ? ' data-id="'.$nivo."-". $row["sector"]."-".$row["place"] . '" data-toggle="modal" data-target="#exampleModalCenter"' : '';
+        $info = ($row["occupied"] == '1') ? ' data-id="'.$nivo.'-'. $row["sector"].'-'.$row["place"].'" data-toggle="modal" data-target="#exampleModalCenter"' : '';
         $link = ($row["occupied"] == '1') ? "parking&nivo=".$nivo : "reserve&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];
 
         switch($row['place']){
@@ -72,7 +72,7 @@ if($db->prikaziParking($nivo)){
                         <div class="col">ODOZDO</div><div class="col">DOLE</div><div class="col">ODOZGO</div><div class="col">GORE</div>
             <?php   } ?>
 
-                    <div class="col " id="test" style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) { echo $info; }?>>
+                    <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) { echo $info; }?>>
                         <?php if (isset($_SESSION['CLIENT'])){?>
                             <a href="index.php?stranica=<?php echo $link; ?>">
                             <?php } echo $row["sector"]."-".$row["place"]; 
@@ -224,16 +224,16 @@ if($db->prikaziParking($nivo)){
 
     $('.col ').click(function(){
         var NivoSektorMesto = $(this).attr('data-id').split("-");
-
+  
         var nivo = NivoSektorMesto[0];
         var sektor = NivoSektorMesto[1];
         var mesto = NivoSektorMesto[2];
 
         $.ajax({
         type: "POST",
-        url:"./kernel/parking-checker.php",
+        url: "./kernel/parking-checker.php",
         data: { "nivo" : nivo, "sektor" : sektor, "mesto" : mesto}
-        }).done(function( msg ) {
+        }).done(function(msg) {
             
             $('#modal-tip').html(msg.Tip);
             $('#modal-ime-i-prezime').html(msg.ImePrezime);
