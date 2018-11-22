@@ -30,7 +30,7 @@ if($db->prikaziParking($nivo)){
 	<?php while($row = $db->getResult()->fetch_assoc()) {
 
         $color= ($row["occupied"] == '1') ? '#ff4d4d' : '#80ff00';
-        $info = ($row["occupied"] == '1') ? ' data-toggle="modal" data-target="#exampleModalCenter"' : '';
+        $info = ($row["occupied"] == '1') ? 'data-id="'.$nivo."-". $row["sector"]."-".$row["place"] . '" data-toggle="modal" data-target="#exampleModalCenter"' : '';
         $link = ($row["occupied"] == '1') ? "parking&nivo=".$nivo : "reserve&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];
 
         switch($row['place']){
@@ -168,24 +168,6 @@ if($db->prikaziParking($nivo)){
     ?>
 <!-- Modal -->
 
-<?php
-
-$rezultat = "";
-if (!empty($_POST["sektor"]) && !empty($_POST['mesto'])){
-    $sektorAdmin = $_POST["sektor"];
-    $mestoAdmin = $_POST['mesto'];
-
-    $db->Connect();
-    $db->korisnikInfo($nivo, $sektorAdmin, $mestoAdmin);
-    $rezultat = $db->getResult()->fetch_assoc();
-
-    if ($rezultat['Tip'] == "individual") {
-        $rezultat['Tip'] = "Fizicko lice";
-    } else if ($rezultat['Tip'] == "business") {
-        $rezultat['Tip'] = "Pravno lice";
-    }
- 
-?>
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -200,22 +182,22 @@ if (!empty($_POST["sektor"]) && !empty($_POST['mesto'])){
                 <div class="modal-body">
 
                     <div class="form-group">
-                        Tip klijenta: <?php echo $rezultat['Tip']; ?>
+                        Tip klijenta: <span id="modal-tip"></span>
                     </div>
                     <div class="form-group">
-                        Ime i Prezime: <?php echo $rezultat['ImePrezime']; ?>
+                        Ime i Prezime: <span id="modal-ime-i-prezime"></span>
                     </div>
                     <div class="form-group">
-                        Email: <?php echo $rezultat['email']; ?>
+                        Email: <span id="modal-email"></span>
                     </div>
                     <div class="form-group">
-                        Telefon: <?php echo $rezultat['telefon']; ?>
+                        Telefon: <span id="modal-telefon"></span>
                     </div>
                     <div class="form-group">
-                        Broj registarske tablice: <?php echo $rezultat['registracija']; ?>
+                        Broj registarske tablice: <span id="modal-registracija"></span>
                     </div>
                     <div class="form-group">
-                        Datum i vreme dolaska: <?php echo $rezultat['DatumVreme']; ?>
+                        Datum i vreme dolaska: <span id="modal-datumVreme"></span>
                     </div>
                     
                 </div>
@@ -225,7 +207,6 @@ if (!empty($_POST["sektor"]) && !empty($_POST['mesto'])){
             </div>
         </div>
     </div>
-<?php } ?>
 </div>
 <br>
 <div class="form-group">
@@ -241,16 +222,27 @@ if (!empty($_POST["sektor"]) && !empty($_POST['mesto'])){
 
 <script type="text/javascript">
 
-    $('#test').click(function(){
-        var sektorImesto = $(this).innerHTML.trim().split("-");
-        var sektor = sektorImesto[0];
-        var mesto = sektorImesto[1];
-    
+    $('.col ').click(function(){
+        var NivoSektorMesto = $(this).attr('data-id').split("-");
+
+        var nivo = NivoSektorMesto[0];
+        var sektor = NivoSektorMesto[1];
+        var mesto = NivoSektorMesto[2];
+
         $.ajax({
         type: "POST",
-        data: { "sektor": sektor, "mesto": mesto}
+        url:"./kernel/parking-checker.php",
+        data: { "nivo" : nivo, "sektor" : sektor, "mesto" : mesto}
         }).done(function( msg ) {
-			alert( msg );		
+            
+            $('#modal-tip').html(msg.Tip);
+            $('#modal-ime-i-prezime').html(msg.ImePrezime);
+            $('#modal-email').html(msg.email);
+            $('#modal-telefon').html(msg.telefon);
+            $('#modal-registracija').html(msg.registracija);
+            $('#modal-datumVreme').html(msg.DatumVreme);
+
+            $('#exampleModalCenter').show();
 		});
     });
 </script>

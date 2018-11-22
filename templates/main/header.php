@@ -10,7 +10,8 @@
 
     <!-- Bootstrap core CSS -->
 	<link href="libs/bootstrap.min.css" rel="stylesheet">
-	
+	<script src="libs/jquery.min.js"></script>
+  <script src="libs/bootstrap.bundle.min.js"></script>
   </head>
   <body>
 	<div class="dark text-right small bg-primary p-0 m-0">

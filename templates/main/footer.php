@@ -11,7 +11,5 @@
   </footer>
   <!-- Footer -->
     <!-- Bootstrap core JavaScript -->
-    <script src="libs/jquery.min.js"></script>
-    <script src="libs/bootstrap.bundle.min.js"></script>
   </body>
 </html>
