@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50719
 File Encoding         : 65001
 
-Date: 2018-11-18 22:14:58
+Date: 2018-11-22 23:14:55
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -36,12 +36,12 @@ CREATE TABLE `appointments` (
 -- Records of appointments
 -- ----------------------------
 INSERT INTO `appointments` VALUES ('1', '2', '1', '2018-05-04 12:34:00', null);
-INSERT INTO `appointments` VALUES ('2', '3', '14', '2018-11-20 12:34:00', null);
-INSERT INTO `appointments` VALUES ('3', '4', '56', '2018-11-22 15:00:00', null);
-INSERT INTO `appointments` VALUES ('4', '5', '81', '2018-11-25 18:30:00', null);
-INSERT INTO `appointments` VALUES ('5', '2', '80', '2018-11-25 15:30:00', null);
-INSERT INTO `appointments` VALUES ('6', '2', '77', '2018-11-24 10:00:00', null);
-INSERT INTO `appointments` VALUES ('7', '2', '68', '2018-11-20 12:34:00', null);
+INSERT INTO `appointments` VALUES ('2', '1', '14', '2018-11-20 12:34:00', null);
+INSERT INTO `appointments` VALUES ('3', '3', '56', '2018-11-22 15:00:00', null);
+INSERT INTO `appointments` VALUES ('4', '4', '81', '2018-11-25 18:30:00', null);
+INSERT INTO `appointments` VALUES ('5', '1', '80', '2018-11-25 15:30:00', null);
+INSERT INTO `appointments` VALUES ('6', '4', '77', '2018-11-24 10:00:00', null);
+INSERT INTO `appointments` VALUES ('7', '1', '68', '2018-11-20 12:34:00', null);
 
 -- ----------------------------
 -- Table structure for cars
@@ -55,16 +55,15 @@ CREATE TABLE `cars` (
   KEY `FK_client` (`client_id`),
   KEY `car_id` (`car_id`),
   CONSTRAINT `FK_client` FOREIGN KEY (`client_id`) REFERENCES `clients` (`client_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cars
 -- ----------------------------
-INSERT INTO `cars` VALUES ('1', 'BG-4345-XY', '1');
-INSERT INTO `cars` VALUES ('2', 'NS-234-AF', '3');
-INSERT INTO `cars` VALUES ('3', 'BG-123-AB', '4');
-INSERT INTO `cars` VALUES ('4', 'BG-123-AD', '4');
-INSERT INTO `cars` VALUES ('5', 'BG-3345-EX', '5');
+INSERT INTO `cars` VALUES ('1', 'NS-234-AF', '3');
+INSERT INTO `cars` VALUES ('2', 'BG-123-AB', '4');
+INSERT INTO `cars` VALUES ('3', 'BG-123-AD', '4');
+INSERT INTO `cars` VALUES ('4', 'BG-3345-EX', '5');
 
 -- ----------------------------
 -- Table structure for clients
