@@ -30,7 +30,7 @@ if($db->prikaziParking($nivo)){
 	<?php while($row = $db->getResult()->fetch_assoc()) {
 
         $color= ($row["occupied"] == '1') ? '#ff4d4d' : '#80ff00';
-        $info = ($row["occupied"] == '1') ? 'data-id="'.$nivo."-". $row["sector"]."-".$row["place"] . '" data-toggle="modal" data-target="#exampleModalCenter"' : '';
+        $info = ($row["occupied"] == '1') ? ' data-id="'.$nivo."-". $row["sector"]."-".$row["place"] . '" data-toggle="modal" data-target="#exampleModalCenter"' : '';
         $link = ($row["occupied"] == '1') ? "parking&nivo=".$nivo : "reserve&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];
 
         switch($row['place']){
