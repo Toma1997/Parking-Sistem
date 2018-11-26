@@ -1,6 +1,5 @@
 <?php
 if (!empty($_POST)) {
-     extract($_POST);
 
     $forename = $_POST['forename'];
     $surname = $_POST['surname'];
@@ -48,7 +47,7 @@ if (!empty($_POST)) {
         $poruke = implode("", $poruke);
     } else{
 
-        include("./kernel/database_wrapper.php");
+        include("./core/database_wrapper.php");
         $db = new Database("parking");
         $db->Connect();
         $db->proveriKorisnika("email", "telephone", $email, $telephone, 'OR');

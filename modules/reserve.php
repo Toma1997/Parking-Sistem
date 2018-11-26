@@ -35,7 +35,7 @@ if (!empty($_POST)) {
         $poruke = implode("", $poruke);
     } else{
 
-        include("./kernel/database_wrapper.php");
+        include("./core/database_wrapper.php");
         $db = new Database("parking");
         $db->Connect();
         $db->unesiRegistraciju($registration, $_SESSION['CLIENT']);

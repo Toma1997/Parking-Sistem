@@ -10,7 +10,7 @@ if($nivo > 3){
     $nivo = 3;
 }
 
-include("./kernel/database_wrapper.php");
+include("./core/database_wrapper.php");
 $db = new Database("parking");
 $db->Connect();
 if($db->prikaziParking($nivo)){
@@ -231,7 +231,7 @@ if($db->prikaziParking($nivo)){
 
         $.ajax({
         type: "POST",
-        url: "./kernel/parking-checker.php",
+        url: "./core/parking-checker.php",
         data: { "nivo" : nivo, "sektor" : sektor, "mesto" : mesto}
         }).done(function(msg) {
             

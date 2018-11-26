@@ -26,7 +26,6 @@
 		</div>
 		</div>
     </div>
-    <?php  require_once 'menu.php';?>
 
     <!-- Page Content -->
     <div class="container">

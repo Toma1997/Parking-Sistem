@@ -5,7 +5,7 @@
 		<div style="margin-left:-380px; width: 1300px;" class="row text-primary">
 			<?php
 
-			include("./kernel/database_wrapper.php");
+			include("./core/database_wrapper.php");
 			$db = new Database("parking");
 			$db->Connect();
 			$db->prikaziSlobodnaMesta("nivoi");

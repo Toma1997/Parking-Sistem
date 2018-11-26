@@ -19,7 +19,7 @@ if (!empty($_POST)) {
         $greske = implode("", $greske);
     } else{
 
-        include("./kernel/database_wrapper.php");
+        include("./core/database_wrapper.php");
         $db = new Database("parking");
         $db->Connect();
         $db->proveriKorisnika("email", "password_hash", $email, sha1($password), 'AND');

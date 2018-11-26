@@ -6,47 +6,48 @@ if ($stranica == 'logout') {
 	session_unset();
 }
 
-require_once 'templates/main/header.php';
+require_once 'templates/header.php';
+require_once 'templates/menu.php';
 
 switch ($stranica) {
 	case '' :
 	case 'logout':
-		include('templates/Client/home.php');
+		include('modules/home.php');
 		break;
 	case 'contact':
-		include('templates/Client/contact.php');
+		include('modules/contact.php');
 		break;
 	case 'price':
-		include('templates/Client/price.php');
+		include('modules/price.php');
 		break;
 	case 'messages':
 		admin();
-		include('templates/Client/messages.php');
+		include('modules/messages.php');
 		break;
 	case 'addAdmin':
 		admin();
-		include('templates/Client/dodajAdmina.php');
+		include('modules/dodajAdmina.php');
 		break;
 	case 'register' :
 		korisnik();
-		include('templates/Client/register.php');
+		include('modules/register.php');
 		break;
 	case 'login' :
 		korisnik();
-		include('templates/Client/login.php');
+		include('modules/login.php');
 		break;
 	case 'parking' :
-		include('templates/Client/parking.php');
+		include('modules/parking.php');
 		break;
 	case 'reserve' :
 		anonimac();
-		include('templates/Client/reserve.php');
+		include('modules/reserve.php');
 		break;
 	default:
 		echo '<div class="card-body"> <h4 class="card-title">Greška 404! Nemam takvu stranicu.</h4></div>';
 		break;
 }
-require_once 'templates/main/footer.php';
+require_once 'templates/footer.php';
 
 function anonimac() {
 	if (!isset($_SESSION['CLIENT']) && !isset($_SESSION['ADMIN'])) {
