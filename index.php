@@ -47,6 +47,7 @@ switch ($stranica) {
 		echo '<div class="card-body"> <h4 class="card-title">Greška 404! Nemam takvu stranicu.</h4></div>';
 		break;
 }
+
 require_once 'templates/footer.php';
 
 function anonimac() {
