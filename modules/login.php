@@ -8,11 +8,11 @@ if (!empty($_POST)) {
     $greske = array();
 
     if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-        $greske[] = "<h5>Email nije validan !</h5>";
+        $greske[] = $jezici_error['email']; 
     }
     
     if(!preg_match("/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,}$/", $password)){
-        $greske[] = "<h5>Lozinka nije validna !</h5>";
+        $greske[] = $jezici_error['pass'];
     }
 
     if(count($greske)){
@@ -32,30 +32,32 @@ if (!empty($_POST)) {
 				$db->__destruct();
 				$_SESSION['CLIENT'] = $email;
 			}
-            header("Location: ./index.php?stranica=");
+            header("Location: ?stranica=");
         } else {
-            $greske =  "<h5> Neispravno logovanje !</h5>";
+            $greske = $jezici_error['login'];
         }
     }
 
 }
 
-?>        
+?>
+
+     
 <div>
-    <h1>Prijava korisnika</h1>
+    <h1><?php echo $jezici_mapa['loginPage'][0];?></h1>
     <div class="content">
         <form method="post">
             <div class="form-group">
-                <label for="email">Adresa e-pošte:</label>
-                <input type="email" id="email" name="email" class="form-control" required placeholder="Unesite adresu e-pošte" value="<?php echo $_POST['email'] ?? '';?>"> 
+                <label for="email"><?php echo $jezici_mapa['loginPage'][1];?></label>
+                <input type="email" id="email" name="email" class="form-control" required placeholder="<?php echo $jezici_mapa['loginPage'][2];?>" value="<?php echo $_POST['email'] ?? '';?>"> 
             </div>
             <div class="form-group">
-                <label for="password">Lozinka:</label>
-                <input type="password" id="password" name="password" class="form-control" required placeholder="Unesite lozinku">
+                <label for="password"><?php echo $jezici_mapa['loginPage'][3];?></label>
+                <input type="password" id="password" name="password" class="form-control" required placeholder="<?php echo $jezici_mapa['loginPage'][4];?>">
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">
-                    Prijavite se
+                   <?php echo $jezici_mapa['loginPage'][5];?>
                 </button>
             </div>
             <div class="form-group">

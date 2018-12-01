@@ -1,24 +1,94 @@
 <?php
 
-$stranica = $_GET['stranica'] ?? '';
+$jezik = $_COOKIE['jezik'] ?? 'srpski_latinica';
+if ($_GET && $jezik = $_GET['jezik'] ?? $jezik) 
+	setcookie('jezik', $jezik);
+/*if (isset($_SESSION["ADMIN"])) {
+	$jezik = 'srpski_latinica';
+	setcookie('jezik', 'srpski_latinica');
+}*/
+
+include_once(
+	sprintf(
+		'./lang/%s.php',
+		$jezik
+	)
+);
+
+$stranica = $_GET['stranica'] ?? ' ';
 session_start();
 if ($stranica == 'logout') {
 	session_unset();
 }
 
-require_once 'templates/header.php';
-require_once 'templates/menu.php';
+//require_once 'templates/header.php';
+//require_once 'templates/menu.php';
+
+$header = file_get_contents('templates/header.html');
+$header = str_replace('{{LOGO}}', $jezici_mapa['logo'], $header);
+/*if (!isset($_SESSION["ADMIN"])) {
+$header = str_replace('{{JEZIK}}', $jezici_mapa['lang'], $header);
+}else {
+	$header = str_replace('{{JEZIK}}', '', $header);
+}*/
+
+
+if (!isset($_SESSION["CLIENT"]) && !isset($_SESSION["ADMIN"])) {
+	$header = str_replace('{{LOGIN}}', $jezici_mapa['login'], $header);
+} else {
+	$header = str_replace('{{LOGIN}}', $jezici_mapa['logout'], $header);
+}
+
+if ($stranica == 'parking') {
+$header = str_replace('{{URL}}', $stranica. '&nivo=' . $_GET['nivo'], $header);
+}elseif ($stranica == 'reserve') {
+$header = str_replace('{{URL}}', $stranica. '&floor='. $_GET['floor'].'&sector='.$_GET['sector'].'&place=' . $_GET['place'], $header);
+}
+else {
+	$header = str_replace('{{URL}}', $stranica, $header);
+}
+echo $header;
+
+$menu = file_get_contents('templates/menu.html');
+$menu = str_replace('{{LOGO}}', $jezici_mapa['logo'], $menu);
+
+if (isset($_SESSION['CLIENT'])) {
+	$menu = str_replace('{{MENU}}', $jezici_mapa['menu'].$jezici_mapa['client'], $menu);
+}elseif (isset($_SESSION['ADMIN'])) {
+	$menu = str_replace('{{MENU}}', $jezici_mapa['menu'].$jezici_mapa['admin'], $menu);	
+}  else {
+	$menu = str_replace('{{MENU}}', $jezici_mapa['menu'], $menu);
+}
+
+echo $menu;
 
 switch ($stranica) {
-	case '' :
+	case '':
+	case ' ':
 	case 'logout':
 		include('modules/home.php');
+		$home = file_get_contents('templates/home.html');
+		for ($i=1;$i<7;$i++) {
+			$home = str_replace(sprintf('{{TEXT%s}}',$i), $jezici_mapa['text'][$i-1], $home);
+		}
+		echo $home;
 		break;
 	case 'contact':
-		include('modules/contact.php');
+		$contact = file_get_contents('templates/contact.html');
+		for ($i=1;$i<10;$i++) {
+			$contact = str_replace(sprintf('{{CONTACT%s}}',$i), $jezici_mapa['contact'][$i-1], $contact);
+		}
+		echo $contact;
 		break;
 	case 'price':
-		include('modules/price.php');
+		$price = file_get_contents('templates/price.html');
+		for ($i=1;$i<5;$i++) {
+			$price = str_replace(sprintf('{{PRICE%s}}',$i), $jezici_mapa['price'][$i-1], $price);
+		}
+		for ($i=1;$i<3;$i++) {
+			$price = str_replace(sprintf('{{TYPE%s}}',$i), $jezici_mapa['type'][$i-1], $price);
+		}
+		echo $price;
 		break;
 	case 'messages':
 		admin();
@@ -36,7 +106,7 @@ switch ($stranica) {
 		korisnik();
 		include('modules/login.php');
 		break;
-	case 'parking' :
+	case 'parking':
 		include('modules/parking.php');
 		break;
 	case 'reserve' :
@@ -44,11 +114,17 @@ switch ($stranica) {
 		include('modules/reserve.php');
 		break;
 	default:
-		echo '<div class="card-body"> <h4 class="card-title">Greška 404! Nemam takvu stranicu.</h4></div>';
+		echo $jezici_error['link'];
 		break;
 }
 
-require_once 'templates/footer.php';
+//require_once 'templates/footer.php';
+
+$footer = file_get_contents('templates/footer.html');
+
+$footer = str_replace('{{COPYRIGHT}}', $jezici_mapa['copyright'], $footer);
+echo $footer;
+
 
 function anonimac() {
 	if (!isset($_SESSION['CLIENT']) && !isset($_SESSION['ADMIN'])) {

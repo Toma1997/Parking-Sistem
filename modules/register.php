@@ -13,26 +13,26 @@ if (!empty($_POST)) {
     $greske = array();
                 
     if(!preg_match("/^[A-Z][a-zA-Z']+$/", $forename)){
-        $greske[] = "<h5>Ime nije validno !</h5>";
+        $greske[] = $jezici_error['forename'];
     }
                 
     if(!preg_match("/^[A-Z][a-zA-Z']+$/", $surname)){
-        $greske[] = "<h5>Prezime nije validno !</h5>";
+        $greske[] = $jezici_error['surname'];
     }
                 
     if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-        $greske[] = "<h5>Email nije validan !</h5>";
+        $greske[] = $jezici_error['email'];
     }
                 
     if(!preg_match("/^06[0-9]\-[0-9]{3,4}\-[0-9]{3,4}$/", $telephone)){
-        $greske[] = "<h5>Telefon nije validan !</h5>";
+        $greske[] = $jezici_error['telephone'];
     }
                     
     if(!preg_match("/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,}$/", $password1)){
-        $greske[] = "<h5>Lozinka nije validna !</h5>";
+        $greske[] = $jezici_error['pass'];
     } else {
         if($password1 !== $password2){
-            $greske[] = "<h5>Nije uspesno potvrdjena lozinka !</h5>";
+            $greske[] = $jezici_error['passCheck'];
         }
     }
 					
@@ -41,7 +41,7 @@ if (!empty($_POST)) {
     $securimage = new Securimage();
                                     
     if (!empty($code) && !$securimage->check((string)$code)) {
-        $greske[] = "<h5>Uneseni kod se ne poklapa sa onim sa slike !</h5>";
+        $greske[] = $jezici_error['captcha'];
     }
 
     if(count($greske)){
@@ -54,14 +54,14 @@ if (!empty($_POST)) {
         $db->proveriKorisnika("email", "telephone", $email, $telephone, 'OR');
 
         if($db->getResult()){
-            $greske = "<h3>Vec ste registrovani !</h3>";
+            $greske = $jezici_error['regCheck'];
             header("Location: index.php?stranica=login");
         } else {
             $db->dodajKorisnika($client_type, $forename, $surname, $email, $telephone, $password1, '0');
 
             if(!$db->getResult()){
                 $db->__destruct();
-                $greske = "<h3> Greska pri validaciji forme !</h3>";
+                $greske = $jezici_error['form'];
                                 
             } else{
                 // kreiranje log fajla koji pamti podatke korisnika, samo za testiranje
@@ -72,55 +72,55 @@ if (!empty($_POST)) {
                 fclose($file); // zatvara fajl
 
                 $_SESSION['CLIENT'] = $email;
-                header("Location: index.php?stranica=");
+                header("Location: ?stranica=");
             }
         }                        
     }
 }
 ?>
 <div>
-    <h1>Registracija korisnika</h1>
+    <h1><?php echo $jezici_mapa['register'][0];?></h1>
     <div class="content">
             <form method="post">
 				<div class="form-group">
-                    <label for="client_type">Tip lica:</label>
+                    <label for="client_type"><?php echo $jezici_mapa['register'][1];?></label>
 					<div class="custom-control custom-radio">
 					  <input type="radio" class="custom-control-input" id="individual" value="individual" name="client_type" checked>
-					  <label class="custom-control-label" for="individual">Fizičko lice</label>
+					  <label class="custom-control-label" for="individual"><?php echo $jezici_mapa['register'][2];?></label>
 					</div>
 					<div class="custom-control custom-radio">
 					  <input type="radio" class="custom-control-input" id ="business" value="business" name="client_type">
-					  <label class="custom-control-label" for="business">Pravno lice</label>
+					  <label class="custom-control-label" for="business"><?php echo $jezici_mapa['register'][3];?></label>
 					</div>
                 </div>
                 <div class="form-group">
-                    <input type="text" id="forename" name="forename" class="form-control" value="<?php echo $_POST['forename'] ?? '';?>" required placeholder="Unesite ime ">
+                    <input type="text" id="forename" name="forename" class="form-control" value="<?php echo $_POST['forename'] ?? '';?>" required placeholder="<?php echo $jezici_mapa['register'][4];?>">
                 </div>
                 <div class="form-group">
-                    <input type="text" id="surname" name="surname" class="form-control" value="<?php echo $_POST['surname'] ?? '';?>" required placeholder="Unesite prezime">
+                    <input type="text" id="surname" name="surname" class="form-control" value="<?php echo $_POST['surname'] ?? '';?>" required placeholder="<?php echo $jezici_mapa['register'][5];?>">
                 </div>
                 <div class="form-group">
-                    <input type="email" id="email" name="email" class="form-control" value="<?php echo $_POST['email'] ?? '';?>"  required placeholder="Unesite adresu e-pošte">					
+                    <input type="email" id="email" name="email" class="form-control" value="<?php echo $_POST['email'] ?? '';?>"  required placeholder="<?php echo $jezici_mapa['register'][6];?>">					
                 </div>
                 <div class="form-group">
-					<label class="font-weight-light" for="telephone">Broj telefona mora da ima šablon: 063-111-888(8)</label>
-                    <input type="text" id="telephone" name="telephone" class="form-control" value="<?php echo $_POST['telephone'] ?? '';?>" required placeholder="Unesite broj telefona">
+					<label class="font-weight-light" for="telephone"><?php echo $jezici_mapa['register'][7];?></label>
+                    <input type="text" id="telephone" name="telephone" class="form-control" value="<?php echo $_POST['telephone'] ?? '';?>" required placeholder="<?php echo $jezici_mapa['register'][8];?>">
                 </div>
 				<div class="form-group">
-					<label class="font-weight-light" for="telephone">Lozinka mora imati minimum: 8 karaktera od toga jedno malo slovo, jedno veliko, specijalni znak i broj.</label>
-                    <input type="password" id="password1" name="password1" class="form-control" required placeholder="Unesite lozinku">
+					<label class="font-weight-light" for="password1"><?php echo $jezici_mapa['register'][9];?></label>
+                    <input type="password" id="password1" name="password1" class="form-control" required placeholder="<?php echo $jezici_mapa['register'][10];?>">
                 </div>
                 <div class="form-group">
-                    <input type="password" id="password2" name="password2" class="form-control" required placeholder="Unesite ponovo lozinku">
+                    <input type="password" id="password2" name="password2" class="form-control" required placeholder="<?php echo $jezici_mapa['register'][11];?>">
                 </div>
 				<div class="form-group">
 					<img id="captcha" class="col-sm-4 img-fluid" src="securimage/securimage_show.php" alt="CAPTCHA Image" />
-					<input type="text" id="captcha_code" name="code" class="form-control" size="10" placeholder="Unesite kod sa slike" maxlength="6" required />			
+					<input type="text" id="captcha_code" name="code" class="form-control" size="10" placeholder="<?php echo $jezici_mapa['register'][12];?>" maxlength="6" required />			
 				</div>
 				
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">
-                        Registrujte se
+                        <?php echo $jezici_mapa['register'][13];?>
                     </button>
                 </div>
             </form>

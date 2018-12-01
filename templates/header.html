@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Parking Sistem</title>
+    <title>{{LOGO}}</title>
 
     <!-- Bootstrap core CSS -->
 	<link href="libs/bootstrap.min.css" rel="stylesheet">
@@ -16,13 +16,12 @@
   <body>
 	<div class="dark text-right small bg-primary p-0 m-0">
 		<div class="container">
+		
 		<div class="btn-group">
-		<?php if (!isset($_SESSION['CLIENT']) && !isset($_SESSION['ADMIN'])): ?>
-			<a class="text-light nav-link pt-0 pd-0" href="index.php?stranica=register">Registrujte se</a>
-			<a class="text-light nav-link pt-0 pd-0" href="index.php?stranica=login">Prijavite se</a>
-		<?php else: ?>
-			<a class="text-light nav-link pt-0 pd-0" href="index.php?stranica=logout">Odjavite se</a>
-        <?php endif; ?>
+			<a class="float-left text-light nav-link pt-0 pd-0" id="srblat" href="?stranica={{URL}}&jezik=srpski_latinica">Srpski</a>
+			<a class="float-left text-light nav-link pt-0 pd-0" id="srbcir" href="?stranica={{URL}}&jezik=srpski_cirilica">Српски</a>
+			<a class="float-left text-light nav-link pt-0 pd-0" id="end" href="?stranica={{URL}}&jezik=english">English</a>
+			{{LOGIN}}
 		</div>
 		</div>
     </div>
