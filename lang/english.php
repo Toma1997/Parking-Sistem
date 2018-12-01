@@ -1,7 +1,8 @@
 ﻿<?php
 
 $jezici_mapa = array(
-	'admin' => '<li class="nav-item"><a class="nav-link" href="?stranica=messages">Messages</a>
+	'admin' => '<li class="nav-item"><a class="nav-link" href="?stranica=stats">Statistics</a>
+				<li class="nav-item"><a class="nav-link" href="?stranica=messages">Messages</a>
 				<li class="nav-item"><a class="nav-link" href="?stranica=addAdmin">Add Admin</a>',
 	'client' => '<li class="nav-item"><a class="nav-link" href="?stranica=contact">Contact</a>	',
 	'contact' =>  array('Contact Us',
@@ -22,9 +23,9 @@ $jezici_mapa = array(
 	'loginPage' =>  array('User login:', 'Email address:', 'Insert email address','Password:', 'Insert password', 'Log in', '<h5>The password is not valid! </h5>', '<h5> Invalid logging! </h5>'),			
 	'logo' => 'Parking System',
 	'logout' => '<a class="text-light nav-link pt-0 pd-0" href="?stranica=logout">Logout</a>',	
-	'menu' => '<li class="nav-item"><a class="nav-link" href="?stranica=">Naslovna</a>
+	'menu' => '<li class="nav-item"><a class="nav-link" href="?stranica=">Home</a>
 			   <li class="nav-item"><a class="nav-link" href="?stranica=parking&nivo=0">Parking</a>
-			   <li class="nav-item"><a class="nav-link" href="?stranica=price">Cenovnik</a>',
+			   <li class="nav-item"><a class="nav-link" href="?stranica=price">Prices</a>',
 	'parking' => array('ENTRANCE','EXIT','DOWN','UP','FROM DOWN','FROM UP'),
 	'price' => array('<h1>Prices and Discounts</h1>',
 				 '<div class="col bg-primary"><strong>Type of person</strong></div>
@@ -37,6 +38,7 @@ $jezici_mapa = array(
 				'The password must have a minimum of: 8 characters of that one little letter, one large, special character and number.',
 				'Enter password', 'Enter password again', 'Enter image from image', 'Register'),
 	'reserve' => array('<h1>Parking reservation</h1>','Car registration number:','Floor:','Sector:','Place:','Date and time of parking reservation:','Reserve','Example'),	
+	'stats'  => '<h1>STATISTICS</h1>',
 	'text' => array('<h1>Garages and car parks</h1>
 			   <p>Parking system operates one of the largest public garages. Users have about 400 parking spaces available.</p>
 			   <h3>Parking in the garage</h3>

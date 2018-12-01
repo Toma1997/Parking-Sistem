@@ -1,7 +1,8 @@
 ﻿<?php
 
 $jezici_mapa = array(
-	'admin' => '<li class="nav-item"><a class="nav-link" href="?stranica=messages">Поруке</a>
+	'admin' => '<li class="nav-item"><a class="nav-link" href="?stranica=stats">Статистика</a>
+				<li class="nav-item"><a class="nav-link" href="?stranica=messages">Поруке</a>
 				<li class="nav-item"><a class="nav-link" href="?stranica=addAdmin">Додај Админа</a>',
 	'client' => '<li class="nav-item"><a class="nav-link" href="?stranica=contact">Контакт</a>	',
 	'contact' =>  array('Контактирајте нас',
@@ -37,6 +38,7 @@ $jezici_mapa = array(
 				'Лозинка мора имати најмање 8 карактера од тог једно мало слово, један велики, посебан карактер и број.',
 				'Унесите лозинку', 'Поново унесите лозинку', 'Унеси код са слике', 'Региструј се'),
 	'reserve' =>  array('<h1>Резервације </h1>', 'Регистарски број воѕила:', 'Спрат:', 'Сектор:', 'Место:', 'Датум и време боравка:','Резервација','Пример'),
+	'stats'  => '<h1>СТАТИСТИКА</h1>',
 	'text' => array('<h1> Гараже и паркиралишта </h1>
 				<p> Систем за паркирање управља једним од највећих јавних гаража. Корисници имају око 400 паркинг места. </p>
 				<h3> Паркинг у гаражама </h3>

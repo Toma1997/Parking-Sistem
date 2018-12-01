@@ -29,7 +29,8 @@ if($db->prikaziParking($nivo)){
 <div class="container" style="width:1300px; margin-top: 25px;border-style: solid;">
     
 	<?php while($row = $db->getResult()->fetch_assoc()) {
-
+		
+		$cursor= ($row["occupied"] == '1') ? 'pointer' : 'default';
         $color= ($row["occupied"] == '1') ? '#ff4d4d' : '#80ff00';
         $info = ($row["occupied"] == '1') ? ' data-id="'.$nivo.'-'. $row["sector"].'-'.$row["place"].'" data-toggle="modal" data-target="#exampleModalCenter"' : '';
         $link = ($row["occupied"] == '1') ? "parking&nivo=".$nivo : "reserve&"."floor=".$row["floor"]."&"."sector=".$row["sector"]."&"."place=".$row["place"];
@@ -38,9 +39,9 @@ if($db->prikaziParking($nivo)){
                 case '1': ?>
                 <div class="row">
 
-                    <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
+                     <div class="col" style="<?php echo "background-color:".$color; if (isset($_SESSION['ADMIN'])) {echo ';cursor:'.$cursor;}?>"<?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
                     <?php if (isset($_SESSION['CLIENT'])){?>
-                        <a href="?stranica=<?php echo $link; ?>">
+                        <a href="?stranica=<?php echo $link; ?>" style="color:black;text-decoration:none;">
                         <?php } echo $row["sector"]."-".$row["place"]; 
                         if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div>
 
@@ -53,9 +54,9 @@ if($db->prikaziParking($nivo)){
                     <div class="col"><?php echo $jezici_mapa['parking'][4]; ?></div><div class="col"><?php echo $jezici_mapa['parking'][2]; ?></div>
                 <?php   }  ?>
 
-                <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
+                 <div class="col" style="<?php echo "background-color:".$color; if (isset($_SESSION['ADMIN'])) {echo ';cursor:'.$cursor;}?>"<?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
                     <?php if (isset($_SESSION['CLIENT'])){?>
-                        <a href="?stranica=<?php echo $link; ?>">
+                        <a href="?stranica=<?php echo $link; ?>" style="color:black;text-decoration:none;">
                         <?php } echo $row["sector"]."-".$row["place"]; 
                         if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div> 
 
@@ -73,9 +74,9 @@ if($db->prikaziParking($nivo)){
                         <div class="col"><?php echo $jezici_mapa['parking'][4]; ?></div><div class="col"><?php echo $jezici_mapa['parking'][2]; ?></div><div class="col"><?php echo $jezici_mapa['parking'][5]; ?></div><div class="col"><?php echo $jezici_mapa['parking'][3]; ?></div>
             <?php   } ?>
 
-                    <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) { echo $info; }?>>
+                     <div class="col" style="<?php echo "background-color:".$color; if (isset($_SESSION['ADMIN'])) {echo ';cursor:'.$cursor;}?>"<?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
                         <?php if (isset($_SESSION['CLIENT'])){?>
-                            <a href="?stranica=<?php echo $link; ?>">
+                            <a href="?stranica=<?php echo $link; ?>" style="color:black;text-decoration:none;">
                             <?php } echo $row["sector"]."-".$row["place"]; 
                             if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div> 
 
@@ -97,9 +98,9 @@ if($db->prikaziParking($nivo)){
                         <div class="col-0.5">&nbsp;&nbsp;&nbsp;&nbsp;</div>  
             <?php   } ?>
 
-                <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
+                <div class="col" style="<?php echo "background-color:".$color; if (isset($_SESSION['ADMIN'])) {echo ';cursor:'.$cursor;}?>"<?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
                 <?php if (isset($_SESSION['CLIENT'])) {?>
-                    <a href="?stranica=<?php echo $link; ?>">
+                    <a href="?stranica=<?php echo $link; ?>" style="color:black;text-decoration:none;">
                     <?php } echo $row["sector"]."-".$row["place"]; 
                     if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div> 
 
@@ -115,9 +116,9 @@ if($db->prikaziParking($nivo)){
                         <div class="col">x</div>
              <?php  } ?>
 
-             <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
+              <div class="col" style="<?php echo "background-color:".$color; if (isset($_SESSION['ADMIN'])) {echo ';cursor:'.$cursor;}?>"<?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
             <?php if (isset($_SESSION['CLIENT'])){?>
-                <a href="?stranica=<?php echo $link; ?>">
+                <a href="?stranica=<?php echo $link; ?>" style="color:black;text-decoration:none;">
                 <?php } echo $row["sector"]."-".$row["place"]; 
                 if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div>  
 
@@ -130,9 +131,9 @@ if($db->prikaziParking($nivo)){
                         <div class="col-0.5">&nbsp;&nbsp;&nbsp;&nbsp;</div>
             <?php   } ?>
 
-            <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
+             <div class="col" style="<?php echo "background-color:".$color; if (isset($_SESSION['ADMIN'])) {echo ';cursor:'.$cursor;}?>"<?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
             <?php if (isset($_SESSION['CLIENT'])){?>
-                <a href="?stranica=<?php echo $link; ?>">
+                <a href="?stranica=<?php echo $link; ?>" style="color:black;text-decoration:none;">
                 <?php } echo $row["sector"]."-".$row["place"]; 
                 if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div>
 
@@ -140,9 +141,9 @@ if($db->prikaziParking($nivo)){
 
                 case '11': ?>
 
-                    <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
+                     <div class="col" style="<?php echo "background-color:".$color; if (isset($_SESSION['ADMIN'])) {echo ';cursor:'.$cursor;}?>"<?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
                     <?php if (isset($_SESSION['CLIENT'])){?>
-                        <a href="?stranica=<?php echo $link; ?>">
+                        <a href="?stranica=<?php echo $link; ?>" style="color:black;text-decoration:none;">
                         <?php } echo $row["sector"]."-".$row["place"]; 
                         if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div>
 
@@ -156,9 +157,9 @@ if($db->prikaziParking($nivo)){
 
                 default: ?>
 
-                    <div class="col " style=<?php echo "background-color:".$color?> <?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
+                     <div class="col" style="<?php echo "background-color:".$color; if (isset($_SESSION['ADMIN'])) {echo ';cursor:'.$cursor;}?>"<?php if (isset($_SESSION['ADMIN'])) {echo $info; }?>>
                     <?php if (isset($_SESSION['CLIENT'])) {?>
-                        <a href="?stranica=<?php echo $link; ?>">
+                        <a href="?stranica=<?php echo $link; ?>" style="color:black;text-decoration:none;">
                         <?php } echo $row["sector"]."-".$row["place"]; 
                         if(isset($_SESSION['CLIENT'])) {?></a><?php } ?></div>  
 

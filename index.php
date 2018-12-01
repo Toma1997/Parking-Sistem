@@ -98,6 +98,12 @@ switch ($stranica) {
 		admin();
 		include('modules/dodajAdmina.php');
 		break;
+	case 'stats':
+		admin();
+		$stats = file_get_contents('templates/stats.html');
+		$stats = str_replace('{{STATS}}', $jezici_mapa['stats'], $stats);
+		echo $stats;
+		break;
 	case 'register' :
 		korisnik();
 		include('modules/register.php');
