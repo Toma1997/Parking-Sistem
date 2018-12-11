@@ -10,3 +10,6 @@ email:  nikola.pekovic88@gmail.com, password: NikolaPekovic123+
 KORISNIK JE REGISTROVAN !
 email:  aljosa.markovic97@hotmail.com, password: aljosaMarkovic12+
 
+KORISNIK JE REGISTROVAN !
+email:  julijana.jov88@yahoo.com, password: Julijana56+
+

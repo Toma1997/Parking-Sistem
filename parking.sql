@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50719
 File Encoding         : 65001
 
-Date: 2018-11-29 01:16:48
+Date: 2018-12-11 02:00:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,7 +30,7 @@ CREATE TABLE `appointments` (
   KEY `FK_place` (`place_id`),
   CONSTRAINT `FK_car` FOREIGN KEY (`car_id`) REFERENCES `cars` (`car_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_place` FOREIGN KEY (`place_id`) REFERENCES `places` (`place_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of appointments
@@ -47,6 +47,10 @@ INSERT INTO `appointments` VALUES ('9', '5', '47', '2018-11-29 12:00:00', null);
 INSERT INTO `appointments` VALUES ('10', '6', '23', '2018-11-30 11:00:00', null);
 INSERT INTO `appointments` VALUES ('11', '6', '96', '2018-12-05 12:20:00', null);
 INSERT INTO `appointments` VALUES ('12', '7', '50', '2018-12-20 12:00:00', null);
+INSERT INTO `appointments` VALUES ('13', '8', '58', '2018-12-12 12:00:00', null);
+INSERT INTO `appointments` VALUES ('14', '9', '73', '2018-12-20 22:30:00', null);
+INSERT INTO `appointments` VALUES ('15', '9', '19', '2018-12-15 10:20:00', null);
+INSERT INTO `appointments` VALUES ('16', '9', '9', '2018-12-31 19:30:00', null);
 
 -- ----------------------------
 -- Table structure for cars
@@ -60,7 +64,7 @@ CREATE TABLE `cars` (
   KEY `FK_client` (`client_id`),
   KEY `car_id` (`car_id`),
   CONSTRAINT `FK_client` FOREIGN KEY (`client_id`) REFERENCES `clients` (`client_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cars
@@ -72,6 +76,8 @@ INSERT INTO `cars` VALUES ('4', 'BG-3345-EX', '5');
 INSERT INTO `cars` VALUES ('5', 'BG-123-XX', '6');
 INSERT INTO `cars` VALUES ('6', 'BG-002-AW', '6');
 INSERT INTO `cars` VALUES ('7', 'BG-2145-EX', '6');
+INSERT INTO `cars` VALUES ('8', 'BG-2121-DD', '7');
+INSERT INTO `cars` VALUES ('9', 'BG-022-AR', '7');
 
 -- ----------------------------
 -- Table structure for clients
@@ -87,7 +93,7 @@ CREATE TABLE `clients` (
   `password_hash` varchar(255) NOT NULL,
   `admin` set('1','0') NOT NULL DEFAULT '0',
   PRIMARY KEY (`client_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of clients
@@ -98,6 +104,7 @@ INSERT INTO `clients` VALUES ('3', 'individual', 'Darko', 'Darkovic', '065-444-4
 INSERT INTO `clients` VALUES ('4', 'individual', 'Darko', 'Milic', '065-444-454', 'darkee68@gmail.com', '14ea6174964681cfbea5fe17eaea12d9f9336b52', '0');
 INSERT INTO `clients` VALUES ('5', 'business', 'Nikola', 'Pekovic', '063-223-000', 'nikola.pekovic88@gmail.com', 'e38f74699e01e632134346e56b7b7a7f94169c88', '0');
 INSERT INTO `clients` VALUES ('6', 'business', 'Aljosa', 'Markovic', '069-254-123', 'aljosa.markovic97@hotmail.com', '58eceed555ad4feced4ddb2db0198df5e094df4f', '0');
+INSERT INTO `clients` VALUES ('7', 'individual', 'Julijana', 'Jovanovic', '062-221-654', 'julijana.jov88@yahoo.com', '2636ca365ce94c46b72e951e1c6dee55d12eebb1', '0');
 
 -- ----------------------------
 -- Table structure for places
@@ -123,7 +130,7 @@ INSERT INTO `places` VALUES ('5', 'A1', '9', '0', '0');
 INSERT INTO `places` VALUES ('6', 'A1', '10', '0', '0');
 INSERT INTO `places` VALUES ('7', 'A1', '11', '0', '0');
 INSERT INTO `places` VALUES ('8', 'A2', '12', '0', '0');
-INSERT INTO `places` VALUES ('9', 'A3', '1', '0', '0');
+INSERT INTO `places` VALUES ('9', 'A3', '1', '0', '1');
 INSERT INTO `places` VALUES ('10', 'A3', '2', '0', '0');
 INSERT INTO `places` VALUES ('11', 'A3', '3', '0', '0');
 INSERT INTO `places` VALUES ('12', 'A3', '4', '0', '0');
@@ -133,7 +140,7 @@ INSERT INTO `places` VALUES ('15', 'A3', '7', '0', '0');
 INSERT INTO `places` VALUES ('16', 'A3', '8', '0', '0');
 INSERT INTO `places` VALUES ('17', 'A3', '9', '0', '0');
 INSERT INTO `places` VALUES ('18', 'A3', '10', '0', '0');
-INSERT INTO `places` VALUES ('19', 'A3', '11', '0', '0');
+INSERT INTO `places` VALUES ('19', 'A3', '11', '0', '1');
 INSERT INTO `places` VALUES ('20', 'A3', '12', '0', '0');
 INSERT INTO `places` VALUES ('21', 'A4', '1', '0', '0');
 INSERT INTO `places` VALUES ('22', 'A4', '2', '0', '0');
@@ -172,7 +179,7 @@ INSERT INTO `places` VALUES ('54', 'A7', '8', '0', '0');
 INSERT INTO `places` VALUES ('55', 'A7', '9', '0', '0');
 INSERT INTO `places` VALUES ('56', 'A7', '10', '0', '1');
 INSERT INTO `places` VALUES ('57', 'A7', '11', '0', '0');
-INSERT INTO `places` VALUES ('58', 'A7', '12', '0', '0');
+INSERT INTO `places` VALUES ('58', 'A7', '12', '0', '1');
 INSERT INTO `places` VALUES ('59', 'A8', '1', '0', '0');
 INSERT INTO `places` VALUES ('60', 'A8', '12', '0', '0');
 INSERT INTO `places` VALUES ('61', 'A9', '1', '0', '0');
@@ -187,7 +194,7 @@ INSERT INTO `places` VALUES ('69', 'A9', '9', '0', '0');
 INSERT INTO `places` VALUES ('70', 'A9', '10', '0', '0');
 INSERT INTO `places` VALUES ('71', 'A9', '11', '0', '0');
 INSERT INTO `places` VALUES ('72', 'A9', '12', '0', '0');
-INSERT INTO `places` VALUES ('73', 'A10', '1', '0', '0');
+INSERT INTO `places` VALUES ('73', 'A10', '1', '0', '1');
 INSERT INTO `places` VALUES ('74', 'A10', '2', '0', '0');
 INSERT INTO `places` VALUES ('75', 'A10', '3', '0', '0');
 INSERT INTO `places` VALUES ('76', 'A10', '4', '0', '0');
