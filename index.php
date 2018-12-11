@@ -1,12 +1,18 @@
 <?php
 
-$jezik = $_COOKIE['jezik'] ?? 'srpski_latinica';
-if ($_GET && $jezik = $_GET['jezik'] ?? $jezik) 
-	setcookie('jezik', $jezik);
-/*if (isset($_SESSION["ADMIN"])) {
+$jezik = '';
+
+if (isset($_SESSION["ADMIN"])){
 	$jezik = 'srpski_latinica';
-	setcookie('jezik', 'srpski_latinica');
-}*/
+	
+} else{
+	$jezik = $_COOKIE['jezik'] ?? 'srpski_latinica';
+
+	if($_GET && $jezik = $_GET['jezik'] ?? $jezik){
+		setcookie('jezik', $jezik);
+	}
+}
+
 
 include_once(
 	sprintf(
@@ -21,16 +27,17 @@ if ($stranica == 'logout') {
 	session_unset();
 }
 
-//require_once 'templates/header.php';
-//require_once 'templates/menu.php';
 
 $header = file_get_contents('templates/header.html');
-$header = str_replace('{{LOGO}}', $jezici_mapa['logo'], $header);
-/*if (!isset($_SESSION["ADMIN"])) {
-$header = str_replace('{{JEZIK}}', $jezici_mapa['lang'], $header);
+
+// admin nema visejezicnost
+if (!isset($_SESSION["ADMIN"])) {
+	$header = str_replace('{{JEZIK}}', $jezici_mapa['lang'], $header);
 }else {
 	$header = str_replace('{{JEZIK}}', '', $header);
-}*/
+}
+
+$header = str_replace('{{LOGO}}', $jezici_mapa['logo'], $header);
 
 
 if (!isset($_SESSION["CLIENT"]) && !isset($_SESSION["ADMIN"])) {
@@ -47,7 +54,9 @@ $header = str_replace('{{URL}}', $stranica. '&floor='. $_GET['floor'].'&sector='
 else {
 	$header = str_replace('{{URL}}', $stranica, $header);
 }
+
 echo $header;
+
 
 $menu = file_get_contents('templates/menu.html');
 $menu = str_replace('{{LOGO}}', $jezici_mapa['logo'], $menu);
@@ -123,8 +132,6 @@ switch ($stranica) {
 		echo $jezici_error['link'];
 		break;
 }
-
-//require_once 'templates/footer.php';
 
 $footer = file_get_contents('templates/footer.html');
 

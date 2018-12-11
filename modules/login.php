@@ -28,6 +28,7 @@ if (!empty($_POST)) {
             $db->jeAdmin($email);
             if($db->getResult()){
                 $_SESSION['ADMIN'] = $email;
+                setcookie('jezik', 'srpski_latinica');
             }else {
 				$db->__destruct();
 				$_SESSION['CLIENT'] = $email;

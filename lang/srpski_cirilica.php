@@ -52,7 +52,9 @@ $jezici_mapa = array(
 				'Систем за паркирање у реалном времену',
 				'Једноставан приступ паркингу'),
 	'type' =>  array('Физичко','Правно'),			
-
+	'lang' => '<a class="float-left text-light nav-link pt-0 pd-0" id="srblat" href="?stranica={{URL}}&jezik=srpski_latinica">Srpski</a>
+				<a class="float-left text-light nav-link pt-0 pd-0" id="srbcir" href="?stranica={{URL}}&jezik=srpski_cirilica">Српски</a>
+				<a class="float-left text-light nav-link pt-0 pd-0" id="end" href="?stranica={{URL}}&jezik=english">English</a>',
 );
 
 $jezici_error = array(
