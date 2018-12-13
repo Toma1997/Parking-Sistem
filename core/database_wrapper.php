@@ -171,8 +171,6 @@ class Database {
 				$zapis = $this->dblink->query($query);
 				$place_id = $zapis->fetch_assoc();
 
-				//$datetime = $datetime.":00"; // dodate sekunde
-
 				$values = "(".$car_id['car_id'].",".$place_id['place_id'].",'".$datetime.":00')";
 				$query = 'INSERT into appointments (car_id, place_id, created_at) VALUES '.$values;
 				
@@ -207,6 +205,18 @@ class Database {
 		  WHERE appointments.place_id=".$place_id['place_id'].";";
 
 		$this->result = $this->dblink->query($query);
+	}
+
+	function zauzetostSektorDnevno(){
+		// dopunice se
+	}
+
+	function zauzetostNivoDnevno(){
+		// dopunice se
+	}
+
+	function tipKlijentaGodisnje(){
+		// dopunice se
 	}
 
 // funkcija koja izvrsava upit

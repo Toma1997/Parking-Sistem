@@ -12,10 +12,20 @@ IZMISLJENI PODACI
  </table>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
-      google.charts.load("current", {packages:["corechart"]});
-      google.charts.setOnLoadCallback(histogram);  
-      google.charts.setOnLoadCallback(nivoi);
-      google.charts.setOnLoadCallback(korisnici);
+
+    $.ajax({
+        type: "POST",
+        url: "./core/stats.php",
+        data: {}
+        }).done(function(msg) {
+            // obrada json nizova 
+		});
+    
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(histogram);  
+    google.charts.setOnLoadCallback(nivoi);
+    google.charts.setOnLoadCallback(korisnici);
+
 function histogram() {
     var data = google.visualization.arrayToDataTable([
         ['Mesto', 'Zauzetost'],
@@ -34,16 +44,17 @@ function histogram() {
 		['Sektor D1', 1],
         ['Sektor D3', 3],
         ['Sektor D4', 12],
-        ['Sektor D5', 20]]);
+        ['Sektor D5', 20]
+    ]);
 
     var options = {
-        title: 'AVG ZAUZETOST NA DNEVNOM NIVOU',
+        title: 'PROSECNA ZAUZETOST NA DNEVNOM NIVOU (PO SEKTORIMA)',
         legend: { position: 'none' },
     };
 
     var chart = new google.visualization.Histogram(document.getElementById('chart_div'));
     chart.draw(data, options);
-    }
+}
 
 function nivoi() {
 
@@ -58,13 +69,13 @@ function nivoi() {
         ['Nivo 3', 2]
     ]);
 
-    var options = {title:'ZAUZETOST NA DNEVNOM NIVOU',
+    var options = {title:'ZAUZETOST NA DNEVNOM NIVOU (PO NIVOIMA)',
                     width:500,
                     height:400};
 
     var chart = new google.visualization.PieChart(document.getElementById('nivoi'));
     chart.draw(data, options);
-    }
+}
 
 function korisnici() {
     var data = google.visualization.arrayToDataTable([
@@ -83,5 +94,6 @@ function korisnici() {
 
     var chart = new google.visualization.AreaChart(document.getElementById('korisnici'));
     chart.draw(data, options);
- }
+}
+
  </script>
