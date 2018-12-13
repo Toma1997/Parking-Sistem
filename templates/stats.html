@@ -13,87 +13,127 @@ IZMISLJENI PODACI
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 
+    var zauzetostDnevnoSektori = new Object();
+    var zauzetostDnevnoNivoi = new Object();
+    //var tipKlijentaGodisnje = new Object();
+
     $.ajax({
         type: "POST",
-        url: "./core/stats.php",
-        data: {}
-        }).done(function(msg) {
-            // obrada json nizova 
-		});
-    
+        url: "./core/stats.php"
+    }).done(function(msg) {
+        // obrada json nizova
+        // treba jos doraditi, ima gresaka
+        alert(msg);
+        zauzetostDnevnoSektori = msg.zauzetostDnevnoSektori;
+        zauzetostDnevnoNivoi = msg.zauzetostDnevnoNivoi;
+
+	});
+
     google.charts.load("current", {packages:["corechart"]});
-    google.charts.setOnLoadCallback(histogram);  
-    google.charts.setOnLoadCallback(nivoi);
+    google.charts.setOnLoadCallback(histogram(zauzetostDnevnoSektori));  
+    google.charts.setOnLoadCallback(nivoi(zauzetostDnevnoNivoi));
     google.charts.setOnLoadCallback(korisnici);
+    
+    function histogram(podaci) {
+        var data = google.visualization.arrayToDataTable([
+            ['Mesto', 'Zauzetost'],
+            ['Sektor A1', podaci.zauzetost[0]],
+            ['Sektor A10', podaci.zauzetost[1]],
+            ['Sektor A11', podaci.zauzetost[2]],
+            ['Sektor A12', podaci.zauzetost[3]],
+            ['Sektor A2', podaci.zauzetost[4]],
+            ['Sektor A3', podaci.zauzetost[5]],
+            ['Sektor A4', podaci.zauzetost[6]],
+            ['Sektor A5', podaci.zauzetost[7]],
+            ['Sektor A6', podaci.zauzetost[8]],
+            ['Sektor A7', podaci.zauzetost[9]],
+            ['Sektor A8', podaci.zauzetost[10]],
+            ['Sektor A9', podaci.zauzetost[11]],
+            ['Sektor B1', podaci.zauzetost[12]],
+            ['Sektor B10', podaci.zauzetost[13]],
+            ['Sektor B11', podaci.zauzetost[14]],
+            ['Sektor B12', podaci.zauzetost[15]],
+            ['Sektor B2', podaci.zauzetost[16]],
+            ['Sektor B3', podaci.zauzetost[17]],
+            ['Sektor B4', podaci.zauzetost[18]],
+            ['Sektor B5', podaci.zauzetost[19]],
+            ['Sektor B6', podaci.zauzetost[20]],
+            ['Sektor B7', podaci.zauzetost[21]],
+            ['Sektor B8', podaci.zauzetost[22]],
+            ['Sektor B9', podaci.zauzetost[23]],
+            ['Sektor C1', podaci.zauzetost[24]],
+            ['Sektor C10', podaci.zauzetost[25]],
+            ['Sektor C11', podaci.zauzetost[26]],
+            ['Sektor C12', podaci.zauzetost[27]],
+            ['Sektor C2', podaci.zauzetost[28]],
+            ['Sektor C3', podaci.zauzetost[29]],
+            ['Sektor C4', podaci.zauzetost[30]],
+            ['Sektor C5', podaci.zauzetost[31]],
+            ['Sektor C6', podaci.zauzetost[32]],
+            ['Sektor C7', podaci.zauzetost[33]],
+            ['Sektor C8', podaci.zauzetost[34]],
+            ['Sektor C9', podaci.zauzetost[35]],
+            ['Sektor D1', podaci.zauzetost[36]],
+            ['Sektor D10', podaci.zauzetost[37]],
+            ['Sektor D11', podaci.zauzetost[38]],
+            ['Sektor D12', podaci.zauzetost[39]],
+            ['Sektor D2', podaci.zauzetost[40]],
+            ['Sektor D3', podaci.zauzetost[41]],
+            ['Sektor D4', podaci.zauzetost[42]],
+            ['Sektor D5', podaci.zauzetost[43]],
+            ['Sektor D6', podaci.zauzetost[44]],
+            ['Sektor D7', podaci.zauzetost[45]],
+            ['Sektor D8', podaci.zauzetost[46]],
+            ['Sektor D9', podaci.zauzetost[47]],
+        ]);
 
-function histogram() {
-    var data = google.visualization.arrayToDataTable([
-        ['Mesto', 'Zauzetost'],
-        ['Sektor A1', 1],
-        ['Sektor A3', 4],
-        ['Sektor A4', 12],
-        ['Sektor A5', 20],
-        ['Sektor B1', 3],
-        ['Sektor B3', 1],
-        ['Sektor B4', 0],
-        ['Sektor B5', 2],
-	    ['Sektor C1', 11],
-        ['Sektor C3', 5],
-        ['Sektor C4', 2],
-        ['Sektor C5', 2],
-		['Sektor D1', 1],
-        ['Sektor D3', 3],
-        ['Sektor D4', 12],
-        ['Sektor D5', 20]
-    ]);
+        var options = {
+            title: 'PROSECNA ZAUZETOST NA DNEVNOM NIVOU (PO SEKTORIMA)',
+            legend: { position: 'none' },
+        };
 
-    var options = {
-        title: 'PROSECNA ZAUZETOST NA DNEVNOM NIVOU (PO SEKTORIMA)',
-        legend: { position: 'none' },
-    };
+        var chart = new google.visualization.Histogram(document.getElementById('chart_div'));
+        chart.draw(data, options);
+    }
 
-    var chart = new google.visualization.Histogram(document.getElementById('chart_div'));
-    chart.draw(data, options);
-}
+    function nivoi(podaci) {
 
-function nivoi() {
+        // Google data set
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
+        data.addRows([
+            ['Nivo 0', podaci.zauzetost[0]],
+            ['Nivo 1', podaci.zauzetost[1]],
+            ['Nivo 2', podaci.zauzetost[2]],
+            ['Nivo 3', podaci.zauzetost[3]]
+        ]);
 
-    // Google data set
-    var data = new google.visualization.DataTable();
-    data.addColumn('string', 'Topping');
-    data.addColumn('number', 'Slices');
-    data.addRows([
-        ['Nivo 0', 1],
-        ['Nivo 1', 1],
-        ['Nivo 2', 2],
-        ['Nivo 3', 2]
-    ]);
+        var options = {title:'PROSECNA ZAUZETOST NA DNEVNOM NIVOU (PO NIVOIMA)',
+                        width:500,
+                        height:400};
 
-    var options = {title:'ZAUZETOST NA DNEVNOM NIVOU (PO NIVOIMA)',
-                    width:500,
-                    height:400};
+        var chart = new google.visualization.PieChart(document.getElementById('nivoi'));
+        chart.draw(data, options);
+    }
 
-    var chart = new google.visualization.PieChart(document.getElementById('nivoi'));
-    chart.draw(data, options);
-}
+    function korisnici() {
+        var data = google.visualization.arrayToDataTable([
+            ['Godina', 'Fizicka', 'Pravna'],
+            ['Jan',  100,      40],
+            ['Feb',  117,      40],
+            ['Mar',  66,       120],
+            ['Apr',  10,      200]
+        ]);
 
-function korisnici() {
-    var data = google.visualization.arrayToDataTable([
-        ['Godina', 'Fizicka', 'Pravna'],
-        ['2015',  100,      40],
-        ['2016',  117,      40],
-        ['2017',  66,       120],
-        ['2018',  10,      200]
-    ]);
+        var options = {
+            title: 'Tipovi klijenta (2018. godina)',
+            hAxis: {title: 'Godina',  titleTextStyle: {color: '#333'}},
+            vAxis: {minValue: 0}
+        };
 
-    var options = {
-        title: 'Tipovi klijenta',
-        hAxis: {title: 'Godina',  titleTextStyle: {color: '#333'}},
-		vAxis: {minValue: 0}
-    };
-
-    var chart = new google.visualization.AreaChart(document.getElementById('korisnici'));
-    chart.draw(data, options);
-}
+        var chart = new google.visualization.AreaChart(document.getElementById('korisnici'));
+        chart.draw(data, options);
+    }
 
  </script>

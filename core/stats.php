@@ -3,15 +3,20 @@ include("database_wrapper.php");
 $db = new Database("parking");
 $db->Connect();
 
-$zauzetostDnevnoSektori = $db->zauzetostSektorDnevno();
-$zauzetostDnevnoNivoi = $db->zauzetostNivoDnevno();
-$tipKlijentaGodisnje = $db->tipKlijentaGodisnje();
+$db->zauzetostSektorDnevno();
+$zauzetostDnevnoSektori = $db->getResult()->fetch_all();
+
+$db->zauzetostNivoDnevno();
+$zauzetostDnevnoNivoi = $db->getResult()->fetch_all();
+
+//$db->tipKlijentaGodisnje();
+//$tipKlijentaGodisnje = $db->getResult()->fetch_all();
 
 // json nizovi se salju u stats.html
 echo json_encode([
     'zauzetostDnevnoSektori' => $zauzetostDnevnoSektori,
     'zauzetostDnevnoNivoi' => $zauzetostDnevnoNivoi,
-    'tipKlijentaGodisnje' => $tipKlijentaGodisnje
+    //'tipKlijentaGodisnje' => $tipKlijentaGodisnje
 ]); 
 
 ?>

@@ -208,11 +208,23 @@ class Database {
 	}
 
 	function zauzetostSektorDnevno(){
-		// dopunice se
+		// // upit izracunava koliko je zapravo prijavljeno vozila dnevno po sektoru
+		$query = 'SELECT places.sector AS "sektor", 
+		IFNULL(COUNT(appointments.place_id)/DATEDIFF(MAX(appointments.created_at), MIN(appointments.created_at)), 0) AS "zauzetost"
+		FROM places LEFT JOIN appointments ON places.place_id = appointments.place_id
+		GROUP BY sector;';
+
+		$this->result = $this->dblink->query($query);
 	}
 
 	function zauzetostNivoDnevno(){
-		// dopunice se
+		// upit izracunava koliko je zapravo prijavljeno vozila dnevno po nivou
+		$query = 'SELECT places.floor AS "nivo", 
+		IFNULL(COUNT(appointments.place_id)/DATEDIFF(MAX(appointments.created_at), MIN(appointments.created_at)), 0) AS "zauzetost"
+		FROM places LEFT JOIN appointments ON places.place_id = appointments.place_id
+		GROUP BY floor;';
+
+		$this->result = $this->dblink->query($query);
 	}
 
 	function tipKlijentaGodisnje(){
