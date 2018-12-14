@@ -1,7 +1,6 @@
 
 <div>
 {{STATS}}
-IZMISLJENI PODACI
 </div>
 <div id="chart_div" style="width: 1000px; height: 500px;"></div>
  <table class="columns">
@@ -11,17 +10,16 @@ IZMISLJENI PODACI
       </tr>
  </table>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
+<script type="text/javascript" >
 
-    var zauzetostDnevnoSektori = new Object();
-    var zauzetostDnevnoNivoi = new Object();
-    //var tipKlijentaGodisnje = new Object();
+    var zauzetostDnevnoSektori = new Array();
+    var zauzetostDnevnoNivoi = new Array();
+    //var tipKlijentaGodisnje = new Array();
 
     $.ajax({
         type: "POST",
         url: "./core/stats.php"
     }).done(function(msg) {
-        // obrada json nizova
         // treba jos doraditi, ima gresaka
         alert(msg);
         zauzetostDnevnoSektori = msg.zauzetostDnevnoSektori;
@@ -30,61 +28,61 @@ IZMISLJENI PODACI
 	});
 
     google.charts.load("current", {packages:["corechart"]});
-    google.charts.setOnLoadCallback(histogram(zauzetostDnevnoSektori));  
-    google.charts.setOnLoadCallback(nivoi(zauzetostDnevnoNivoi));
+    google.charts.setOnLoadCallback(histogram);  
+    google.charts.setOnLoadCallback(nivoi);
     google.charts.setOnLoadCallback(korisnici);
     
-    function histogram(podaci) {
+    function histogram() {
         var data = google.visualization.arrayToDataTable([
             ['Mesto', 'Zauzetost'],
-            ['Sektor A1', podaci[0][1]],
-            ['Sektor A10', podaci[1][1]],
-            ['Sektor A11', podaci[2][1]],
-            ['Sektor A12', podaci[3][1]],
-            ['Sektor A2', podaci[4][1]],
-            ['Sektor A3', podaci[5][1]],
-            ['Sektor A4', podaci[6][1]],
-            ['Sektor A5', podaci[7][1]],
-            ['Sektor A6', podaci[8][1]],
-            ['Sektor A7', podaci[9][1]],
-            ['Sektor A8', podaci[10][1]],
-            ['Sektor A9', podaci[11][1]],
-            ['Sektor B1', podaci[12][1]],
-            ['Sektor B10', podaci[13][1]],
-            ['Sektor B11', podaci[14][1]],
-            ['Sektor B12', podaci[15][1]],
-            ['Sektor B2', podaci[16][1]],
-            ['Sektor B3', podaci[17][1]],
-            ['Sektor B4', podaci[18][1]],
-            ['Sektor B5', podaci[19][1]],
-            ['Sektor B6', podaci[20][1]],
-            ['Sektor B7', podaci[21][1]],
-            ['Sektor B8', podaci[22][1]],
-            ['Sektor B9', podaci[23][1]],
-            ['Sektor C1', podaci[24][1]],
-            ['Sektor C10', podaci[25][1]],
-            ['Sektor C11', podaci[26][1]],
-            ['Sektor C12', podaci[27][1]],
-            ['Sektor C2', podaci[28][1]],
-            ['Sektor C3', podaci[29][1]],
-            ['Sektor C4', podaci[30][1]],
-            ['Sektor C5', podaci[31][1]],
-            ['Sektor C6', podaci[32][1]],
-            ['Sektor C7', podaci[33][1]],
-            ['Sektor C8', podaci[34][1]],
-            ['Sektor C9', podaci[35][1]],
-            ['Sektor D1', podaci[36][1]],
-            ['Sektor D10', podaci[37][1]],
-            ['Sektor D11', podaci[38][1]],
-            ['Sektor D12', podaci[39][1]],
-            ['Sektor D2', podaci[40][1]],
-            ['Sektor D3', podaci[41][1]],
-            ['Sektor D4', podaci[42][1]],
-            ['Sektor D5', podaci[43][1]],
-            ['Sektor D6', podaci[44][1]],
-            ['Sektor D7', podaci[45][1]],
-            ['Sektor D8', podaci[46][1]],
-            ['Sektor D9', podaci[47][1]],
+            ['Sektor A1', zauzetostDnevnoSektori[0][1]],
+            ['Sektor A10', zauzetostDnevnoSektori[1][1]],
+            ['Sektor A11', zauzetostDnevnoSektori[2][1]],
+            ['Sektor A12', zauzetostDnevnoSektori[3][1]],
+            ['Sektor A2', zauzetostDnevnoSektori[4][1]],
+            ['Sektor A3', zauzetostDnevnoSektori[5][1]],
+            ['Sektor A4', zauzetostDnevnoSektori[6][1]],
+            ['Sektor A5', zauzetostDnevnoSektori[7][1]],
+            ['Sektor A6', zauzetostDnevnoSektori[8][1]],
+            ['Sektor A7', zauzetostDnevnoSektori[9][1]],
+            ['Sektor A8', zauzetostDnevnoSektori[10][1]],
+            ['Sektor A9', zauzetostDnevnoSektori[11][1]],
+            ['Sektor B1', zauzetostDnevnoSektori[12][1]],
+            ['Sektor B10', zauzetostDnevnoSektori[13][1]],
+            ['Sektor B11', zauzetostDnevnoSektori[14][1]],
+            ['Sektor B12', zauzetostDnevnoSektori[15][1]],
+            ['Sektor B2', zauzetostDnevnoSektori[16][1]],
+            ['Sektor B3', zauzetostDnevnoSektori[17][1]],
+            ['Sektor B4', zauzetostDnevnoSektori[18][1]],
+            ['Sektor B5', zauzetostDnevnoSektori[19][1]],
+            ['Sektor B6', zauzetostDnevnoSektori[20][1]],
+            ['Sektor B7', zauzetostDnevnoSektori[21][1]],
+            ['Sektor B8', zauzetostDnevnoSektori[22][1]],
+            ['Sektor B9', zauzetostDnevnoSektori[23][1]],
+            ['Sektor C1', zauzetostDnevnoSektori[24][1]],
+            ['Sektor C10', zauzetostDnevnoSektori[25][1]],
+            ['Sektor C11', zauzetostDnevnoSektori[26][1]],
+            ['Sektor C12', zauzetostDnevnoSektori[27][1]],
+            ['Sektor C2', zauzetostDnevnoSektori[28][1]],
+            ['Sektor C3', zauzetostDnevnoSektori[29][1]],
+            ['Sektor C4', zauzetostDnevnoSektori[30][1]],
+            ['Sektor C5', zauzetostDnevnoSektori[31][1]],
+            ['Sektor C6', zauzetostDnevnoSektori[32][1]],
+            ['Sektor C7', zauzetostDnevnoSektori[33][1]],
+            ['Sektor C8', zauzetostDnevnoSektori[34][1]],
+            ['Sektor C9', zauzetostDnevnoSektori[35][1]],
+            ['Sektor D1', zauzetostDnevnoSektori[36][1]],
+            ['Sektor D10', zauzetostDnevnoSektori[37][1]],
+            ['Sektor D11', zauzetostDnevnoSektori[38][1]],
+            ['Sektor D12', zauzetostDnevnoSektori[39][1]],
+            ['Sektor D2', zauzetostDnevnoSektori[40][1]],
+            ['Sektor D3', zauzetostDnevnoSektori[41][1]],
+            ['Sektor D4', zauzetostDnevnoSektori[42][1]],
+            ['Sektor D5', zauzetostDnevnoSektori[43][1]],
+            ['Sektor D6', zauzetostDnevnoSektori[44][1]],
+            ['Sektor D7', zauzetostDnevnoSektori[45][1]],
+            ['Sektor D8', zauzetostDnevnoSektori[46][1]],
+            ['Sektor D9', zauzetostDnevnoSektori[47][1]],
         ]);
 
         var options = {
@@ -96,17 +94,17 @@ IZMISLJENI PODACI
         chart.draw(data, options);
     }
 
-    function nivoi(podaci) {
+    function nivoi() {
 
         // Google data set
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Topping');
         data.addColumn('number', 'Slices');
         data.addRows([
-            ['Nivo 0', podaci[0][1]],
-            ['Nivo 1', podaci[1][1]],
-            ['Nivo 2', podaci[2][1]],
-            ['Nivo 3', podaci[3][1]]
+            ['Nivo 0', zauzetostDnevnoNivoi[0][1]],
+            ['Nivo 1', zauzetostDnevnoNivoi[1][1]],
+            ['Nivo 2', zauzetostDnevnoNivoi[2][1]],
+            ['Nivo 3', zauzetostDnevnoNivoi[3][1]]
         ]);
 
         var options = {title:'PROSECNA ZAUZETOST NA DNEVNOM NIVOU (PO NIVOIMA)',
@@ -119,7 +117,7 @@ IZMISLJENI PODACI
 
     function korisnici() {
         var data = google.visualization.arrayToDataTable([
-            ['Godina', 'Fizicka', 'Pravna'],
+            ['Godina', 'Fizicko', 'Pravno'],
             ['Jan',  100,      40],
             ['Feb',  117,      40],
             ['Mar',  66,       120],
@@ -127,7 +125,7 @@ IZMISLJENI PODACI
         ]);
 
         var options = {
-            title: 'Tipovi klijenta (2018. godina)',
+            title: 'ZAUZETOST PO TIPU KLIJENTA (2018. godina)',
             hAxis: {title: 'Godina',  titleTextStyle: {color: '#333'}},
             vAxis: {minValue: 0}
         };

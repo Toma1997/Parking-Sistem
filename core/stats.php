@@ -15,7 +15,7 @@ $zauzetostDnevnoNivoi = $db->getResult()->fetch_all();
 // json nizovi se salju u stats.html
 echo json_encode([
     'zauzetostDnevnoSektori' => $zauzetostDnevnoSektori,
-    'zauzetostDnevnoNivoi' => $zauzetostDnevnoNivoi,
+    'zauzetostDnevnoNivoi' => $zauzetostDnevnoNivoi
     //'tipKlijentaGodisnje' => $tipKlijentaGodisnje
 ]); 
 
