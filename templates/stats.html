@@ -2,11 +2,11 @@
 <div>
 {{STATS}}
 </div>
-<div id="chart_div" style="width: 1000px; height: 500px;"></div>
+<div id="chart_div" style="border: 1px solid #ccc; width: 800px; height: 500px;"></div>
  <table class="columns">
       <tr>
         <td><div id="nivoi" style="border: 1px solid #ccc"></div></td>
-        <td><div id="korisnici" style="border: 1px solid #ccc; width: 500px; height: 300px;"></div></td>
+        <td><div id="korisnici" style="border: 1px solid #ccc; width: 980px; height: 300px;"></div></td>
       </tr>
  </table>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -21,9 +21,9 @@
         url: "./core/stats.php"
     }).done(function(msg) {
         // treba jos doraditi, ima gresaka
-        alert(msg);
-        zauzetostDnevnoSektori = msg.zauzetostDnevnoSektori;
-        zauzetostDnevnoNivoi = msg.zauzetostDnevnoNivoi;
+        var parsiranJSON = JSON.parse(msg)
+        zauzetostDnevnoSektori = parsiranJSON.zauzetostDnevnoSektori;
+        zauzetostDnevnoNivoi = parsiranJSON.zauzetostDnevnoNivoi;
 
 	});
 
@@ -88,6 +88,8 @@
         var options = {
             title: 'PROSECNA ZAUZETOST NA DNEVNOM NIVOU (PO SEKTORIMA)',
             legend: { position: 'none' },
+            hAxis: {title: 'Broj zauzetih mesta',  titleTextStyle: {color: '#333'}},
+            vAxis: {title: 'Broj sektora',  titleTextStyle: {color: '#333'}},
         };
 
         var chart = new google.visualization.Histogram(document.getElementById('chart_div'));
@@ -101,10 +103,10 @@
         data.addColumn('string', 'Topping');
         data.addColumn('number', 'Slices');
         data.addRows([
-            ['Nivo 0', zauzetostDnevnoNivoi[0][1]],
-            ['Nivo 1', zauzetostDnevnoNivoi[1][1]],
-            ['Nivo 2', zauzetostDnevnoNivoi[2][1]],
-            ['Nivo 3', zauzetostDnevnoNivoi[3][1]]
+            ['Nivo 0', parseInt(zauzetostDnevnoNivoi[0][1])],
+            ['Nivo 1', parseInt(zauzetostDnevnoNivoi[1][1])],
+            ['Nivo 2', parseInt(zauzetostDnevnoNivoi[2][1])],
+            ['Nivo 3', parseInt(zauzetostDnevnoNivoi[3][1])]
         ]);
 
         var options = {title:'PROSECNA ZAUZETOST NA DNEVNOM NIVOU (PO NIVOIMA)',
@@ -121,13 +123,22 @@
             ['Jan',  100,      40],
             ['Feb',  117,      40],
             ['Mar',  66,       120],
-            ['Apr',  10,      200]
+            ['Apr',  10,      200],
+            ['May',  100,      40],
+            ['Jun',  117,      40],
+            ['Jul',  66,       120],
+            ['Avg',  10,      200],
+            ['Sep',  100,      40],
+            ['Oct',  117,      40],
+            ['Nov',  66,       120],
+            ['Dec',  10,      200]
         ]);
 
         var options = {
-            title: 'ZAUZETOST PO TIPU KLIJENTA (2018. godina)',
-            hAxis: {title: 'Godina',  titleTextStyle: {color: '#333'}},
-            vAxis: {minValue: 0}
+            title: 'PROSECNA ZAUZETOST NA DNEVNOM NIVOU (PO TIPU KLIJENTA - 2018. godina) - ZA OVAJ PRIKAZ JOS NISU PRAVI PODACI!!!',
+            hAxis: {title: 'Meseci',  titleTextStyle: {color: '#333'}},
+            vAxis: {minValue: 0},
+            width: 975
         };
 
         var chart = new google.visualization.AreaChart(document.getElementById('korisnici'));
