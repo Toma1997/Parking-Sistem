@@ -210,9 +210,10 @@ class Database {
 	function zauzetostSektorDnevno(){
 		// // upit izracunava koliko je zapravo prijavljeno vozila dnevno po sektoru
 		$query = 'SELECT places.sector AS "sektor", 
-		IFNULL(COUNT(appointments.place_id)/DATEDIFF(MAX(appointments.created_at), MIN(appointments.created_at)), 0) AS "zauzetost"
+		ROUND(SUM(IFNULL(DATEDIFF(appointments.finished_at, appointments.created_at),
+		DATEDIFF(NOW(), appointments.created_at)))/DATEDIFF(MAX(appointments.created_at),MIN(appointments.created_at))) AS "zauzetost"
 		FROM places LEFT JOIN appointments ON places.place_id = appointments.place_id
-		GROUP BY sector;';
+		GROUP BY places.sector;';
 
 		$this->result = $this->dblink->query($query);
 	}
@@ -220,15 +221,19 @@ class Database {
 	function zauzetostNivoDnevno(){
 		// upit izracunava koliko je zapravo prijavljeno vozila dnevno po nivou
 		$query = 'SELECT places.floor AS "nivo", 
-		IFNULL(COUNT(appointments.place_id)/DATEDIFF(MAX(appointments.created_at), MIN(appointments.created_at)), 0) AS "zauzetost"
+		ROUND(SUM(IFNULL(DATEDIFF(appointments.finished_at, appointments.created_at),
+		DATEDIFF(NOW(), appointments.created_at)))/DATEDIFF(MAX(appointments.created_at),MIN(appointments.created_at))) AS "zauzetost"
 		FROM places LEFT JOIN appointments ON places.place_id = appointments.place_id
-		GROUP BY floor;';
+		GROUP BY places.floor;';
 
 		$this->result = $this->dblink->query($query);
 	}
 
 	function tipKlijentaGodisnje(){
-		// dopunice se
+		
+		//$query = 
+
+		$this->result = $this->dblink->query($query);
 	}
 
 // funkcija koja izvrsava upit
