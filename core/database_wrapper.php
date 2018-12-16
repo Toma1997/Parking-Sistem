@@ -229,9 +229,14 @@ class Database {
 		$this->result = $this->dblink->query($query);
 	}
 
-	function tipKlijentaGodisnje(){
-		
-		//$query = 
+	function tipKlijentaMeseci(){
+		// upit vadi sve termine i tipove klijenta za dalju statistiku
+		$query = 'SELECT appointments.appointment_id AS "id", MONTH(appointments.created_at) AS "pocetak", 
+		IFNULL(MONTH(appointments.finished_at), 0) AS "kraj", clients.client_type AS "tip"
+		FROM appointments INNER JOIN cars 
+		ON appointments.car_id = cars.car_id 
+		INNER JOIN clients ON cars.client_id = clients.client_id
+		ORDER BY appointment_id ASC;';
 
 		$this->result = $this->dblink->query($query);
 	}

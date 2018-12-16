@@ -14,17 +14,18 @@
 
     var zauzetostDnevnoSektori = new Array();
     var zauzetostDnevnoNivoi = new Array();
-    //var tipKlijentaGodisnje = new Array();
+    var tipKlijentaMeseci = new Object();
 
     $.ajax({
         type: "POST",
         url: "./core/stats.php"
     }).done(function(msg) {
+        alert(msg);
         // treba jos doraditi, ima gresaka
         var parsiranJSON = JSON.parse(msg)
         zauzetostDnevnoSektori = parsiranJSON.zauzetostDnevnoSektori;
         zauzetostDnevnoNivoi = parsiranJSON.zauzetostDnevnoNivoi;
-
+        tipKlijentaMeseci = parsiranJSON.tipKlijentaMeseci;
 	});
 
     google.charts.load("current", {packages:["corechart"]});
@@ -120,18 +121,18 @@
     function korisnici() {
         var data = google.visualization.arrayToDataTable([
             ['Godina', 'Fizicko', 'Pravno'],
-            ['Jan',  100,      40],
-            ['Feb',  117,      40],
-            ['Mar',  66,       120],
-            ['Apr',  10,      200],
-            ['May',  100,      40],
-            ['Jun',  117,      40],
-            ['Jul',  66,       120],
-            ['Avg',  10,      200],
-            ['Sep',  100,      40],
-            ['Oct',  117,      40],
-            ['Nov',  66,       120],
-            ['Dec',  10,      200]
+            ['Jan',  tipKlijentaMeseci.individual[0], tipKlijentaMeseci.business[0] ],
+            ['Feb',  tipKlijentaMeseci.individual[1], tipKlijentaMeseci.business[1] ],
+            ['Mar',  tipKlijentaMeseci.individual[2], tipKlijentaMeseci.business[2] ],
+            ['Apr',  tipKlijentaMeseci.individual[3], tipKlijentaMeseci.business[3] ],
+            ['May',  tipKlijentaMeseci.individual[4], tipKlijentaMeseci.business[4] ],
+            ['Jun',  tipKlijentaMeseci.individual[5], tipKlijentaMeseci.business[5] ],
+            ['Jul',  tipKlijentaMeseci.individual[6], tipKlijentaMeseci.business[6] ],
+            ['Avg',  tipKlijentaMeseci.individual[7], tipKlijentaMeseci.business[7] ],
+            ['Sep',  tipKlijentaMeseci.individual[8], tipKlijentaMeseci.business[8] ],
+            ['Oct',  tipKlijentaMeseci.individual[9], tipKlijentaMeseci.business[9] ],
+            ['Nov',  tipKlijentaMeseci.individual[10], tipKlijentaMeseci.business[10] ],
+            ['Dec',  tipKlijentaMeseci.individual[11], tipKlijentaMeseci.business[11] ]
         ]);
 
         var options = {
