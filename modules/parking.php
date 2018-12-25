@@ -220,8 +220,28 @@ if($db->prikaziParking($nivo)){
         <a class="btn btn-primary" href=<?php echo "?stranica=parking&nivo=".($nivo+1);?>><?php echo $jezici_mapa['info'][0] . ' '. ($nivo+1);?> ></a>
    <?php } ?>
 </div>
-
-
+<!-- za odjavu sa mesta generisana preko senzora
+< ?php if (isset($_SESSION['CLIENT'])) {?>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">< ?php echo $jezici_mapa['reserve'][2]; ?></th>
+      <th scope="col">< ?php echo $jezici_mapa['reserve'][3]; ?></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">BG-123-SA</th>
+      <td>xxx</td>
+      <td>xxxx</td>
+      <td><button type="button" class="btn btn-danger">< ?php echo $jezici_mapa['reserve'][8]; ?></button></td>
+    </tr>
+  </tbody>
+</table>
+< ?php } ?>
+-->
 <script type="text/javascript">
 
     $('.col ').click(function(){

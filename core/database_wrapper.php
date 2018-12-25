@@ -202,8 +202,8 @@ class Database {
 		$query = "SELECT clients.client_type AS 'Tip', CONCAT_WS(' ', clients.forename, clients.surname) AS 'ImePrezime', clients.email AS 'email',
 		 clients.telephone AS 'telefon', cars.registration AS 'registracija', appointments.created_at AS 'DatumVreme' FROM clients INNER JOIN cars
 		  ON clients.client_id = cars.client_id INNER JOIN appointments ON cars.car_id = appointments.car_id INNER JOIN places ON appointments.place_id = places.place_id 
-		  WHERE appointments.place_id=".$place_id['place_id'].";";
-
+		  WHERE appointments.place_id=".$place_id['place_id']." ORDER BY `DatumVreme` DESC;";
+		
 		$this->result = $this->dblink->query($query);
 	}
 

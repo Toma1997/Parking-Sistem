@@ -37,7 +37,7 @@ $jezici_mapa = array(
 				'Enter the email address', 'The phone number must have a template: 063-111-888 (8)', 'Enter phone number',
 				'The password must have a minimum of: 8 characters of that one little letter, one large, special character and number.',
 				'Enter password', 'Enter password again', 'Enter image from image', 'Register'),
-	'reserve' => array('<h1>Parking reservation</h1>','Car registration number:','Floor:','Sector:','Place:','Date and time of parking reservation:','Reserve','Example'),	
+	'reserve' => array('<h1>Parking reservation</h1>','Car registration number:','Floor:','Sector:','Place:','Date and time of parking reservation:','Reserve','Example','Check out'),	
 	'stats'  => '<h1>STATISTICS</h1>',
 	'text' => array('<h1>Garages and car parks</h1>
 			   <p>Parking system operates one of the largest public garages. Users have about 400 parking spaces available.</p>

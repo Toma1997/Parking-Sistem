@@ -47,9 +47,11 @@ if (!isset($_SESSION["CLIENT"]) && !isset($_SESSION["ADMIN"])) {
 }
 
 if ($stranica == 'parking') {
-$header = str_replace('{{URL}}', $stranica. '&nivo=' . $_GET['nivo'], $header);
-}elseif ($stranica == 'reserve') {
-$header = str_replace('{{URL}}', $stranica. '&floor='. $_GET['floor'].'&sector='.$_GET['sector'].'&place=' . $_GET['place'], $header);
+	$nivo = $_GET['nivo'] ?? 0;
+	$header = str_replace('{{URL}}', $stranica. '&nivo=' . $nivo, $header);
+}elseif ($stranica == 'reserve' and isset($_GET['floor']) and isset($_GET['sector']) and isset($_GET['place'])) {
+	
+	$header = str_replace('{{URL}}', $stranica. '&floor='. $_GET['floor'].'&sector='.$_GET['sector'].'&place=' . $_GET['place'], $header);
 }
 else {
 	$header = str_replace('{{URL}}', $stranica, $header);
@@ -124,7 +126,7 @@ switch ($stranica) {
 	case 'parking':
 		include('modules/parking.php');
 		break;
-	case 'reserve' :
+	case 'reserve':
 		anonimac();
 		include('modules/reserve.php');
 		break;

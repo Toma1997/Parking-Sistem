@@ -2,16 +2,12 @@
 <div>
 {{STATS}}
 </div>
-<div id="chart_div" style="border: 1px solid #ccc; width: 800px; height: 500px;"></div>
- <table class="columns">
-      <tr>
-        <td><div id="nivoi" style="border: 1px solid #ccc"></div></td>
-        <td><div id="korisnici" style="border: 1px solid #ccc; width: 980px; height: 300px;"></div></td>
-      </tr>
- </table>
+ 		<div id="histogram"></div>
+		<div id="nivoi"></div>
+		<div id="korisnici"></div>
+	
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript" >
-
     var zauzetostDnevnoSektori = new Array();
     var zauzetostDnevnoNivoi = new Array();
     var tipKlijentaMeseci = new Object();
@@ -20,8 +16,6 @@
         type: "POST",
         url: "./core/stats.php"
     }).done(function(msg) {
-        alert(msg);
-        // treba jos doraditi, ima gresaka
         var parsiranJSON = JSON.parse(msg)
         zauzetostDnevnoSektori = parsiranJSON.zauzetostDnevnoSektori;
         zauzetostDnevnoNivoi = parsiranJSON.zauzetostDnevnoNivoi;
@@ -87,13 +81,13 @@
         ]);
 
         var options = {
-            title: 'PROSECNA DNEVNA ZAUZETOST (PO SEKTORIMA)',
+            title: 'PROSEČNA DNEVNA ZAUZETOST (PO SEKTORIMA)',
             legend: { position: 'none' },
             hAxis: {title: 'Broj zauzetih mesta',  titleTextStyle: {color: '#333'}},
             vAxis: {title: 'Broj sektora',  titleTextStyle: {color: '#333'}},
         };
 
-        var chart = new google.visualization.Histogram(document.getElementById('chart_div'));
+        var chart = new google.visualization.Histogram(document.getElementById('histogram'));
         chart.draw(data, options);
     }
 
@@ -110,7 +104,7 @@
             ['Nivo 3', parseInt(zauzetostDnevnoNivoi[3][1])]
         ]);
 
-        var options = {title:'PROSECNA DNEVNA ZAUZETOST (PO NIVOIMA)',
+        var options = {title:'PROSEČNA DNEVNA ZAUZETOST (PO NIVOIMA)',
                         width:500,
                         height:400};
 
@@ -136,7 +130,7 @@
         ]);
 
         var options = {
-            title: 'PROSECNA ZAUZETOST ZA SVAKI MESEC (TIP KLIJENTA - 2018. GODINA) - JOS NISU PRAVI PODACI!',
+            title: 'PROSEČNA ZAUZETOST ZA SVAKI MESEC (TIP KLIJENTA - 2018. GODINA)',
             hAxis: {title: 'Meseci',  titleTextStyle: {color: '#333'}},
             vAxis: {minValue: 0},
             width: 975
@@ -145,5 +139,4 @@
         var chart = new google.visualization.AreaChart(document.getElementById('korisnici'));
         chart.draw(data, options);
     }
-
  </script>

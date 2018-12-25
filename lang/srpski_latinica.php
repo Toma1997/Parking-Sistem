@@ -37,7 +37,7 @@ $jezici_mapa = array(
 				'Unesite adresu e-pošte','Broj telefona mora da ima šablon: 063-111-888(8)','Unesite broj telefona',
 				'Lozinka mora imati minimum: 8 karaktera od toga jedno malo slovo, jedno veliko, specijalni znak i broj.',
 				'Unesite lozinku','Unesite ponovo lozinku','Unesite kod sa slike','Registruj se'),
-	'reserve' => array('<h1>Rezervacija mesta</h1>','Registarski broj vozila:','Sprat:','Sektor:','Mesto:','Datum i vreme početka boravka:','Rezervacija','Primer'),
+	'reserve' => array('<h1>Rezervacija mesta</h1>','Registarski broj vozila:','Sprat:','Sektor:','Mesto:','Datum i vreme početka boravka:','Rezervacija','Primer','Odjavite se'),
 	'stats'  => '<h1>STATISTIKA</h1>',
 	'text' => array('<h1>Garaže i parkirališta</h1>
 			   <p>Parking Sistem upravlja sa jednom od najvećih javnih garaža. Korisnicima je na raspolaganju oko 400 parking mesta.</p>
