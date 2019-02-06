@@ -1,7 +1,6 @@
 <?php
 
 $jezik = '';
-
 if (isset($_SESSION["ADMIN"])){
 	$jezik = 'srpski_latinica';
 	
